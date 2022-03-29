@@ -29,45 +29,59 @@
 }
 
 .btn-register {
-    color: #49403f;
-    background-color: #ffffff;
-    border-color: #ffffff;
+  color: #49403f;
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 
 .btn-login {
-    color: #ffffff;
-    background-color: none;
-    border-color: #ffffff;
-}
-
-.btn-more {
-    color: #ffffff;
-    background-color: #92836c;
-    border-color: #ffffff;
+  color: #ffffff;
+  background-color: none;
+  border-color: #ffffff;
 }
 
 .btn-add {
-    color: #000000;
-    background-color: #ffffff;
-    border-color: #000000;
+  color: #ffffff;
+  background-color: #92836c;
+  border-color: #ffffff;
 }
 
-.btn-add:hover, .btn-add:focus, .btn-add:active, .btn-add.active, 
-.open>.dropdown-toggle.btn-add {
-    color: #7c6152;
-    background-color: #e0e0e0;
-    border-color: #e0e0e0;
+.btn-plus {
+  color: #000000;
+  background-color: #ffffff;
+}
 
+.btn-delete, .btn-delete:focus {
+  color: #ffffff;
+  background-color: #49403f;
+  border-color: #49403f;
+}
+
+.btn-more, .btn-more:focus, .btn-delete:hover, .btn-delete:active, .btn-delete.active, 
+.open>.dropdown-toggle.btn-delete {
+  color: #49403f;
+  background-color: #ffffff;
+  border-color: #49403f;
+}
+
+.btn-more:hover, .btn-more:active, .btn-more.active, 
+.btn-plus:hover, .btn-plus:focus, .btn-plus:active, .btn-plus.active, 
+.open>.dropdown-toggle.btn-plus, 
+.open>.dropdown-toggle.btn-more {
+  color: #7c6152;
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
 }
 
 .btn-register:hover, .btn-register:focus, .btn-register:active, .btn-register.active, 
 .btn-login:hover, .btn-login:focus, .btn-login:active, .btn-login.active, 
-.btn-more:hover,
-.open>.dropdown-toggle.btn-primary 
+.btn-add:hover, .btn-add:focus, .btn-add:active, .btn-add.active, 
+.open>.dropdown-toggle.btn-add,
+.open>.dropdown-toggle.btn-primary, 
 .open>.dropdown-toggle.btn-login {
-    color: #7c6152;
-    background-color: #e0e0e0;
-    border-color: #e0e0e0;
+  color: #7c6152;
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
 
 }
 
@@ -147,6 +161,5 @@ a.underline{
 }
 
 .btn-size {
-    width: 90px !important;
+  width: 90px !important;
 }
-
