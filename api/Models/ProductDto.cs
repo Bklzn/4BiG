@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace _4big.Models
 {
-    public class Product
+    public class ProductDto
     {
-        public long Id { get; set; }
-        public virtual NutritionalValues NutritionsTable { get; set; }
+        public long NutrId { get; set; }
         public string Name { get; set; }
         public float Weight { get; set; }
         public string Category { get; set; }
@@ -16,6 +15,4 @@ namespace _4big.Models
         public string SVGModelPath { get; set; }
         public string ThreeDModelPath { get; set; }
     }
-
-
 }
