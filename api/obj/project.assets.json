@@ -325,19 +325,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\borad\\.nuget\\packages\\": {}
+    "C:\\Users\\jbora\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projekty\\VisualStudio\\API\\4big\\api\\4big.csproj",
+      "projectUniqueName": "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\4big.csproj",
       "projectName": "4big",
-      "projectPath": "D:\\Projekty\\VisualStudio\\API\\4big\\api\\4big.csproj",
-      "packagesPath": "C:\\Users\\borad\\.nuget\\packages\\",
-      "outputPath": "D:\\Projekty\\VisualStudio\\API\\4big\\api\\obj\\",
+      "projectPath": "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\4big.csproj",
+      "packagesPath": "C:\\Users\\jbora\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\borad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jbora\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -394,7 +394,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
