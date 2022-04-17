@@ -37,8 +37,10 @@ namespace _4big
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
+
             services.AddControllers();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<INutritionService, NutritionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

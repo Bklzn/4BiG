@@ -16,17 +16,17 @@ namespace _4big.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _service;
+        private readonly IProductService _productService;
 
-        public ProductController(IProductService service)
+        public ProductController(IProductService productService)
         {
-            _service = service;
+            _productService = productService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get([FromBody]string category)
         {
-            IEnumerable<Product> productsList = _service.GetByCategory(category);
+            IEnumerable<Product> productsList = _productService.GetByCategory(category);
 
             if (productsList == null) return BadRequest();
             return Ok(productsList);
@@ -40,7 +40,7 @@ namespace _4big.Controllers
                 return BadRequest();
             }
 
-            int id = _service.Create(dto);
+            int id = _productService.Create(dto);
 
             if (id == -1) return BadRequest();
             return Created($"/api/product/{id}", null);
@@ -49,7 +49,7 @@ namespace _4big.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteProduct([FromRoute]int id)
         {
-            _service.Delete(id);
+            _productService.Delete(id);
 
             return NoContent();
         }
@@ -57,7 +57,7 @@ namespace _4big.Controllers
         [HttpPut("{id}")]
         public ActionResult<Product> UpdateProduct([FromRoute]int id, [FromBody]ProductDto dto)
         {
-            Product updatedProduct = _service.Update(id, dto);
+            Product updatedProduct = _productService.Update(id, dto);
 
             if (updatedProduct == null) return BadRequest();
             return Ok(updatedProduct);

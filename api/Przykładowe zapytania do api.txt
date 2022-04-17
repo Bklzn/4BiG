@@ -1,0 +1,44 @@
+GET https://localhost:5001/api/product:
+"fruits"
+
+POST https://localhost:5001/api/product:
+{
+    "Name": "Gruszka",
+    "Weight": 1.0,
+    "Category": "fruits",
+    "Price": 1.00,
+    "SVGModelPath": "test",
+    "ThreeDModelPath": "test",
+    "NutritionsTable": {
+        "Energy": 2,
+        "FatTotal": 1.0,
+        "SaturatedFat": 1.0,
+        "Carbohydrate": 1.0,
+        "Sugars": 1.0,
+        "Fibre": 1.0,
+        "Protein": 1.0,
+        "Salt": 1.0
+    }
+}
+
+PUT https://localhost:5001/api/product/1:
+{
+    "Name": "Gruszka",
+    "Weight": 1.0,
+    "Category": "fruits",
+    "Price": 1.00,
+    "SVGModelPath": "test",
+    "ThreeDModelPath": "test",
+    "NutritionsTable": {
+        "Energy": 2,
+        "FatTotal": 1.0,
+        "SaturatedFat": 1.0,
+        "Carbohydrate": 1.0,
+        "Sugars": 1.0,
+        "Fibre": 1.0,
+        "Protein": 1.0,
+        "Salt": 1.0
+    }
+}
+
+DELETE https://localhost:5001/api/product/1

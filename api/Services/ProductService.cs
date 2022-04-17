@@ -36,11 +36,14 @@ namespace _4big.Services
             chocolate,
         }
         private readonly IConfiguration _configuration;
+        private readonly INutritionService _nutritionService;
         private readonly string sqlDataSource;
 
-        public ProductService(IConfiguration configuration)
+        public ProductService(IConfiguration configuration, INutritionService nutritionService)
         {
             _configuration = configuration;
+            _nutritionService = nutritionService;
+
             sqlDataSource = _configuration.GetConnectionString("CookieAppCon");
         }
 
@@ -48,62 +51,35 @@ namespace _4big.Services
         {
             Product p;
 
-            string productQuery = @"
+            string query = @"
                 SELECT *
                 FROM public.""Product""
                 WHERE ""ID"" = @id
                 ";
 
-            string nutritionQuery = @"
-                SELECT *
-                FROM ""Nutrition_label"" 
-                WHERE ""Nutrition_label"".""ID"" = @id
-                ";
-
-            DataTable productTable = new();
-            DataTable nutritionalValuesTable = new();
+            DataTable table = new();
             NpgsqlDataReader myReader;
 
             using (NpgsqlConnection myCon = new(sqlDataSource))
             {
                 myCon.Open();
 
-                using NpgsqlCommand products = new(productQuery, myCon);
+                using NpgsqlCommand products = new(query, myCon);
                 products.Parameters.AddWithValue("@id", id);
                 myReader = products.ExecuteReader();
 
-                productTable.Load(myReader);
+                table.Load(myReader);
 
                 p = new();
 
-                p.Id = productTable.Rows[0].Field<int>("ID");
-                p.Name = productTable.Rows[0].Field<string>("name");
-                p.Weight = productTable.Rows[0].Field<float>("weight");
-                p.Category = productTable.Rows[0].Field<string>("category");
-                p.Price = productTable.Rows[0].Field<decimal>("price");
-                p.ThreeDModelPath = productTable.Rows[0].Field<string>("threeD_model");
-                p.SVGModelPath = productTable.Rows[0].Field<string>("svg_model");
-
-                using (NpgsqlCommand nutritionLabel = new(nutritionQuery, myCon))
-                {
-                    nutritionLabel.Parameters.AddWithValue("@id", productTable.Rows[0].Field<int>("Nutr_ID"));
-                    myReader = nutritionLabel.ExecuteReader();
-                    nutritionalValuesTable.Load(myReader);
-
-                    NutritionalValues nl = new();
-
-                    nl.Id = nutritionalValuesTable.Rows[0].Field<int>("ID");
-                    nl.Energy = nutritionalValuesTable.Rows[0].Field<int>("energy");
-                    nl.FatTotal = nutritionalValuesTable.Rows[0].Field<float>("fat_total");
-                    nl.SaturatedFat = nutritionalValuesTable.Rows[0].Field<float>("f_saturated");
-                    nl.Carbohydrate = nutritionalValuesTable.Rows[0].Field<float>("carbohydrate");
-                    nl.Sugars = nutritionalValuesTable.Rows[0].Field<float>("c_sugars");
-                    nl.Fibre = nutritionalValuesTable.Rows[0].Field<float>("fibre");
-                    nl.Protein = nutritionalValuesTable.Rows[0].Field<float>("protein");
-                    nl.Salt = nutritionalValuesTable.Rows[0].Field<float>("salt");
-
-                    p.NutritionsTable = nl;
-                }
+                p.Id = table.Rows[0].Field<int>("ID");
+                p.Name = table.Rows[0].Field<string>("name");
+                p.Weight = table.Rows[0].Field<float>("weight");
+                p.Category = table.Rows[0].Field<string>("category");
+                p.Price = table.Rows[0].Field<decimal>("price");
+                p.ThreeDModelPath = table.Rows[0].Field<string>("threeD_model");
+                p.SVGModelPath = table.Rows[0].Field<string>("svg_model");
+                p.NutritionsTable = _nutritionService.GetById(table.Rows[0].Field<int>("Nutr_ID"));
 
                 myReader.Close();
                 myCon.Close();
@@ -173,7 +149,8 @@ namespace _4big.Services
                 using NpgsqlCommand products = new(query, myCon);
                 try
                 {
-                    products.Parameters.AddWithValue("@nutr_id", dto.NutrId);
+                    int nutrId = _nutritionService.Create(dto.NutritionsTable);
+                    products.Parameters.AddWithValue("@nutr_id", nutrId);
                     products.Parameters.AddWithValue("@name", dto.Name);
                     products.Parameters.AddWithValue("@weight", dto.Weight);
                     products.Parameters.AddWithValue("@price", dto.Price);
@@ -193,7 +170,7 @@ namespace _4big.Services
                 myCon.Close();
             }
 
-            return (int)table.Rows[0]["ID"];
+            return table.Rows[0].Field<int>("ID");
         }
 
         public bool Delete(int id)
@@ -203,15 +180,30 @@ namespace _4big.Services
                 WHERE ""ID"" = @id;
             ";
 
+
+            string nutrIdQuery = @"
+                SELECT ""Nutr_ID"" 
+                FROM public.""Product"" 
+                WHERE ""ID"" = @id;
+                ";
+
             NpgsqlDataReader myReader;
+            DataTable table = new();
 
             using (NpgsqlConnection myCon = new(sqlDataSource))
             {
                 myCon.Open();
 
+                using NpgsqlCommand nutrIDCommand = new(nutrIdQuery, myCon);
+                nutrIDCommand.Parameters.AddWithValue("@id", id);
+                myReader = nutrIDCommand.ExecuteReader();
+                table.Load(myReader);
+
                 using NpgsqlCommand products = new(query, myCon);
                 products.Parameters.AddWithValue("@id", id);
                 myReader = products.ExecuteReader();
+
+                _nutritionService.Delete(table.Rows[0].Field<int>("Nutr_ID"));
 
                 myReader.Close();
                 myCon.Close();
@@ -224,11 +216,12 @@ namespace _4big.Services
         {
             string query = @"
                 UPDATE public.""Product""
-                SET ""Nutr_ID"" = @nutr_id, name = @name, weight = @weight, price = @price, category = @category, ""threeD_model"" = @threeD, svg_model = @svg
-                WHERE ""ID"" = @id;
+                SET name = @name, weight = @weight, price = @price, category = @category, ""threeD_model"" = @threeD, svg_model = @svg
+                WHERE ""ID"" = @id RETURNING ""Nutr_ID"";
             ";
 
             NpgsqlDataReader myReader;
+            DataTable table = new();
 
             using (NpgsqlConnection myCon = new(sqlDataSource))
             {
@@ -239,7 +232,6 @@ namespace _4big.Services
                     try
                     {
                         products.Parameters.AddWithValue("@id", id);
-                        products.Parameters.AddWithValue("@nutr_id", dto.NutrId);
                         products.Parameters.AddWithValue("@name", dto.Name);
                         products.Parameters.AddWithValue("@weight", dto.Weight);
                         products.Parameters.AddWithValue("@price", dto.Price);
@@ -247,6 +239,9 @@ namespace _4big.Services
                         products.Parameters.AddWithValue("@svg", dto.SVGModelPath);
                         products.Parameters.AddWithValue("@category", Enum.Parse(typeof(Product_category), dto.Category));
                         myReader = products.ExecuteReader();
+                        table.Load(myReader);
+
+                        _nutritionService.Update(table.Rows[0].Field<int>("Nutr_ID"), dto.NutritionsTable);
                     }
                     catch (System.ArgumentException)
                     {
