@@ -1,8 +1,9 @@
 import * as THREE from 'three';
-
 import { OrbitControls } from '../three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '../three/examples/jsm/loaders/GLTFLoader.js';
 import * as dat from '../three/examples/jsm/libs/lil-gui.module.min.js';
+import { RectAreaLightHelper } from '../three/examples/jsm/helpers/RectAreaLightHelper.js';
+import { RectAreaLightUniformsLib } from '../three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 
 let scene,camera,renderer,controls;
 
@@ -12,101 +13,98 @@ renderer = new THREE.WebGLRenderer({
     antiailas: true,
     alpha: true
 });
-renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setSize(window.innerWidth-1,window.innerHeight);
 document.body.appendChild( renderer.domElement);
 controls = new OrbitControls( camera, renderer.domElement );
 
 //Objects
-const pivot = new THREE.Object3D();
-const sprinkles = new THREE.Object3D();
+const springles = new THREE.Object3D();
+const icing = new THREE.Object3D();
 const loader = new GLTFLoader();
-const sqGeo = new THREE.BoxGeometry(.3,.3,.3);
-const sqMat = new THREE.MeshPhongMaterial({
-    color:new THREE.Color('hsl(0,100%,50%)'),
-    shininess:40
-});
-const squere = new THREE.Mesh(sqGeo,sqMat);
-const squere2= new THREE.Mesh(sqGeo,sqMat);
-const squere3= new THREE.Mesh(sqGeo,sqMat);
-const squere4= new THREE.Mesh(sqGeo,sqMat);
-const squere5= new THREE.Mesh(sqGeo,sqMat);
-sprinkles.add(squere,squere2,squere3,squere4,squere5);
-
-const fGeo = new THREE.BoxGeometry(500,.1,500);
-const fMat = new THREE.MeshPhongMaterial({
-    color:new THREE.Color('rgb(41, 41, 41)'),
-    shininess:20
-});
-const floor = new THREE.Mesh(fGeo,fMat);
 
 //Light
-const light = new THREE.PointLight(new THREE.Color('rgb(255,255,255)'),1);
-// const light2 = new THREE.PointLight(new THREE.Color('rgb(255,255,255)'),.5);
-
-//Debug
-const gui = new dat.GUI();
-const axes =  new THREE.AxesHelper(50).setColors(0xA10000,0x00A100,0x0000A1);
-const axesP =  new THREE.AxesHelper(50);
-const coo= gui.addFolder("cookie");
-const spr= gui.addFolder("sprinkles");
-pivot.add(axesP);
-var options = {speed: 1,isSet:false};
-coo.add(options,"speed",0,100,0.01);
-spr.add(options,"isSet");
-spr.add(sprinkles.position,"y",-2,2,0.001).name('sprY');
-spr.add(squere4.position,"x",-3,3,0.001);
-spr.add(squere4.position,"y",-3,3,0.001);
-spr.add(squere4.position,"z",-3,3,0.001);
-spr.add(squere4.rotation,"x",0,Math.PI*2,0.001).name("ROTx");
-spr.add(squere4.rotation,"y",0,Math.PI*2,0.001).name("ROTy");
-spr.add(squere4.rotation,"z",0,Math.PI*2,0.001).name("ROTz");
-
-
+RectAreaLightUniformsLib.init();
+const amb = new THREE.AmbientLight(new THREE.Color('rgb(255,255,255)'),.35);
+const front = new THREE.SpotLight(new THREE.Color('rgb(255,255,255)'),.25);
+const top = new THREE.RectAreaLight(new THREE.Color('rgb(255,255,255)'),1,2,2);
+const back = new THREE.RectAreaLight(new THREE.Color('rgb(255,255,255)'),1,2,2);
+const left = new THREE.RectAreaLight(new THREE.Color('rgb(255,255,255)'),1,2,2);
+const right = new THREE.RectAreaLight(new THREE.Color('rgb(255,255,255)'),1,2,2);
+const h = new RectAreaLightHelper(right);
+const h2 = new THREE.PointLightHelper(front,.1);
+const h3 = new RectAreaLightHelper(back);
 //Cookie
-var cookie;
-loader.load('../low_poly_cookie/scene.gltf', function(gltf){
-    cookie = gltf.scene;
-    pivot.add(cookie);
-    scene.add(pivot);
-    console.log(gltf);
-    cookie.scale.set(50,50,50);
-    cookie.rotation.x=0.53;
-    // cookie.position.y=3;
-    cookie.add(axes);
-},function(xhr){
-    console.log((xhr.loaded/xhr.total*100)+"% loaded");
-},function(error){
-    console.error(error);
-});
+var cookie = new THREE.Object3D();
+var choco = new THREE.Object3D();
+var berries = new THREE.Object3D();;
+var ic = new THREE.Object3D();
+load('../l_Cookie/obj.gltf',cookie);
+load('../Choco/obj.gltf',choco);
+load('../Berries/obj.gltf',berries);
+load('../straw_ice/obj.gltf',ic);
+springles.add(choco,berries);
+icing.add(ic);
+
 
 //Set
-sprinkles.position.y=0.4;
-squere.position.set(2.1,-.2,1,7);
-squere.rotation.set(.5,.7,0);
-squere2.position.set(1,-.1,-1.3);
-squere2.rotation.set(.6,.4,1.4);
-squere3.position.set(-1.89,-.27,-.86);
-squere3.rotation.set(2,0,0);
-squere4.position.set(-.57,-.15,2.38);
-squere4.rotation.set(0.46,0.923,0.537);
-squere5.rotation.set(1,1,1);
-camera.position.set(10,5,5);
-floor.position.y-=1;
-pivot.position.y=0;
+top.position.set(0,.55,0);
+top.lookAt( 0, 0, 0);
+back.position.set(0,0,-1);
+back.lookAt( 0, 0, 0);
+left.position.set(-1,0,0);
+left.lookAt( 0, 0, 0);
+right.position.set(1,0,0);
+right.lookAt( 0, 0, 0);
+front.position.set(-.625,.25,.5);
+camera.position.set(.06,.9,2.3);
 scene.add(
-    floor,
-    light
+    cookie,
+    springles,
+    amb,
+    front,
+    // h,h2,h3,
+    top,back,left,right
     );
 controls.update();
 
+//Debug
+const gui = new dat.GUI();
+const spr= gui.addFolder("sprinkles");
+var c = {isSetCH:true,isSetB:true,icing:true,x:0,y:0,z:0};
+spr.add(c,"isSetCH");
+spr.add(c,"isSetB");
+spr.add(c,"icing");
+gui.add(left.position,"x",-10,10,.001);
+gui.add(left.position,"y",-10,10,.001);
+gui.add(left.position,"z",-10,10,.001);
 
+
+var Ppos=springles.position.y;
+function load(path, pivot){
+    var obj;
+    loader.load(path, function(gltf){
+        obj= gltf.scene;
+        pivot.add(obj);
+        console.log(path);
+        console.log(gltf);
+    },function(error){
+        // if(error) console.error(error);
+    });
+}
 const loop = () =>{
     requestAnimationFrame(loop);
-    pivot.rotation.y+=options.speed/1000;
-    sprinkles.rotation.y+=options.speed/1000;
-    if(options.isSet)     scene.add(sprinkles);
-    else scene.remove(sprinkles);
-    light.position.set(camera.position.x,camera.position.y,camera.position.z);
+
+    cookie.rotation.y+=.001;
+    springles.rotation.y+=.001;
+    icing.rotation.y+=.001;
+    left.lookAt(0,0,0);
+    // console.log(camera.position);
+    if(c.isSetCH)     springles.add(choco);
+    else springles.remove(choco);
+    if(c.isSetB)     springles.add(berries);
+    else springles.remove(berries);
+    if(c.icing){springles.position.y=Ppos+.02;scene.add(icing);}
+    else{springles.position.y=Ppos;scene.remove(icing);}
     controls.update();
     renderer.render(scene,camera);
 }
