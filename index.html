@@ -206,7 +206,7 @@
 														</div>
 										   	 	</div>
 										    	<div class="col">
-										    		<button class="btn btn-add btn-size rounded ml-3 font-weight-bold" type="button" onclick="location.href=''">Dodaj</button>
+										    		<button class="btn btn-add btn-size rounded ml-3 font-weight-bold dar1" type="button" onclick="location.href=''">Dark</button>
 										    	</div>
 												</div>
 											</div>
@@ -338,7 +338,7 @@
 														</div>
 										   	 	</div>
 										    	<div class="col">
-										    		<button class="btn btn-add btn-size rounded ml-3 font-weight-bold" type="button" onclick="location.href=''">Dodaj</button>
+										    		<button class="btn btn-add btn-size rounded ml-3 font-weight-bold norm2" type="button" onclick="location.href=''">normal</button>
 										    	</div>
 												</div>
 											</div>
@@ -470,7 +470,7 @@
 														</div>
 										   	 	</div>
 										    	<div class="col">
-										    		<button class="btn btn-add btn-size rounded ml-3 font-weight-bold" type="button" onclick="location.href=''">Dodaj</button>
+										    		<button class="btn btn-add btn-size rounded ml-3 font-weight-bold lig3" type="button" onclick="location.href=''">light</button>
 										    	</div>
 												</div>
 											</div>
@@ -580,8 +580,8 @@
 									</div>
 									<div class="w-100"></div>
       					</div>
-      					<div class="row border m-1">
-      						Wizualizacja
+      					<div id="3D" class="row border m-1">
+      						<!-- Wizualizacja -->
       					</div>
       					<div class="d-flex justify-content-center pt-3">
       						<button class="btn btn-delete rounded" type="button" onclick="location.href=''" style="width: 220px">Usuń wszystkie składniki</button>
@@ -754,5 +754,13 @@
 </div>
 
 	</div>
+	<script type="importmap">
+        {
+            "imports": {
+                "three": "../threejs/three/build/three.module.js"
+            }
+        }
+    </script>
+	<script type="module" src="/threejs/main.js"></script>
 </body>
 </html>
