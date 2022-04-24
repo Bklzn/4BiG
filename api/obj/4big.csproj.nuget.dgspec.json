@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\4big.csproj": {}
+    "D:\\Projekty\\VisualStudio\\API\\4big\\api\\4big.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\4big.csproj": {
+    "D:\\Projekty\\VisualStudio\\API\\4big\\api\\4big.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\4big.csproj",
+        "projectUniqueName": "D:\\Projekty\\VisualStudio\\API\\4big\\api\\4big.csproj",
         "projectName": "4big",
-        "projectPath": "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\4big.csproj",
-        "packagesPath": "C:\\Users\\jbora\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jbora\\OneDrive\\Pulpit\\Igor\\api\\obj\\",
+        "projectPath": "D:\\Projekty\\VisualStudio\\API\\4big\\api\\4big.csproj",
+        "packagesPath": "C:\\Users\\borad\\.nuget\\packages\\",
+        "outputPath": "D:\\Projekty\\VisualStudio\\API\\4big\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jbora\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\borad\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,6 +43,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[11.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.16, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",

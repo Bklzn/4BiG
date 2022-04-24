@@ -42,3 +42,11 @@ PUT https://localhost:5001/api/product/1:
 }
 
 DELETE https://localhost:5001/api/product/1
+
+POST https://localhost:5001/api/account/register
+{
+    "Email": "test1@test.com",
+    "Password": "test1",
+    "PasswordConfirmed": "test1",
+    "Nickname": "test1"
+}

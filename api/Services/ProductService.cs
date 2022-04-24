@@ -33,7 +33,7 @@ namespace _4big.Services
             [PgName("nuts")]
             nuts,
             [PgName("chocolate")]
-            chocolate,
+            chocolate
         }
         private readonly IConfiguration _configuration;
         private readonly INutritionService _nutritionService;

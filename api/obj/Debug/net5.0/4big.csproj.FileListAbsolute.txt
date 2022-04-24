@@ -36,7 +36,6 @@ D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\4big.deps.json
 D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\4big.runtimeconfig.json
 D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\4big.runtimeconfig.dev.json
 D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\4big.dll
-D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\ref\4big.dll
 D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\4big.pdb
 D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\AutoMapper.dll
 D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
@@ -52,7 +51,6 @@ D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\4big.AssemblyInfo.cs
 D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\4big.csproj.CoreCompileInputs.cache
 D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\4big.MvcApplicationPartsAssemblyInfo.cache
 D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\staticwebassets\4big.StaticWebAssets.Manifest.cache
-D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\staticwebassets\4big.StaticWebAssets.xml
 D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\scopedcss\bundle\4big.styles.css
 D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\4big.RazorTargetAssemblyInfo.cache
 D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\4big.csproj.CopyComplete
@@ -91,3 +89,11 @@ C:\Users\jbora\OneDrive\Pulpit\Igor\api\obj\Debug\net5.0\refint\4big.dll
 C:\Users\jbora\OneDrive\Pulpit\Igor\api\obj\Debug\net5.0\4big.pdb
 C:\Users\jbora\OneDrive\Pulpit\Igor\api\obj\Debug\net5.0\4big.genruntimeconfig.cache
 C:\Users\jbora\OneDrive\Pulpit\Igor\api\obj\Debug\net5.0\ref\4big.dll
+D:\Projekty\VisualStudio\API\4big\api\obj\Debug\net5.0\refint\4big.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Projekty\VisualStudio\API\4big\api\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
