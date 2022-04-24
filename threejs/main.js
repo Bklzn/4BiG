@@ -4,6 +4,7 @@ import { GLTFLoader } from '../threejs/three/examples/jsm/loaders/GLTFLoader.js'
 import * as dat from '../threejs/three/examples/jsm/libs/lil-gui.module.min.js';
 import { RectAreaLightHelper } from '../threejs/three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { RectAreaLightUniformsLib } from '../threejs/three/examples/jsm/lights/RectAreaLightUniformsLib.js';
+import { TubeGeometry } from 'three';
 
 let scene,camera,renderer,controls,div;
 
@@ -15,12 +16,12 @@ renderer = new THREE.WebGLRenderer({
     alpha: true
 });
 renderer.setSize(div.clientWidth, div.clientWidth);
+div.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
 div.appendChild( renderer.domElement);
 controls = new OrbitControls( camera, renderer.domElement );
 
 //Objects
 const springles = new THREE.Object3D();
-const icing = new THREE.Object3D();
 const loader = new GLTFLoader();
 
 //Light
@@ -37,14 +38,12 @@ const h3 = new RectAreaLightHelper(back);
 
 //Cookie
 var cookie = new THREE.Object3D();
-var ic = new THREE.Object3D();
+var icing = new THREE.Object3D();
 var choco = new THREE.Object3D();
 var berries = new THREE.Object3D();
-load('../threejs/models/straw_ice/obj.gltf',ic);
-load('../threejs/models/Choco/obj.gltf',choco);
-load('../threejs/models/Berries/obj.gltf',berries);
-springles.add(choco,berries);
-icing.add(ic);
+// load('../threejs/models/Choco/obj.gltf',choco);
+// load('../threejs/models/Berries/obj.gltf',berries);
+// springles.add(choco,berries);
 
 //Set
 top.position.set(0,.55,0);
@@ -59,6 +58,7 @@ front.position.set(-.625,.25,.5);
 camera.position.set(.06,.9,2.3);
 scene.add(
     cookie,
+    icing,
     springles,
     amb,
     front,
@@ -69,56 +69,68 @@ controls.update();
 
 //Debug
 const gui = new dat.GUI();
-const spr= gui.addFolder("sprinkles");
-var c = {isSetCH:true,isSetB:true,icing:true,x:0,y:0,z:0};
-spr.add(c,"isSetCH");
-spr.add(c,"isSetB");
-spr.add(c,"icing");
-gui.add(left.position,"x",-10,10,.001);
-gui.add(left.position,"y",-10,10,.001);
-gui.add(left.position,"z",-10,10,.001);
+var c = {isSetCH:false,isSetB:false,icing:false,x:0,y:0,z:0};
 
 
-var Ppos=springles.position.y;
+
 function load(path, pivot){
     var obj;
     loader.load(path, function(gltf){
         obj= gltf.scene;
+        obj.name=path;
         pivot.add(obj);
         console.log(path);
-        console.log(gltf);
+        console.log(pivot);
     },function(error){
         // if(error) console.error(error);
     });
 }
+if (document.body.addEventListener){
+    document.body.addEventListener('click',btnHandler,false);
+}
+else{
+    document.body.attachEvent('onclick',btnHandler);//for IE
+}
+
+function btnHandler(e){
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+    if (target.className.match("sdw3d"))
+    {
+        var data=target.getAttribute("data-sdw3d").split(" ");
+        if(data[0]=="list-1"){
+            cookie.clear();
+            load(data[1],cookie);
+        }
+        else if(data[0]=="list-2"){
+            icing.clear();
+            if(icing.name!=data[1]) {
+                load(data[1],icing);
+                icing.name=data[1];
+                springles.position.y=icing.position.y+.02;
+            }
+            else{
+                icing.name=null;
+                springles.position.y=icing.position.y;
+            }
+        }
+        else if(data[0]=="list-3"){
+            for(var i=0;i<springles.children.length;i++){
+                if(springles.children[i].name==data[1]){
+                    console.log("????????????????????");
+                    springles.remove(springles.children[i]);
+                    return;
+                }
+            }
+            load(data[1],springles);
+        }
+    }
+}
 const loop = () =>{
     requestAnimationFrame(loop);
-
-    document.getElementsByClassName("dar1")[0].onclick = function() {
-        cookie.clear;
-        load('../threejs/models/d_Cookie/obj.gltf',cookie);
-
-     };
-    document.getElementsByClassName("norm2")[0].onclick = function() {
-        cookie.clear;
-        load('../threejs/models/Cookie/obj.gltf',cookie);
-
-     };
-    document.getElementsByClassName("lig3")[0].onclick = function() {
-        cookie.clear;
-        load('../threejs/models/l_Cookie/obj.gltf',cookie);
-
-     };
     cookie.rotation.y+=.001;
     springles.rotation.y+=.001;
     icing.rotation.y+=.001;
-    left.lookAt(0,0,0);
-    if(c.isSetCH)     springles.add(choco);
-    else springles.remove(choco);
-    if(c.isSetB)     springles.add(berries);
-    else springles.remove(berries);
-    if(c.icing){springles.position.y=Ppos+.02;scene.add(icing);}
-    else{springles.position.y=Ppos;scene.remove(icing);}
     controls.update();
     renderer.render(scene,camera);
 }
