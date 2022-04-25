@@ -61,13 +61,45 @@
     		x.className = x.className.replace("show", "");
     	}, 5000);
 		}
+		$(document).ready(function () {
+  		$(window).scroll(function () {
+    		var windowScroll = $(window).scrollTop();
+    		if (windowScroll > 165) {
+      		$(".top").fadeIn(300);
+    		} else {
+      		$(".top").fadeOut(300);
+    		}
+  		});
+  		$(".top").click(function () {
+    		$("html,body").animate({ scrollTop: $("html").offset().top });
+    		return false;
+  		});
+		});
 	</script>
+	<style>
+		html {
+  		scroll-behavior: smooth;
+		}
+		.top {
+		  width: 50px;
+		  height: 50px;
+		  line-height: 50px;
+		  text-align: center;
+		  position: fixed;
+		  bottom: 50px;
+		  right: 50px;
+		  border-radius: 50%;
+		  text-decoration: none;
+		  display: none;
+		  animation: .3s;
+		}
+	</style>
 </head>
 <body>
 	<div id="page-container">
 	  <div id="content-wrap">
 			<header></header>
-			<nav>
+<!-- 			<nav>
 			  <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
 			    <a class="navbar-brand text-center" href="main.php" id="navbar">
 			      <h3 class="left mb-0">Cookie</h3>
@@ -93,19 +125,27 @@
     				</div>
 					</div>
   			</div>
-			</nav>
-			<!-- Wersja dla zalogowanego <nav>
+			</nav> -->
+			<!-- Wersja dla zalogowanego --> <nav>
 			  <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
 			    <a class="navbar-brand text-center" href="main.php" id="navbar">
 			      <h3 class="left mb-0">Cookie</h3>
 			    </a>
 			    <form class="form-inline" id="navbar-button">
-			      <button class="btn btn-login rounded mr-1" type="button" onclick="location.href='myaccount.php'">Moje konto</button>
-			      <button class="btn btn-register rounded" type="button" onclick="location.href='main.php'">Wyloguj się</button>
-			      <button class="btn btn-hamburger p-0"type="button" onclick="open_nav_user()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
+			    	<button type="button" class="btn btn-cart" onclick="location.href='cart.php'">
+			    		<i class="fas fa-shopping-cart"></i> 
+ 							<span class="badge p-0" style="font-size:14px">...</span>
+						</button>
+			      <button class="btn btn-hamburger p-0 ml-3" type="button" onclick="open_nav_user()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
+			      <button type="button" class="btn btn-login rounded ml-1" onclick="location.href='myaccount.php'">
+   	 						<i class="fas fa-user"></i>
+  					</button>
+  					<button class="btn btn-login rounded ml-1" type="button" onclick="location.href='main.php'">
+  						<i class="fas fa-sign-out-alt"></i>
+  					</button>
 			    </form>
 			  </div>
-			  <div class="px-3 pb-3 justify-content-end myLinks" id="open_user" style="display:none; background-color: #7c6152;">
+			  <div class="px-3 pb-3 justify-content-end myLinks" id="open_user" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
 			  	<hr style="margin-top: 0px;">
 			    <div class="container">
     				<div class="row">
@@ -120,7 +160,7 @@
     				</div>
 					</div>
   			</div>
-			</nav> -->
+			</nav>
 			<div class="row">
 				<div class="col"></div>
 				<div class="col-10">
@@ -138,31 +178,31 @@
  							<div class="col-md-6 col-sm-12 col-12 pt-3 pb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
     						<div class="tab-content" id="nav-tabContent">
       						<div class="tab-panel fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
-								<script type="text/javascript">
+							  <script type="text/javascript">
 									var inner="";
 									var paths=["/threejs/models/d_Cookie/obj.gltf","/threejs/models/Cookie/obj.gltf","/threejs/models/l_Cookie/obj.gltf"];
 									for(var i=0;i<paths.length;i++){
-										inner+='<div class="row border mx-0 mt-0" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);"> <div class="col-md-5 col-12 py-2"> <center><img src="113.svg" class="align-middle m-2 photo" alt="..."></center> </div> <div class="col-md-7 col-12 pt-3 pb-3"> <div class="col font-weight-bold">Płatki owsiane</div> <div class="w-100"></div> <div class="col font-weight-light">Dla purystów i indywidualistów</div> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col py-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pb-3"> <div class="row"> <div class="col d-flex justify-content-end mr-3 font-weight-bold"> 19.00 zł </div> </div> </div> <div class="w-100"></div> <div class="row"> <div class="col"> <button class="btn btn-more rounded btn-size ml-3" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Więcej...</button> <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Płatki owsiane</h5> </div> <div class="modal-body"> <div class="container"> <div class="row"> <div class="col font-weight-light"> Dla purystów i indywidualistów </div> </div> <div class="row"> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-3"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="w-100"></div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> </div> <div class="row"> <div class="col pt-3 font-weight-light"> Baza jaką są płatki owsiane stanowi idealną podstawę dla musli, a możliwość łączenia jej z dowolnymi składnikami sprawia, że całość smakuje dokładnie tak jak lubisz! * Zawiera naturalnie występujący cukier Ten skladnik powoduje jeszcze mniej emisji CO2. Jeszcze lepiej dla klimatu. </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a> <a>płatki owsiane</a> </div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col"> <button class="btn btn-add btn-size rounded ml-3 font-weight-bold sdw3d" data-sdw3d="list-1 '+paths[i]+'" type="button">Dodaj</button> </div> </div> </div> </div>';
+										inner+='<div class="row border mx-0 mt-0 mb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);"> <div class="col-md-5 col-12 py-2"> <center><img src="113.svg" class="align-middle m-2 photo" alt="..."></center> </div> <div class="col-md-7 col-12 pt-3 pb-3"> <div class="col font-weight-bold">Płatki owsiane</div> <div class="w-100"></div> <div class="col font-weight-light">Dla purystów i indywidualistów</div> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col py-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pb-3"> <div class="row"> <div class="col d-flex justify-content-end mr-3 font-weight-bold"> 19.00 zł </div> </div> </div> <div class="w-100"></div> <div class="row"> <div class="col"> <button class="btn btn-more rounded btn-size ml-3" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Więcej...</button> <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Płatki owsiane</h5> </div> <div class="modal-body"> <div class="container"> <div class="row"> <div class="col font-weight-light"> Dla purystów i indywidualistów </div> </div> <div class="row"> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-3"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="w-100"></div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> </div> <div class="row"> <div class="col pt-3 font-weight-light"> Baza jaką są płatki owsiane stanowi idealną podstawę dla musli, a możliwość łączenia jej z dowolnymi składnikami sprawia, że całość smakuje dokładnie tak jak lubisz! * Zawiera naturalnie występujący cukier Ten skladnik powoduje jeszcze mniej emisji CO2. Jeszcze lepiej dla klimatu. </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Wartość odżywcza w 100g: </a> <a>Wartość energetyczna <a>324kJ / 78kcal</a>; Tłuszcz <a>2,3g</a>, w tym kwasy tłuszczowe nasycone <a>0,2g</a>; Węglowodany <a>11g</a>, w tym cukry <a>6,9g</a>; Białko <a>1,4g</a>; Sól <a>0,38g</a></a> </div> <div class="w-100"></div> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a> <a>Płatki owsiane</a> </div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col"> <button class="btn btn-add btn-size rounded ml-3 font-weight-bold sdw3d" data-sdw3d="list-1 '+paths[i]+'" type="button">Dodaj</button> </div> </div> </div> </div>';
 									}
 									document.getElementById("list-1").innerHTML=inner;
 								</script>
-      						</div>
+							</div> 
       						<div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
-								<script type="text/javascript">
+							  <script type="text/javascript">
 									var inner="";
 									var paths=["/threejs/models/straw_ice/obj.gltf","/threejs/models/lchoco_ice/obj.gltf","/threejs/models/choco_ice/obj.gltf"];
 									for(var i=0;i<paths.length;i++){
-										inner+='<div class="row border mx-0 mt-0" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);"> <div class="col-md-5 col-12 py-2"> <center><img src="113.svg" class="align-middle m-2 photo" alt="..."></center> </div> <div class="col-md-7 col-12 pt-3 pb-3"> <div class="col font-weight-bold">Płatki owsiane</div> <div class="w-100"></div> <div class="col font-weight-light">Dla purystów i indywidualistów</div> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col py-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pb-3"> <div class="row"> <div class="col d-flex justify-content-end mr-3 font-weight-bold"> 19.00 zł </div> </div> </div> <div class="w-100"></div> <div class="row"> <div class="col"> <button class="btn btn-more rounded btn-size ml-3" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Więcej...</button> <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Płatki owsiane</h5> </div> <div class="modal-body"> <div class="container"> <div class="row"> <div class="col font-weight-light"> Dla purystów i indywidualistów </div> </div> <div class="row"> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-3"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="w-100"></div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> </div> <div class="row"> <div class="col pt-3 font-weight-light"> Baza jaką są płatki owsiane stanowi idealną podstawę dla musli, a możliwość łączenia jej z dowolnymi składnikami sprawia, że całość smakuje dokładnie tak jak lubisz! * Zawiera naturalnie występujący cukier Ten skladnik powoduje jeszcze mniej emisji CO2. Jeszcze lepiej dla klimatu. </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a> <a>płatki owsiane</a> </div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col"> <button class="btn btn-add btn-size rounded ml-3 font-weight-bold sdw3d" data-sdw3d="list-2 '+paths[i]+'" type="button">Dodaj</button> </div> </div> </div> </div>';
+										inner+='<div class="row border mx-0 mt-0 mb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);"> <div class="col-md-5 col-12 py-2"> <center><img src="113.svg" class="align-middle m-2 photo" alt="..."></center> </div> <div class="col-md-7 col-12 pt-3 pb-3"> <div class="col font-weight-bold">Płatki owsiane</div> <div class="w-100"></div> <div class="col font-weight-light">Dla purystów i indywidualistów</div> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col py-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pb-3"> <div class="row"> <div class="col d-flex justify-content-end mr-3 font-weight-bold"> 19.00 zł </div> </div> </div> <div class="w-100"></div> <div class="row"> <div class="col"> <button class="btn btn-more rounded btn-size ml-3" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Więcej...</button> <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Płatki owsiane</h5> </div> <div class="modal-body"> <div class="container"> <div class="row"> <div class="col font-weight-light"> Dla purystów i indywidualistów </div> </div> <div class="row"> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-3"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="w-100"></div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> </div> <div class="row"> <div class="col pt-3 font-weight-light"> Baza jaką są płatki owsiane stanowi idealną podstawę dla musli, a możliwość łączenia jej z dowolnymi składnikami sprawia, że całość smakuje dokładnie tak jak lubisz! * Zawiera naturalnie występujący cukier Ten skladnik powoduje jeszcze mniej emisji CO2. Jeszcze lepiej dla klimatu. </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Wartość odżywcza w 100g: </a> <a>Wartość energetyczna <a>324kJ / 78kcal</a>; Tłuszcz <a>2,3g</a>, w tym kwasy tłuszczowe nasycone <a>0,2g</a>; Węglowodany <a>11g</a>, w tym cukry <a>6,9g</a>; Białko <a>1,4g</a>; Sól <a>0,38g</a></a> </div> <div class="w-100"></div> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a> <a>Płatki owsiane</a> </div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col"> <button class="btn btn-add btn-size rounded ml-3 font-weight-bold sdw3d" data-sdw3d="list-2 '+paths[i]+'" type="button">Dodaj</button> </div> </div> </div> </div>';
 									}
 									document.getElementById("list-2").innerHTML=inner;
 								</script>
       						</div>
 	      					<div class="tab-pane fade" id="list-3" role="tabpanel" aria-labelledby="list-3-list">
-								<script type="text/javascript">
+							  <script type="text/javascript">
 									var inner="";
 									var paths=["/threejs/models/Choco/obj.gltf","/threejs/models/Berries/obj.gltf"];
 									for(var i=0;i<paths.length;i++){
-										inner+='<div class="row border mx-0 mt-0" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);"> <div class="col-md-5 col-12 py-2"> <center><img src="113.svg" class="align-middle m-2 photo" alt="..."></center> </div> <div class="col-md-7 col-12 pt-3 pb-3"> <div class="col font-weight-bold">Płatki owsiane</div> <div class="w-100"></div> <div class="col font-weight-light">Dla purystów i indywidualistów</div> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col py-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pb-3"> <div class="row"> <div class="col d-flex justify-content-end mr-3 font-weight-bold"> 19.00 zł </div> </div> </div> <div class="w-100"></div> <div class="row"> <div class="col"> <button class="btn btn-more rounded btn-size ml-3" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Więcej...</button> <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Płatki owsiane</h5> </div> <div class="modal-body"> <div class="container"> <div class="row"> <div class="col font-weight-light"> Dla purystów i indywidualistów </div> </div> <div class="row"> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-3"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="w-100"></div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> </div> <div class="row"> <div class="col pt-3 font-weight-light"> Baza jaką są płatki owsiane stanowi idealną podstawę dla musli, a możliwość łączenia jej z dowolnymi składnikami sprawia, że całość smakuje dokładnie tak jak lubisz! * Zawiera naturalnie występujący cukier Ten skladnik powoduje jeszcze mniej emisji CO2. Jeszcze lepiej dla klimatu. </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a> <a>płatki owsiane</a> </div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col"> <button class="btn btn-add btn-size rounded ml-3 font-weight-bold sdw3d" data-sdw3d="list-3 '+paths[i]+'" type="button">Dodaj</button> </div> </div> </div> </div>';
+										inner+='<div class="row border mx-0 mt-0 mb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);"> <div class="col-md-5 col-12 py-2"> <center><img src="113.svg" class="align-middle m-2 photo" alt="..."></center> </div> <div class="col-md-7 col-12 pt-3 pb-3"> <div class="col font-weight-bold">Płatki owsiane</div> <div class="w-100"></div> <div class="col font-weight-light">Dla purystów i indywidualistów</div> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col py-2"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg" style="max-width: 24px;"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pb-3"> <div class="row"> <div class="col d-flex justify-content-end mr-3 font-weight-bold"> 19.00 zł </div> </div> </div> <div class="w-100"></div> <div class="row"> <div class="col"> <button class="btn btn-more rounded btn-size ml-3" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Więcej...</button> <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Płatki owsiane</h5> </div> <div class="modal-body"> <div class="container"> <div class="row"> <div class="col font-weight-light"> Dla purystów i indywidualistów </div> </div> <div class="row"> <div class="col pt-3"> <div class="row"> <div class="col-2"> <img src="vegan_pl_PL.svg"> </div> <div class="col"> Odpowiedni dla wegan </div> </div> </div> <div class="col pt-3"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="w-100"></div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> <div class="col"> <div class="row"> <div class="col-2"> Icon </div> <div class="col"> Text </div> </div> </div> </div> <div class="row"> <div class="col pt-3 font-weight-light"> Baza jaką są płatki owsiane stanowi idealną podstawę dla musli, a możliwość łączenia jej z dowolnymi składnikami sprawia, że całość smakuje dokładnie tak jak lubisz! * Zawiera naturalnie występujący cukier Ten skladnik powoduje jeszcze mniej emisji CO2. Jeszcze lepiej dla klimatu. </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Wartość odżywcza w 100g: </a> <a>Wartość energetyczna <a>324kJ / 78kcal</a>; Tłuszcz <a>2,3g</a>, w tym kwasy tłuszczowe nasycone <a>0,2g</a>; Węglowodany <a>11g</a>, w tym cukry <a>6,9g</a>; Białko <a>1,4g</a>; Sól <a>0,38g</a></a> </div> <div class="w-100"></div> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a> <a>Płatki owsiane</a> </div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col"> <button class="btn btn-add btn-size rounded ml-3 font-weight-bold sdw3d" data-sdw3d="list-3 '+paths[i]+'" type="button">Dodaj</button> </div> </div> </div> </div>';
 									}
 									document.getElementById("list-3").innerHTML=inner;
 								</script>
@@ -175,7 +215,8 @@
 	     						</div>
  	  						</div>
   						</div>
-  						<div class="col-md-4 col-sm-12 col-12 pt-3 pb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
+  						<div class="col-md-4 col-sm-12 col-12 pb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
+  							<div class="sticky-top pt-3">
       					<div class="row mx-1 mt-1 mb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
 									<div class="col pt-1 mt-2 mx-2" style="cursor: pointer;" onclick="myFunction0()">
 										<div class="row pt-1 pb-1" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
@@ -264,7 +305,7 @@
 									</div>
 									<div class="w-100"></div>
       					</div>
-      					<div id="3D" class="row border mx-1 mb-1 mt-2 p-2 sticky-top" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
+      					<div id="3D" class="row border mx-1 mb-1 mt-2 p-2" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
       						<!-- Wizualizacja -->
       					</div>
       					<div class="d-flex justify-content-center pt-3">
@@ -367,11 +408,12 @@
   							</div> -->
   							<div class="d-flex justify-content-center">
   								<button class="btn btn-add-cart rounded" type="button" onclick="location.href=''" style="width: 220px">
-  									<i class="far fa-shopping-cart" style="text-shadow: 0px 3px 3px rgba(255, 255, 255, .25);"></i>&nbsp;&nbsp;&nbsp;Dodaj do koszyka
+  									<i class="fas fa-shopping-cart" style="text-shadow: 0px 3px 3px rgba(255, 255, 255, .25);"></i>&nbsp;&nbsp;&nbsp;Dodaj do koszyka
   								</button>
   							</div>
   						</div>
 						</div>
+					</div>
   				</div>
 				</div>
 				<div class="col"></div>
@@ -422,6 +464,9 @@
 			    	</div>
 			  	</div>
 				</div>
+				<button type="button" class="top btn btn-lg btn-add-cart px-3 py-0 mx-1" href="#">
+		    	<i class="fas fa-angle-double-up"></i>
+		    </button>
 				<div class="text-center foo p-3" style="background: rgb(65,57,56); background: linear-gradient(270deg, rgba(65,57,56,1) 0%, rgba(73,64,63,1) 40%, rgba(58,51,50,1) 100%);">
 			  	© 2022 Copyright:
 			  	<a class="foo-content underline" href="page.php">4BiG</a>
@@ -429,8 +474,8 @@
 			</footer>
     </div>
 </div>
-		<button onclick="launch_toast()">Popup na błąd zbyt dużej liczby składników</button>
-
+<!-- 		<button onclick="launch_toast()">Popup na błąd zbyt dużej liczby składników</button>
+ -->
 <div id="toast">
   <div id="img" class="fas fa-exclamation"></div>
   <div id="desc">Zbyt dużo składników</div>
