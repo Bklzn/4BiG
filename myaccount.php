@@ -25,6 +25,41 @@
     		x.style.display = "block";
   		}
 		}
+		$(function() {
+  		$('#eye_account_1').click(function() {
+       	if($(this).hasClass('fa-eye-slash')) {
+          $(this).removeClass('fa-eye-slash');
+          $(this).addClass('fa-eye');
+          $('#password').attr('type','text');
+        } else {
+         	$(this).removeClass('fa-eye');
+          $(this).addClass('fa-eye-slash');  
+          $('#password').attr('type','password');
+        }
+    	});
+    	$('#eye_account_2').click(function() {
+       	if($(this).hasClass('fa-eye-slash')) {
+          $(this).removeClass('fa-eye-slash');
+          $(this).addClass('fa-eye');
+          $('#password').attr('type','text');
+        } else {
+         	$(this).removeClass('fa-eye');
+          $(this).addClass('fa-eye-slash');  
+          $('#password').attr('type','password');
+        }
+    	});
+    	$('#eye_account_3').click(function() {
+       	if($(this).hasClass('fa-eye-slash')) {
+          $(this).removeClass('fa-eye-slash');
+          $(this).addClass('fa-eye');
+          $('#password').attr('type','text');
+        } else {
+         	$(this).removeClass('fa-eye');
+          $(this).addClass('fa-eye-slash');  
+          $('#password').attr('type','password');
+        }
+    	});
+		});
 	</script>
 </head>
 
@@ -98,7 +133,7 @@
     						</div>
     						<div class="row">
         					<div class="col-12 mb-2">
-        						<h5>Informacje personalne</h5>
+        						<h5>Informacje osobiste</h5>
         					</div>
     						</div>
     						<hr style="margin-top: 0px;">
@@ -106,18 +141,18 @@
 						      <div class="col-12 col-sm-12 col-md-4 pb-2">
 						      	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut metus viverra, accumsan odio vitae, scelerisque leo. Sed efficitur congue odio et maximus.
 						      </div>
-						      <div class="col-6 col-sm-6 col-md-4">
+						      <div class="col-6 col-sm-6 col-md-4 mx-auto">
 						      	<label for="InputName">Imię</label>
     								<input type="text" class="form-control input-user">
     							</div>
-						      <div class="col-6 col-sm-6 col-md-4">						      	
+						      <div class="col-6 col-sm-6 col-md-4 mx-auto">						      	
 						      	<label for="InputLastName">Nazwisko</label>
     								<input type="text" class="form-control input-user">
     							</div>
 						    </div>
 						    <div class="row pt-2">
         					<div class="col-0 col-sm-0 col-md-4"></div>
-					        <div class="col-6 col-sm-6 col-md-4">
+					        <div class="col-6 col-sm-6 col-md-4 mx-auto">
 					        	<label for="InputBirth">Data urodzenia</label>
 										<div class="input-group mb-3">
   										<input type="text" class="datepicker_input form-control input-user" id="datepicker1">
@@ -132,7 +167,7 @@
 						    </div>
 						    <div class="row pt-2">
         					<div class="col-0 col-sm-0 col-md-4"></div>
-					        <div class="col-6 col-sm-6 col-md-4">
+					        <div class="col-6 col-sm-6 col-md-4 mx-auto">
 										<div class="form-group">
     									<label for="ImputPhone">Numer telefonu</label>
     									<input class="form-control input-user" type="tel" id="phone" name="phone" pattern="[0-9]{9}">
@@ -158,7 +193,7 @@
 						      </div>
 						      <div class="col-10 col-sm-10 col-md-4 mx-auto">
 						      	<label for="InputName">E-mail</label>
-    								<input type="text" class="form-control input-user">
+    								<input type="e-mail" class="form-control input-user" style="box-shadow: none;">
     							</div>
 						      <div class="col-0 col-sm-0 col-md-4"></div>
 						    </div>
@@ -166,13 +201,71 @@
 						      <div class="col-0 col-sm-0 col-md-4"></div>
 						      <div class="col-10 col-sm-10 col-md-4 mx-auto pt-2">
 						      	<label for="InputName">Powtórz e-mail</label>
-    								<input type="text" class="form-control input-user">
+    								<input type="e-mail" class="form-control input-user" style="box-shadow: none;">
     							</div>
 						      <div class="col-0 col-sm-0 col-md-4"></div>
 						    </div>
 						    <div class="row pt-4">
         					<div class="col-12 pt-2 d-flex justify-content-center">
         						<button class="btn btn-add-cart">Zmień e-mail</button>
+        					</div>
+    						</div>
+    						<div class="row pt-5">
+        					<div class="col-12 mb-2">
+        						<h5>Hasło</h5>
+        					</div>
+    						</div>
+    						<hr style="margin-top: 0px;">
+    						<div class="row">
+						      <div class="col-12 col-sm-12 col-md-4 pb-2">
+						      	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut metus viverra, accumsan odio vitae, scelerisque leo. Sed efficitur congue odio et maximus.
+						      </div>
+						      <div class="col-10 col-sm-10 col-md-4 mx-auto pt-2">
+						      	<label for="InputName">Poprzednie hasło</label>
+						      	<div class="input-group mb-3" style="border: 2px solid rgb(224, 224, 224) !important;border-radius: 0.25rem;">
+  										<input type="password" id="password" class="form-control" style="box-shadow: none; border: none; height: 34px !important;">
+  										<div class="input-group-append">
+    										<span class="input-group-text" id="basic-addon2" style="background: none; border: none;">
+    											<i class="fas fa-eye-slash" id="eye_account_3" style="cursor: pointer;"></i>
+												</span>
+  										</div>
+										</div>
+    							</div>
+						      <div class="col-0 col-sm-0 col-md-4"></div>
+						    </div>
+						    <div class="row">
+						      <div class="col-0 col-sm-0 col-md-4"></div>
+						      <div class="col-10 col-sm-10 col-md-4 mx-auto pt-2">
+						      	<label for="InputName">Nowe hasło</label>
+						      	<div class="input-group mb-3" style="border: 2px solid rgb(224, 224, 224) !important;border-radius: 0.25rem;">
+  										<input type="password" id="password" class="form-control" autocomplete="new-password" placeholder=" " onfocus="document.getElementById('show_hide').style.display='block'; document.getElementById('show2').style.display='none'" onblur="document.getElementById('show_hide').style.display='none'; document.getElementById('show2').style.display='block'" style="box-shadow: none; border: none; height: 34px !important;">
+  										<div class="input-group-append">
+    										<span class="input-group-text" id="basic-addon2" style="background: none; border: none;">      						
+    											<i class="fas fa-eye-slash" id="eye_account_2" style="cursor: pointer;"></i>
+												</span>
+  										</div>
+										</div>
+    							</div>
+						      <div class="col-0 col-sm-0 col-md-4"></div>
+						    </div>
+						    <div class="row">
+						      <div class="col-0 col-sm-0 col-md-4"></div>
+						      <div class="col-10 col-sm-10 col-md-4 mx-auto pt-2">
+						      	<label for="InputName">Potierdź nowe hasło</label>
+						      	<div class="input-group mb-3" style="border: 2px solid rgb(224, 224, 224) !important;border-radius: 0.25rem;">
+  										<input type="password" id="password" class="form-control" style="box-shadow: none; border: none; height: 34px !important;">
+  										<div class="input-group-append">
+    										<span class="input-group-text" id="basic-addon2" style="background: none; border: none;">
+    											<i class="fas fa-eye-slash" id="eye_account_3" style="cursor: pointer;"></i>
+												</span>
+  										</div>
+										</div>
+    							</div>
+						      <div class="col-0 col-sm-0 col-md-4"></div>
+						    </div>
+						    <div class="row pt-4">
+        					<div class="col-12 pt-2 d-flex justify-content-center">
+        						<button class="btn btn-add-cart">Zmień hasło</button>
         					</div>
     						</div>
 				     	</div>
@@ -187,7 +280,7 @@
 							Aliquam felis augue, feugiat et vulputate sed, tempus at nisl. Donec ac elit nibh. Vestibulum est neque, sagittis vel urna mollis, semper facilisis diam. Mauris vel urna et metus dapibus dictum. Etiam eleifend, leo ac pretium feugiat, eros mi mollis mauris, non commodo sem lorem non lacus. Nam a eleifend justo. Phasellus euismod sem vitae pulvinar fringilla.</div>
 				      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">		Zamówienia
 				      </div>
-				      <div class="tab-pane fade" id="list-ankieta" role="tabpanel" aria-labelledby="list-ankieta-list">			Ankieta
+				      <div class="tab-pane fade" id="list-ankieta" role="tabpanel" aria-labelledby="list-ankieta-list">			Ankieta - wyniki
 				      </div>
 				     	<div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">		Ustawienia
 				      </div>
