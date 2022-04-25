@@ -9,7 +9,6 @@ namespace _4big.Models
     {
         public long Id { get; set; }
         public virtual List<Cookie> Cookies { get; set; }
-        public virtual User User { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -11,13 +11,9 @@ using System.Threading.Tasks;
 namespace _4big.Controllers
 {
     [Route("api/[controller]")]
-
     [ApiController]
-
     public class CookieController : ControllerBase
     {
-
-
         private readonly IConfiguration _configuration;
 
         public CookieController(IConfiguration configuration)
@@ -26,22 +22,19 @@ namespace _4big.Controllers
         }
 
         [HttpGet]
-
         public ActionResult Get()
         {
             Cookie c;
             Product p;
             Order o;
 
-            List<Cookie> cookieList = new List<Cookie>();
-            List<Product> productList = new List<Product>();
-            List<Order> orderList = new List<Order>();
-
+            List<Cookie> cookieList = new();
+            List<Product> productList = new();
+            List<Order> orderList = new();
 
             string cookiesQuery = @"
                 SELECT *
                 FROM public.""Cookie""
-               
                 ";
 
             string productQuery = @"
@@ -59,101 +52,92 @@ namespace _4big.Controllers
                 ";
 
 
-            DataTable cookieTable = new DataTable();
-            DataTable productTable = new DataTable();
-            DataTable orderTable = new DataTable();
+            DataTable cookieTable = new();
+            DataTable productTable = new();
+            DataTable orderTable = new();
 
             string sqlDataSource = _configuration.GetConnectionString("CookieAppCon");
 
             NpgsqlDataReader myReader;
 
-            using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
+            using (NpgsqlConnection myCon = new(sqlDataSource))
             {
                 myCon.Open();
 
-                using (NpgsqlCommand cookies = new NpgsqlCommand(cookiesQuery, myCon))
+                using NpgsqlCommand cookies = new(cookiesQuery, myCon);
+                myReader = cookies.ExecuteReader();
+                cookieTable.Load(myReader);
+
+                foreach (DataRow cookie in cookieTable.Rows)
                 {
-                    myReader = cookies.ExecuteReader();
-                    cookieTable.Load(myReader);
+                    c = new();
 
-                    foreach (DataRow cookie in cookieTable.Rows)
+                    c.Id = cookieTable.Rows[0].Field<int>("ID");
+                    c.Name = cookieTable.Rows[0].Field<string>("name");
+
+                    using (NpgsqlCommand products = new(productQuery, myCon))
                     {
-                        c = new Cookie();
+                        products.Parameters.AddWithValue("@id", c.Id);
+                        myReader = products.ExecuteReader();
+                        productTable.Load(myReader);
 
-                        c.Id = cookieTable.Rows[0].Field<int>("ID");
-                        c.Name = cookieTable.Rows[0].Field<string>("name");
-
-                        using (NpgsqlCommand products = new NpgsqlCommand(productQuery, myCon))
+                        foreach (DataRow product in productTable.Rows)
                         {
-                            products.Parameters.AddWithValue("@id", c.Id);
-                            myReader = products.ExecuteReader();
-                            productTable.Load(myReader);
+                            p = new();
 
-                            foreach (DataRow product in productTable.Rows)
-                            {
+                            p.Id = product.Field<int>("ID");
+                            p.Name = product.Field<string>("name");
+                            p.Weight = product.Field<float>("weight");
+                            p.Category = product.Field<string>("category");
+                            p.Price = product.Field<decimal>("price");
 
-                                p = new Product();
-
-                                p.Id = product.Field<int>("ID");
-                                p.Name = product.Field<string>("name");
-                                p.Weight = product.Field<float>("weight");
-                                p.Category = product.Field<string>("category");
-                                p.Price = product.Field<decimal>("price");
-
-                                productList.Add(p);
-
-                            }
-
-                            c.Products = productList;
-
-                        }
-                        
-
-                        using (NpgsqlCommand orders = new NpgsqlCommand(orderQuery, myCon))
-                        {
-                            orders.Parameters.AddWithValue("@id", c.Id);
-                            myReader = orders.ExecuteReader();
-                            orderTable.Load(myReader);
-
-                            foreach (DataRow order in orderTable.Rows)
-                            {
-
-                                o = new Order();
-
-                                o.Id = order.Field<int>("ID");
-                                //o.List<Cookie> Cookies
-                                //o.User User
-                                o.Email = order.Field<string>("email");
-                                o.FirstName = order.Field<string>("first_name");
-                                o.LastName = order.Field<string>("last_name");
-                                o.StreetName = order.Field<string>("street_name");
-                                o.BuildingNum = order.Field<string>("buliding_num");
-                                o.ApartmentNum = order.Field<string>("apartament_num");
-                                o.ZipCode = order.Field<string>("zip_code");
-                                o.City = order.Field<string>("city");
-                                o.PackedDate = order.Field<DateTime>("packed_date");
-                                o.SendDate = order.Field<DateTime>("send_date");
-                                o.RecivedDate = order.Field<DateTime>("recived");
-
-                                orderList.Add(o);
-                            }
-
-                            c.Orders = orderList;
-
+                            productList.Add(p);
                         }
 
-                        cookieList.Add(c);
+                        c.Products = productList;
+                    }
 
-                    }                  
 
-                    myReader.Close();
-                    myCon.Close();
+                    using (NpgsqlCommand orders = new(orderQuery, myCon))
+                    {
+                        orders.Parameters.AddWithValue("@id", c.Id);
+                        myReader = orders.ExecuteReader();
+                        orderTable.Load(myReader);
 
+                        foreach (DataRow order in orderTable.Rows)
+                        {
+
+                            o = new();
+
+                            o.Id = order.Field<int>("ID");
+                            //o.List<Cookie> Cookies
+                            //o.User User
+                            o.Email = order.Field<string>("email");
+                            o.FirstName = order.Field<string>("first_name");
+                            o.LastName = order.Field<string>("last_name");
+                            o.StreetName = order.Field<string>("street_name");
+                            o.BuildingNum = order.Field<string>("buliding_num");
+                            o.ApartmentNum = order.Field<string>("apartament_num");
+                            o.ZipCode = order.Field<string>("zip_code");
+                            o.City = order.Field<string>("city");
+                            o.PackedDate = order.Field<DateTime>("packed_date");
+                            o.SendDate = order.Field<DateTime>("send_date");
+                            o.RecivedDate = order.Field<DateTime>("recived");
+
+                            orderList.Add(o);
+                        }
+
+                        c.Orders = orderList;
+                    }
+
+                    cookieList.Add(c);
                 }
+
+                myReader.Close();
+                myCon.Close();
             }
 
             return Ok(cookieList);
-
         }
     }
 }

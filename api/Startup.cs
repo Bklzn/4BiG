@@ -65,6 +65,7 @@ namespace _4big
             services.AddControllers();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<INutritionService, NutritionService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         }

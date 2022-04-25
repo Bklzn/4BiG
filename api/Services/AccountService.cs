@@ -21,7 +21,7 @@ namespace _4big.Services
     }
     public class AccountService : IAccountService
     {
-        public enum position
+        public enum Position
         {
             [PgName("client")]
             client,
@@ -90,7 +90,7 @@ namespace _4big.Services
                     users.Parameters.AddWithValue("@passwd", hashedPassword);
                     users.Parameters.AddWithValue("@email", dto.Email);
                     users.Parameters.AddWithValue("@nick", dto.Nickname);
-                    users.Parameters.AddWithValue("@permission", Enum.Parse(typeof(position), dto.Permission));
+                    users.Parameters.AddWithValue("@permission", Enum.Parse(typeof(Position), dto.Permission));
                     myReader = users.ExecuteReader();
                 }
                 catch (System.ArgumentException)

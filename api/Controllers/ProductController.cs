@@ -1,5 +1,6 @@
 ﻿using _4big.Models;
 using _4big.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
@@ -33,6 +34,7 @@ namespace _4big.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "administrator")]
         public ActionResult AddProduct([FromBody]ProductDto dto)
         {
             if (!ModelState.IsValid)
@@ -47,6 +49,7 @@ namespace _4big.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "administrator")]
         public ActionResult DeleteProduct([FromRoute]int id)
         {
             _productService.Delete(id);
@@ -55,6 +58,7 @@ namespace _4big.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "administrator")]
         public ActionResult<Product> UpdateProduct([FromRoute]int id, [FromBody]ProductDto dto)
         {
             Product updatedProduct = _productService.Update(id, dto);

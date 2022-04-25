@@ -1,3 +1,6 @@
+-------------------------------------------------------------
+Produkty
+-------------------------------------------------------------
 GET https://localhost:5001/api/product:
 "fruits"
 
@@ -43,10 +46,53 @@ PUT https://localhost:5001/api/product/1:
 
 DELETE https://localhost:5001/api/product/1
 
+-------------------------------------------------------------
+Zamówienia
+-------------------------------------------------------------
+GET https://localhost:5001/api/order
+
+POST https://localhost:5001/api/order
+{
+	"Email": "test1@test.com",
+	"FirstName": "test1",
+	"LastName": "test1",
+	"StreetName": "test1",
+	"BuildingNum": "10A",
+	"ApartmentNum": "5",
+	"ZipCode": "11-111",
+	"City": "test"
+}
+
+PUT https://localhost:5001/api/order/1
+{
+	"Email": "test1@test.com",
+	"FirstName": "test1",
+	"LastName": "test1",
+	"StreetName": "test1",
+	"BuildingNum": "20A",
+	"ApartmentNum": "1",
+	"ZipCode": "11-111",
+	"City": "test",
+	"PackedDate": "20-04-2022",
+	"SendDate": null,
+	"RecivedDate": null
+}
+
+DELETE https://localhost:5001/api/order/1
+
+-------------------------------------------------------------
+Konto użytkownika
+-------------------------------------------------------------
 POST https://localhost:5001/api/account/register
 {
     "Email": "test1@test.com",
     "Password": "test1",
     "PasswordConfirmed": "test1",
     "Nickname": "test1"
+}
+
+POST https://localhost:5001/api/account/login
+{
+	"Email": "test1@test.com",
+    "Password": "test1"
 }
