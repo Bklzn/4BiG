@@ -61,13 +61,45 @@
     		x.className = x.className.replace("show", "");
     	}, 5000);
 		}
+		$(document).ready(function () {
+  		$(window).scroll(function () {
+    		var windowScroll = $(window).scrollTop();
+    		if (windowScroll > 165) {
+      		$(".top").fadeIn(300);
+    		} else {
+      		$(".top").fadeOut(300);
+    		}
+  		});
+  		$(".top").click(function () {
+    		$("html,body").animate({ scrollTop: $("html").offset().top });
+    		return false;
+  		});
+		});
 	</script>
+	<style>
+		html {
+  		scroll-behavior: smooth;
+		}
+		.top {
+		  width: 50px;
+		  height: 50px;
+		  line-height: 50px;
+		  text-align: center;
+		  position: fixed;
+		  bottom: 50px;
+		  right: 50px;
+		  border-radius: 50%;
+		  text-decoration: none;
+		  display: none;
+		  animation: .3s;
+		}
+	</style>
 </head>
 <body>
 	<div id="page-container">
 	  <div id="content-wrap">
 			<header></header>
-			<nav>
+<!-- 			<nav>
 			  <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
 			    <a class="navbar-brand text-center" href="main.php" id="navbar">
 			      <h3 class="left mb-0">Cookie</h3>
@@ -93,19 +125,27 @@
     				</div>
 					</div>
   			</div>
-			</nav>
-			<!-- Wersja dla zalogowanego <nav>
+			</nav> -->
+			<!-- Wersja dla zalogowanego --> <nav>
 			  <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
 			    <a class="navbar-brand text-center" href="main.php" id="navbar">
 			      <h3 class="left mb-0">Cookie</h3>
 			    </a>
 			    <form class="form-inline" id="navbar-button">
-			      <button class="btn btn-login rounded mr-1" type="button" onclick="location.href='myaccount.php'">Moje konto</button>
-			      <button class="btn btn-register rounded" type="button" onclick="location.href='main.php'">Wyloguj się</button>
-			      <button class="btn btn-hamburger p-0"type="button" onclick="open_nav_user()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
+			    	<button type="button" class="btn btn-cart" onclick="location.href='cart.php'">
+			    		<i class="fas fa-shopping-cart"></i> 
+ 							<span class="badge p-0" style="font-size:14px">...</span>
+						</button>
+			      <button class="btn btn-hamburger p-0 ml-3" type="button" onclick="open_nav_user()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
+			      <button type="button" class="btn btn-login rounded ml-1" onclick="location.href='myaccount.php'">
+   	 						<i class="fas fa-user"></i>
+  					</button>
+  					<button class="btn btn-login rounded ml-1" type="button" onclick="location.href='main.php'">
+  						<i class="fas fa-sign-out-alt"></i>
+  					</button>
 			    </form>
 			  </div>
-			  <div class="px-3 pb-3 justify-content-end myLinks" id="open_user" style="display:none; background-color: #7c6152;">
+			  <div class="px-3 pb-3 justify-content-end myLinks" id="open_user" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
 			  	<hr style="margin-top: 0px;">
 			    <div class="container">
     				<div class="row">
@@ -120,7 +160,7 @@
     				</div>
 					</div>
   			</div>
-			</nav> -->
+			</nav>
 			<div class="row">
 				<div class="col"></div>
 				<div class="col-10">
@@ -554,7 +594,8 @@
 	     						</div>
  	  						</div>
   						</div>
-  						<div class="col-md-4 col-sm-12 col-12 pt-3 pb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
+  						<div class="col-md-4 col-sm-12 col-12 pb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
+  							<div class="sticky-top pt-3">
       					<div class="row mx-1 mt-1 mb-3" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
 									<div class="col pt-1 mt-2 mx-2" style="cursor: pointer;" onclick="myFunction0()">
 										<div class="row pt-1 pb-1" style="box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);">
@@ -746,11 +787,12 @@
   							</div> -->
   							<div class="d-flex justify-content-center">
   								<button class="btn btn-add-cart rounded" type="button" onclick="location.href=''" style="width: 220px">
-  									<i class="far fa-shopping-cart" style="text-shadow: 0px 3px 3px rgba(255, 255, 255, .25);"></i>&nbsp;&nbsp;&nbsp;Dodaj do koszyka
+  									<i class="fas fa-shopping-cart" style="text-shadow: 0px 3px 3px rgba(255, 255, 255, .25);"></i>&nbsp;&nbsp;&nbsp;Dodaj do koszyka
   								</button>
   							</div>
   						</div>
 						</div>
+					</div>
   				</div>
 				</div>
 				<div class="col"></div>
@@ -801,6 +843,9 @@
 			    	</div>
 			  	</div>
 				</div>
+				<button type="button" class="top btn btn-lg btn-add-cart px-3 py-0 mx-1" href="#">
+		    	<i class="fas fa-angle-double-up"></i>
+		    </button>
 				<div class="text-center foo p-3" style="background: rgb(65,57,56); background: linear-gradient(270deg, rgba(65,57,56,1) 0%, rgba(73,64,63,1) 40%, rgba(58,51,50,1) 100%);">
 			  	© 2022 Copyright:
 			  	<a class="foo-content underline" href="page.php">4BiG</a>
@@ -808,8 +853,8 @@
 			</footer>
     </div>
 </div>
-		<button onclick="launch_toast()">Popup na błąd zbyt dużej liczby składników</button>
-
+<!-- 		<button onclick="launch_toast()">Popup na błąd zbyt dużej liczby składników</button>
+ -->
 <div id="toast">
   <div id="img" class="fas fa-exclamation"></div>
   <div id="desc">Zbyt dużo składników</div>
