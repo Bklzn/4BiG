@@ -2,7 +2,7 @@
 <html lang='pl'>
 <head>
 	<meta charset="utf-8">
-	<title>Cookie</title>
+	<title>Zresetuj hasło</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="cookie.css">
@@ -13,80 +13,62 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://kit.fontawesome.com/6c40eaf681.js" crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		function myFunction3() {
-  		var x = document.getElementById("myLinks");
-  		if (x.style.display === "block") {
-    		x.style.display = "none";
-  		} else {
-    		x.style.display = "block";
-  		}
-		}
-	</script>
 </head>
-
 <body>
 <div class="container-login">
-  <div>
-    <nav>
-			<div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
-			  <a class="navbar-brand text-center" href="main.php" id="navbar">
-			    <h3 class="left mb-0">Cookie</h3>
-			  </a>
-			  <form class="form-inline" id="navbar-button">
-			    <button class="btn btn-login rounded mr-1" type="button" onclick="location.href='login.php'">Zaloguj się</button>
-			    <button class="btn btn-register rounded" type="button" onclick="location.href='register.php'">Zarejestruj się</button>
-			    <button class="btn btn-hamburger p-0"type="button" onclick="myFunction3()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
-			  </form>
+    <div>
+    	<nav>
+			  <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
+			    <a class="navbar-brand text-center" href="main.php" id="navbar">
+			      <h3 class="left mb-0">Cookie</h3>
+			    </a>
+			  </div>
+			</nav>
+    </div>
+    <div>
+    	<div class="container">
+    		<div class="row">
+      		<div class="col"></div> 
+      		<div class="col-8 col-sm-8 col-md-6 col-lg-4 pb-5">
+      			<div class="display-4 d-flex justify-content-center pt-5 pb-2 ">
+      				<i class="fas fa-unlock" style="color: #49403f"></i>
+      			</div>
+      			<div class="col d-flex justify-content-center" style="color: #49403f">
+      				Zresetuj hasło
+      			</div>
+      			<hr class="my-3" style="border-top: 1px solid #e0e0e0">
+      			<div class="d-flex justify-content-center pt-1">
+      				<form>
+	      				<div class="form">
+	    						<input type="email" id="email" class="form__input" autocomplete="on" placeholder=" " onfocus="document.getElementById('result').style.display='none'; document.getElementById('result2').style.display='block'" onblur="document.getElementById('result').style.display='block'; document.getElementById('result2').style.display='none'" autofocus readonly value="example@example.com" style="border-color: #49403f;">
+	    						<label for="email" class="form__label">E-mail</label>
+	  						</div>
+	  						<div class="pt-2 d-flex justify-content-center">
+  								<h2 id="result"></h2>
+  								<h2 id="result2"></h2>
+								</div>
+	   						<div style="display: none">
+	   							<h2 style="background-color: rgb(248, 215, 218); color: rgb(132, 32, 41); border: 1px solid rgb(245, 194, 199); border-radius: 0.25rem; padding: 0.5rem; font-size: 16px; width: 320px;"> 
+	   								Niepoprawny e-mail lub hasło.
+	   							</h2>
+	   						</div>
+	   						<div class="d-flex justify-content-center">
+	   							<button class="btn btn-l rounded" type="button" onclick="location.href='password_reset_complete_login.php'" style="width: 320px">Zresetuj hasło</button>
+	   						</div>
+	  					</form>
+	  				</div>
+	  				<hr class="my-3" style="border-top: 1px solid #e0e0e0">
+	   				<div class="d-flex justify-content-center">
+	   					<div>
+	   						<a class="register-line" href="myaccount.php" style="text-decoration: none;">Wróc do moje konto</a>
+	   					</div>
+	   				</div>
+      		</div>
+      		<div class="col"></div>
+    		</div>
 			</div>
-			<div class="px-3 pb-3 justify-content-end myLinks" id="myLinks" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
-			  <hr style="margin-top: 0px;">
-			  <div class="container">
-    			<div class="row">
-        		<div class="col pb-2">
-        	    <a class="btn btn-login-hamburger" href="login.php" style="margin-left: 5%; min-width: 90%;">Zaloguj się</a>
-        		</div>
-    			</div>
-    			<div class="row">
-        		<div class="col">
-        	  	<a class="btn btn-register-hamburger" href="register.php" style="margin-left: 5%; min-width: 90%">Zarejestruj się</a>
-        		</div>
-    			</div>
-				</div>
-  		</div>
-		</nav>
-	</div>  
-  <div class="container">
-   	<div class="row py-5">
-   		<div class="col-12">
-   			<div class="card-deck">
- 					<div class="card" id="card" style="cursor: pointer;" onclick="location.href='index.php'">
-   					<!-- <img class="card-img-top d-flex justify-content-center py-4 " src="cookie-solid.svg" alt="Card image cap" style="max-height: 125px;"> -->
-   					<img src="cookies.jpeg" class="card-img-top d-flex justify-content-center rounded-top" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);">
-   					<div class="card-body">
-      				<h5 class="card-title">Generator ciastek</h5>
-      				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta urna sit amet ornare convallis. Suspendisse consectetur efficitur neque in porttitor. Sed et tincidunt tortor.</p>
-   					</div>
-  				</div>
-  				<div class="card" id="card">
-   					<img class="card-img-top d-flex justify-content-center rounded-top" src="leaf.jpeg" alt="Card image cap" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.08)">
-   					<div class="card-body">
-      				<h5 class="card-title">Odpowiedzialna produkcja</h5>
-      				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta urna sit amet ornare convallis. Suspendisse consectetur efficitur neque in porttitor. Sed et tincidunt tortor.</p>
-    				</div>
-  				</div>
- 					<div class="card" id="card">
-   					<img class="card-img-top d-flex justify-content-center rounded-top" src="dolly.jpg" alt="Card image cap" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.08)">
-    				<div class="card-body">
-      				<h5 class="card-title">Dostawa</h5>
-      				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta urna sit amet ornare convallis. Suspendisse consectetur efficitur neque in porttitor. Sed et tincidunt tortor.</p>
-    				</div>
-  				</div>
-				</div>
-   		</div>
-  	</div>
-	</div>
-  <div class="footer-login">
+   	</div>
+    <div class="footer-login">
         <footer style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px 4px 24px 0px rgba(124, 97, 82, 1);">
           <div class="container p-4">
             <div class="row">
@@ -144,3 +126,36 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+const validateEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+const validate = () => {
+  const $result = $('#result');
+  const email = $('#email').val();
+  $result.text('');
+
+  if (!validateEmail(email)) {
+    $result.text('Wprowadź prawidłowy adres e-mail.');
+    $result.css('background', '#f8d7da');
+    $result.css('color', '#842029');
+    $result.css('border', '1px solid #f5c2c7');
+    $result.css('border-radius', '.25rem');
+   	$result.css('padding', '.5rem');
+    $result.css('font-size', '16px');
+    $result.css('width', '320px');
+  } else {
+    $result.css('padding', '0rem');
+    $result.css('border', 'none');
+  }
+  return false;
+}
+
+$('#email').on('input', validate);
+
+$('#email').on('input', validate);
+</script>

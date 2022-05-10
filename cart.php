@@ -2,7 +2,7 @@
 <html lang='pl'>
 <head>
 	<meta charset="utf-8">
-	<title>Cookie</title>
+	<title>Koszyk</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="cookie.css">
@@ -39,7 +39,7 @@
 			    <button class="btn btn-hamburger p-0"type="button" onclick="myFunction3()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
 			  </form>
 			</div>
-			<div class="px-3 pb-3 justify-content-end myLinks" id="myLinks" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
+			<div class="px-3 pb-3 justify-content-end myLinks" id="myLinks" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%);">
 			  <hr style="margin-top: 0px;">
 			  <div class="container">
     			<div class="row">
@@ -59,30 +59,7 @@
   <div class="container">
    	<div class="row py-5">
    		<div class="col-12">
-   			<div class="card-deck">
- 					<div class="card" id="card" style="cursor: pointer;" onclick="location.href='index.php'">
-   					<!-- <img class="card-img-top d-flex justify-content-center py-4 " src="cookie-solid.svg" alt="Card image cap" style="max-height: 125px;"> -->
-   					<img src="cookies.jpeg" class="card-img-top d-flex justify-content-center rounded-top" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);">
-   					<div class="card-body">
-      				<h5 class="card-title">Generator ciastek</h5>
-      				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta urna sit amet ornare convallis. Suspendisse consectetur efficitur neque in porttitor. Sed et tincidunt tortor.</p>
-   					</div>
-  				</div>
-  				<div class="card" id="card">
-   					<img class="card-img-top d-flex justify-content-center rounded-top" src="leaf.jpeg" alt="Card image cap" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.08)">
-   					<div class="card-body">
-      				<h5 class="card-title">Odpowiedzialna produkcja</h5>
-      				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta urna sit amet ornare convallis. Suspendisse consectetur efficitur neque in porttitor. Sed et tincidunt tortor.</p>
-    				</div>
-  				</div>
- 					<div class="card" id="card">
-   					<img class="card-img-top d-flex justify-content-center rounded-top" src="dolly.jpg" alt="Card image cap" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.08)">
-    				<div class="card-body">
-      				<h5 class="card-title">Dostawa</h5>
-      				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta urna sit amet ornare convallis. Suspendisse consectetur efficitur neque in porttitor. Sed et tincidunt tortor.</p>
-    				</div>
-  				</div>
-				</div>
+   			
    		</div>
   	</div>
 	</div>
@@ -140,7 +117,6 @@
           </div>
         </footer>
       </div>
-  </div>
 </div>
 </body>
 </html>
