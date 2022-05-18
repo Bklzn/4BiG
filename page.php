@@ -22,6 +22,7 @@
     		x.style.display = "block";
   		}
 		}
+
 		function open_nav_user() {
   		var x = document.getElementById("open_user");
   		if (x.style.display === "block") {
@@ -30,6 +31,7 @@
     		x.style.display = "block";
   		}
 		}
+		
 		$(document).ready(function () {
   		$(window).scroll(function () {
     		var windowScroll = $(window).scrollTop();
