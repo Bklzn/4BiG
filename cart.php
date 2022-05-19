@@ -269,6 +269,7 @@ $(document).ready(function() {
    		document.getElementById("d").style.display = "";
    		document.getElementById("cost_e2").innerHTML = (count * value2).toFixed(2);
    	} else if (count == 1) {
+      document.getElementById("cost_e2").innerHTML = value2;
    		document.getElementById("d").style.display = "none";
    	}
     
@@ -300,6 +301,7 @@ $(document).ready(function() {
    		document.getElementById("dd").style.display = "";
    		document.getElementById("cost_e1").innerHTML = (count * value1).toFixed(2);
    	} else if (count == 1) {
+      document.getElementById("cost_e1").innerHTML = value1;
    		document.getElementById("dd").style.display = "none";
    	}
     
