@@ -360,10 +360,12 @@ function LoginUser(UserLog){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
+            console.log("login");
             data = this.response
             sessionStorage.setItem("jwt", data)
         }
         else{
+            console.log("login2");
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
