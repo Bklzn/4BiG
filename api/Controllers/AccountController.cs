@@ -1,4 +1,4 @@
-﻿using _4big.Models;
+﻿using _4bigData.Models;
 using _4big.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,33 +22,17 @@ namespace _4big.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult RegisterUser([FromBody] RegisterUserDto dto)
+        public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Model is not valid");
-            }
-
-            int id = _accountService.RegisterUser(dto);
-
-            if (id == -1) return BadRequest("Wrong permission");
-            if (id == -2) return BadRequest("Passwords do not match");
-            if (id == -3) return BadRequest("Email already exists");
-            return Created($"/api/product/{id}", null);
+            _accountService.RegisterUser(dto);
+            return Ok();
         }
 
         [HttpPost("login")]
         public ActionResult Login([FromBody] LoginDto dto)
         {
-            try
-            {
-                string token = _accountService.GenerateJwt(dto);
-                return Ok(token);
-            } 
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            string token = _accountService.GenerateJwt(dto);
+            return Ok(token);
         }
     }
 }

@@ -1,5 +1,9 @@
-﻿using _4big.Models;
+﻿using _4big.Exceptions;
+using _4bigData.Entities;
+using _4bigData.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
@@ -8,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -15,211 +20,155 @@ namespace _4big.Services
 {
     public interface IOrderService
     {
-        Order GetById(int id);
-        List<Order> GetAll();
-        int Create(int? userId, OrderDto dto);
-        bool Delete(int id);
-        Order Update(int id, Order dto);
+        long Create(long? userId, SaveOrderDto dto);
+        OrderDto GetById(long id);
+        List<OrderDto> GetByUserId(long id);
+        List<OrderDto> GetAll();
+        void UpdateClientData(long id, SaveOrderDto dto);
+        void UpdateDeliveryDetails(long id, UpdateOrderDeliveryDetailsDto dto);
+        void Delete(long id);
     }
     public class OrderService : IOrderService
     {
-        private readonly IConfiguration _configuration;
-        private readonly string sqlDataSource;
+        private readonly CookieDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public OrderService(IConfiguration configuration)
+        public OrderService(CookieDbContext dbContext, IMapper mapper)
         {
-            _configuration = configuration;
-
-            sqlDataSource = _configuration.GetConnectionString("CookieAppCon");
+            _dbContext = dbContext;
+            _mapper = mapper;
         }
 
-        public int Create(int? userId, OrderDto dto)
+        public long Create(long? userId, SaveOrderDto dto)
         {
-            string query = @"
-                INSERT INTO public.""Order""(
-                ""ID"", ""User_ID"", first_name, last_name, street_name, building_num, apartament_num, zip_code, city, packed_date, send_date, received_date, ""e-mail"")
-	            VALUES(DEFAULT, @id, @fName, @lName, @streetName, @buildingNum, @apartNum, @zipCode, @city, null, null, null, @email) RETURNING ""ID"";
-                ";
+            var order = _mapper.Map<Order>(dto);
 
-            DataTable table = new();
-            NpgsqlDataReader myReader;
+            if(userId is not null) order.UserId = (long)userId;
 
-            using (NpgsqlConnection myCon = new(sqlDataSource))
+            _dbContext.Orders.Add(order);
+            _dbContext.SaveChanges();
+
+            var orderId = order.OrderId;
+            var cookiesIds = dto.CookiesIds;
+            List<CookieOrder> cookieOrders = new();
+
+            cookiesIds.ForEach(cId => cookieOrders.Add(new CookieOrder()
             {
-                myCon.Open();
+                CookieId = cId,
+                OrderId = orderId
+            }));
 
-                using NpgsqlCommand orders = new(query, myCon);
+            _dbContext.CookieOrders.AddRange(cookieOrders);
+            _dbContext.SaveChanges();
 
-                orders.Parameters.AddWithValue("@id", ((object)userId) ?? DBNull.Value);
-                orders.Parameters.AddWithValue("@fName", dto.FirstName);
-                orders.Parameters.AddWithValue("@lName", dto.LastName);
-                orders.Parameters.AddWithValue("@streetName", dto.StreetName);
-                orders.Parameters.AddWithValue("@buildingNum", dto.BuildingNum);
-                orders.Parameters.AddWithValue("@apartNum", dto.ApartmentNum);
-                orders.Parameters.AddWithValue("@zipCode", dto.ZipCode);
-                orders.Parameters.AddWithValue("@city", dto.City);
-                orders.Parameters.AddWithValue("@email", dto.Email);
-                myReader = orders.ExecuteReader();
-
-                table.Load(myReader);
-
-                myReader.Close();
-                myCon.Close();
-            }
-
-            return table.Rows[0].Field<int>("ID");
+            return order.OrderId;
         }
 
-        public bool Delete(int id)
+
+        public OrderDto GetById(long id)
         {
-            string query = @"
-                DELETE FROM public.""Order""
-                WHERE ""ID"" = @id;
-            ";
+            var order = _dbContext
+                .Orders
+                .FirstOrDefault(o => o.OrderId == id);
 
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
+            if (order is null) throw new NotFoundException("Order not found!");
 
-                using NpgsqlCommand orders = new(query, myCon);
+            var dto = _mapper.Map<OrderDto>(order);
 
-                orders.Parameters.AddWithValue("@id", id);
-                orders.ExecuteReader();
-
-                myCon.Close();
-            }
-
-            return true;
+            return dto;
         }
 
-        public Order GetById(int id)
+        public List<OrderDto> GetByUserId(long id)
         {
-            string query = @"
-                SELECT *
-                FROM public.""Order""
-                WHERE ""ID"" = @id;
-                ";
+            var orders = _dbContext
+                .Orders
+                .Where(o => o.UserId == id)
+                .ToList();
 
-            DataTable table = new();
-            NpgsqlDataReader myReader;
+            var dtos = _mapper.Map<List<OrderDto>>(orders);
 
-            Order order;
-
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
-
-                using NpgsqlCommand orders = new(query, myCon);
-
-                orders.Parameters.AddWithValue("@id", id);
-                myReader = orders.ExecuteReader();
-
-                if (!myReader.HasRows) return null;
-
-                table.Load(myReader);
-                order = new()
-                {
-                    Id = table.Rows[0].Field<int>("ID"),
-                    Email = table.Rows[0].Field<string>("e-mail"),
-                    FirstName = table.Rows[0].Field<string>("first_name"),
-                    LastName = table.Rows[0].Field<string>("last_name"),
-                    StreetName = table.Rows[0].Field<string>("street_name"),
-                    BuildingNum = table.Rows[0].Field<string>("building_num"),
-                    ApartmentNum = table.Rows[0].Field<string>("apartament_num"),
-                    ZipCode = table.Rows[0].Field<string>("zip_code"),
-                    City = table.Rows[0].Field<string>("city"),
-                    PackedDate = table.Rows[0].Field<DateTime?>("packed_date"),
-                    SendDate = table.Rows[0].Field<DateTime?>("send_date"),
-                    RecivedDate = table.Rows[0].Field<DateTime?>("received_date")
-                };
-
-                myCon.Close();
-            }
-
-            return order;
+            return dtos;
         }
 
-        public List<Order> GetAll()
+        public List<OrderDto> GetAll()
         {
-            string query = @"
-                SELECT *
-                FROM public.""Order"";
-                ";
+            var orders = _dbContext
+                .Orders
+                .Include(o => o.User)
+                .ToList();
 
-            DataTable table = new();
-            NpgsqlDataReader myReader;
+            var dtos = _mapper.Map<List<OrderDto>>(orders);
 
-            List<Order> ordersList = new();
-
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
-
-                using NpgsqlCommand orders = new(query, myCon);
-
-                myReader = orders.ExecuteReader();
-
-                table.Load(myReader);
-
-                foreach(DataRow row in table.Rows)
-                {
-                    Order order = new()
-                    {
-                        Id = row.Field<int>("ID"),
-                        Email = row.Field<string>("e-mail"),
-                        FirstName = row.Field<string>("first_name"),
-                        LastName = row.Field<string>("last_name"),
-                        StreetName = row.Field<string>("street_name"),
-                        BuildingNum = row.Field<string>("building_num"),
-                        ApartmentNum = row.Field<string>("apartament_num"),
-                        ZipCode = row.Field<string>("zip_code"),
-                        City = row.Field<string>("city"),
-                        PackedDate = row.Field<DateTime?>("packed_date"),
-                        SendDate = row.Field<DateTime?>("send_date"),
-                        RecivedDate = row.Field<DateTime?>("received_date")
-                    };
-
-                    ordersList.Add(order);
-                }
-
-                myCon.Close();
-            }
-
-            return ordersList;
+            return dtos;
         }
 
-        public Order Update(int id, Order order)
+        public void UpdateClientData(long id, SaveOrderDto dto)
         {
-            string query = @"
-                UPDATE public.""Order""
-                SET first_name = @fName, last_name = @lName, street_name = @streetName, building_num = @buildingNum, apartament_num = @apartNum, zip_code = @zipCode, city = @city, packed_date = @packedDate, send_date = @sendDate, received_date = @recivedDate, ""e-mail"" = @email
-                WHERE ""ID"" = @id;
-            ";
+            var order = _dbContext
+                .Orders
+                .FirstOrDefault(o => o.OrderId == id);
 
-            using (NpgsqlConnection myCon = new(sqlDataSource))
+            if (order is null) throw new NotFoundException("Order not found!");
+
+            order.Email = dto.Email;
+            order.PhoneNumber = dto.PhoneNumber;
+            order.FirstName = dto.FirstName;
+            order.LastName = dto.LastName;
+            order.StreetName = dto.StreetName;
+            order.BuildingNum = dto.BuildingNum;
+            order.ApartmentNum = dto.ApartmentNum;
+            order.ZipCode = dto.ZipCode;
+            order.City = dto.City;
+            order.Nip = dto.Nip;
+            order.Pickup = dto.Pickup;
+
+            /* Update tabeli Cookie_order */
+            var oldcookieOrders = _dbContext
+                .CookieOrders
+                .Where(co => co.OrderId == id)
+                .ToList();
+
+            var orderId = order.OrderId;
+            var cookiesIds = dto.CookiesIds;
+            List<CookieOrder> newcookieOrders = new();
+
+            cookiesIds.ForEach(cId => newcookieOrders.Add(new CookieOrder()
             {
-                myCon.Open();
+                CookieId = cId,
+                OrderId = orderId
+            }));
 
-                using NpgsqlCommand orders = new(query, myCon);
+            _dbContext.CookieOrders.RemoveRange(oldcookieOrders);
+            _dbContext.CookieOrders.AddRange(newcookieOrders);
+            _dbContext.SaveChanges();
+        }
 
-                orders.Parameters.AddWithValue("@id", id);
-                orders.Parameters.AddWithValue("@fName", order.FirstName);
-                orders.Parameters.AddWithValue("@lName", order.LastName);
-                orders.Parameters.AddWithValue("@streetName", order.StreetName);
-                orders.Parameters.AddWithValue("@buildingNum", order.BuildingNum);
-                orders.Parameters.AddWithValue("@apartNum", order.ApartmentNum);
-                orders.Parameters.AddWithValue("@zipCode", order.ZipCode);
-                orders.Parameters.AddWithValue("@city", order.City);
-                orders.Parameters.AddWithValue("@packedDate", ((object)order.PackedDate) ?? DBNull.Value);
-                orders.Parameters.AddWithValue("@sendDate", ((object)order.SendDate) ?? DBNull.Value);
-                orders.Parameters.AddWithValue("@recivedDate", ((object)order.RecivedDate) ?? DBNull.Value);
-                orders.Parameters.AddWithValue("@email", order.Email);
-                orders.ExecuteReader();
+        public void UpdateDeliveryDetails(long id, UpdateOrderDeliveryDetailsDto dto)
+        {
+            var order = _dbContext
+                .Orders
+                .FirstOrDefault(o => o.OrderId == id);
 
-                myCon.Close();
-            }
+            if (order is null) throw new NotFoundException("Order not found!");
 
-            return GetById(id);
+            order.PackageNum = dto.PackageNum;
+            order.PackedDate = dto.PackedDate;
+            order.SendDate = dto.SendDate;
+            order.ReceivedDate = dto.ReceivedDate;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void Delete(long id)
+        {
+            var order = _dbContext
+                .Orders
+                .FirstOrDefault(o => o.OrderId == id);
+
+            if (order is null) throw new NotFoundException("Order not found!");
+
+            _dbContext.Orders.Remove(order);
+            _dbContext.SaveChanges();
         }
     }
 }

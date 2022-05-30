@@ -1,4 +1,7 @@
-﻿using _4big.Models;
+﻿using _4bigData.Entities;
+using _4bigData.Models;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using NpgsqlTypes;
@@ -12,248 +15,135 @@ namespace _4big.Services
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetByCategory(string category);
-        Product GetById(int id);
-        int Create(ProductDto dto);
-        bool Delete(int id);
-        Product Update(int id, ProductDto dto);
+        long Create(SaveProductDto dto);
+        IEnumerable<ProductDto> GetByCategory(string category);
+        Product Update(long id, SaveProductDto dto);
+        bool Delete(long id);
+        public bool AddProperty(long productId, long propertyId);
+        public bool DeleteProperty(long productId, long propertyId);
     }
     public class ProductService : IProductService
     {
-        public enum Product_category
-        {
-            [PgName("package")]
-            package,
-            [PgName("base")]
-            cookie_base,
-            [PgName("upgraded_base")]
-            upgraded_base,
-            [PgName("fruits")]
-            fruits,
-            [PgName("nuts")]
-            nuts,
-            [PgName("chocolate")]
-            chocolate
-        }
-        private readonly IConfiguration _configuration;
-        private readonly INutritionService _nutritionService;
-        private readonly string sqlDataSource;
+        
+        private readonly CookieDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public ProductService(IConfiguration configuration, INutritionService nutritionService)
+        public ProductService(CookieDbContext dbContext, IMapper mapper)
         {
-            _configuration = configuration;
-            _nutritionService = nutritionService;
-
-            sqlDataSource = _configuration.GetConnectionString("CookieAppCon");
+            _dbContext = dbContext;
+            _mapper = mapper;
         }
 
-        public Product GetById(int id)
+        public long Create(SaveProductDto dto)
         {
-            Product p;
+            var product = _mapper.Map<Product>(dto);
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
 
-            string query = @"
-                SELECT *
-                FROM public.""Product""
-                WHERE ""ID"" = @id
-                ";
-
-            DataTable table = new();
-            NpgsqlDataReader myReader;
-
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
-
-                using NpgsqlCommand products = new(query, myCon);
-                products.Parameters.AddWithValue("@id", id);
-                myReader = products.ExecuteReader();
-
-                table.Load(myReader);
-
-                p = new();
-
-                p.Id = table.Rows[0].Field<int>("ID");
-                p.Name = table.Rows[0].Field<string>("name");
-                p.Weight = table.Rows[0].Field<float>("weight");
-                p.Category = table.Rows[0].Field<string>("category");
-                p.Price = table.Rows[0].Field<decimal>("price");
-                p.ThreeDModelPath = table.Rows[0].Field<string>("threeD_model");
-                p.SVGModelPath = table.Rows[0].Field<string>("svg_model");
-                p.NutritionsTable = _nutritionService.GetById(table.Rows[0].Field<int>("Nutr_ID"));
-
-                myReader.Close();
-                myCon.Close();
-            }
-
-            return p;
+            return product.Id;
         }
 
-        public IEnumerable<Product> GetByCategory(string category)
+        public IEnumerable<ProductDto> GetByCategory(string category)
         {
-            List<Product> productsList = new();
+            var products = _dbContext
+                .Products
+                .Include(p => p.NutritionalValues)
+                .Include("ProductProperties.Property")
+                .Where(p => p.ProductCategory == Enum.Parse<ProductCategory>(category))
+                .ToList();
 
-            string productQuery = @"
-                SELECT ""ID""
-                FROM public.""Product""
-                WHERE ""Product"".""category"" = @category
-                ";
+            if (products is null) return null;
 
-            DataTable table = new();
-            NpgsqlDataReader myReader;
+            var productsDtos = _mapper.Map<List<ProductDto>>(products);
 
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
-
-                using NpgsqlCommand products = new(productQuery, myCon);
-                try
-                {
-                    products.Parameters.AddWithValue("@category", Enum.Parse(typeof(Product_category), category));
-                    myReader = products.ExecuteReader();
-                }
-                catch (System.ArgumentException)
-                {
-                    return null;
-                }
-
-                table.Load(myReader);
-
-
-                foreach (DataRow product in table.Rows)
-                {
-                    productsList.Add(GetById(product.Field<int>("ID")));
-                }
-
-                myReader.Close();
-                myCon.Close();
-            }
-
-            return productsList;
+            return productsDtos;
         }
 
-        public int Create(ProductDto dto)
+        public Product Update(long id, SaveProductDto dto)
         {
-            string query = @"
-                INSERT INTO public.""Product""(
-                ""ID"", ""Nutr_ID"", name, weight, price, ""threeD_model"", svg_model, category)
-	            VALUES(DEFAULT, @nutr_id, @name, @weight, @price, @threeD, @svg, @category) RETURNING ""ID"";
-            ";
+            var product = _dbContext
+                .Products
+                .Include(p => p.NutritionalValues)
+                .FirstOrDefault(p => p.Id == id);
 
-            DataTable table = new();
-            NpgsqlDataReader myReader;
+            if (product == null) return null;
 
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
+            product.Name = dto.Name;
+            product.Weight = dto.Weight;
+            product.Category = dto.Category;
+            product.Subname = dto.Subname;
+            product.Description = dto.Description;
+            product.Ingredients = dto.Ingredients;
+            product.Price = dto.Price;
+            product.SVGModelPath = dto.SVGModelPath;
+            product.ThreeDModelPath = dto.ThreeDModelPath;
 
-                using NpgsqlCommand products = new(query, myCon);
-                try
-                {
-                    int nutrId = _nutritionService.Create(dto.NutritionsTable);
-                    products.Parameters.AddWithValue("@nutr_id", nutrId);
-                    products.Parameters.AddWithValue("@name", dto.Name);
-                    products.Parameters.AddWithValue("@weight", dto.Weight);
-                    products.Parameters.AddWithValue("@price", dto.Price);
-                    products.Parameters.AddWithValue("@threeD", dto.ThreeDModelPath);
-                    products.Parameters.AddWithValue("@svg", dto.SVGModelPath);
-                    products.Parameters.AddWithValue("@category", Enum.Parse(typeof(Product_category), dto.Category));
-                    myReader = products.ExecuteReader();
-                }
-                catch (System.ArgumentException)
-                {
-                    return -1;
-                }
+            product.NutritionalValues.Energy = dto.NutritionalValues.Energy;
+            product.NutritionalValues.FatTotal = dto.NutritionalValues.FatTotal;
+            product.NutritionalValues.SaturatedFat = dto.NutritionalValues.SaturatedFat;
+            product.NutritionalValues.Carbohydrate = dto.NutritionalValues.Carbohydrate;
+            product.NutritionalValues.Sugars = dto.NutritionalValues.Sugars;
+            product.NutritionalValues.Fibre = dto.NutritionalValues.Fibre;
+            product.NutritionalValues.Protein = dto.NutritionalValues.Protein;
+            product.NutritionalValues.Salt = dto.NutritionalValues.Salt;
 
-                table.Load(myReader);
+            _dbContext.SaveChanges();
 
-                myReader.Close();
-                myCon.Close();
-            }
-
-            return table.Rows[0].Field<int>("ID");
+            return product;
         }
 
-        public bool Delete(int id)
+        public bool Delete(long id)
         {
-            string query = @"
-                DELETE FROM public.""Product""
-                WHERE ""ID"" = @id;
-            ";
+            var product = _dbContext
+                .Products
+                .FirstOrDefault(p => p.Id == id);
 
+            if (product is null) return false;
 
-            string nutrIdQuery = @"
-                SELECT ""Nutr_ID"" 
-                FROM public.""Product"" 
-                WHERE ""ID"" = @id;
-                ";
-
-            NpgsqlDataReader myReader;
-            DataTable table = new();
-
-            using (NpgsqlConnection myCon = new(sqlDataSource))
-            {
-                myCon.Open();
-
-                using NpgsqlCommand nutrIDCommand = new(nutrIdQuery, myCon);
-                nutrIDCommand.Parameters.AddWithValue("@id", id);
-                myReader = nutrIDCommand.ExecuteReader();
-                table.Load(myReader);
-
-                using NpgsqlCommand products = new(query, myCon);
-                products.Parameters.AddWithValue("@id", id);
-                myReader = products.ExecuteReader();
-
-                _nutritionService.Delete(table.Rows[0].Field<int>("Nutr_ID"));
-
-                myReader.Close();
-                myCon.Close();
-            }
+            _dbContext.Products.Remove(product);
+            _dbContext.SaveChanges();
 
             return true;
         }
 
-        public Product Update(int id, ProductDto dto)
+        public bool AddProperty(long productId, long propertyId)
         {
-            string query = @"
-                UPDATE public.""Product""
-                SET name = @name, weight = @weight, price = @price, category = @category, ""threeD_model"" = @threeD, svg_model = @svg
-                WHERE ""ID"" = @id RETURNING ""Nutr_ID"";
-            ";
+            var product = _dbContext
+                .Products
+                .FirstOrDefault(p => p.Id == productId);
 
-            NpgsqlDataReader myReader;
-            DataTable table = new();
+            var property = _dbContext
+                .Properties
+                .FirstOrDefault(p => p.PropertyId == propertyId);
 
-            using (NpgsqlConnection myCon = new(sqlDataSource))
+            var productProperty = _dbContext
+                .ProductProperties
+                .FirstOrDefault(pp => (pp.ProductId == productId && pp.PropertyId == propertyId));
+
+            if (product is null || property is null || productProperty is not null) return false;
+
+            _dbContext.ProductProperties.Add(new ProductProperty()
             {
-                myCon.Open();
+                ProductId = productId,
+                PropertyId = propertyId
+            });
+            _dbContext.SaveChanges();
 
-                using (NpgsqlCommand products = new(query, myCon))
-                {
-                    try
-                    {
-                        products.Parameters.AddWithValue("@id", id);
-                        products.Parameters.AddWithValue("@name", dto.Name);
-                        products.Parameters.AddWithValue("@weight", dto.Weight);
-                        products.Parameters.AddWithValue("@price", dto.Price);
-                        products.Parameters.AddWithValue("@threeD", dto.ThreeDModelPath);
-                        products.Parameters.AddWithValue("@svg", dto.SVGModelPath);
-                        products.Parameters.AddWithValue("@category", Enum.Parse(typeof(Product_category), dto.Category));
-                        myReader = products.ExecuteReader();
-                        table.Load(myReader);
+            return true;
+        }
 
-                        _nutritionService.Update(table.Rows[0].Field<int>("Nutr_ID"), dto.NutritionsTable);
-                    }
-                    catch (System.ArgumentException)
-                    {
-                        return null;
-                    }
-                }
+        public bool DeleteProperty(long productId, long propertyId)
+        {
+            var productProperty = _dbContext
+                .ProductProperties
+                .FirstOrDefault(pp => (pp.ProductId == productId && pp.PropertyId == propertyId));
 
-                myReader.Close();
-                myCon.Close();
-            }
+            if (productProperty is null) return false;
 
-            return GetById(id);
+            _dbContext.ProductProperties.Remove(productProperty);
+            _dbContext.SaveChanges();
+
+            return true;
         }
     }
 }

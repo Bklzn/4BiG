@@ -1,7 +1,10 @@
-﻿using _4big.Models;
-using _4big.Services;
+﻿using _4big.Services;
+using _4bigData.Entities;
+using _4bigData.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using NpgsqlTypes;
@@ -24,47 +27,65 @@ namespace _4big.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get([FromBody]string category)
-        {
-            IEnumerable<Product> productsList = _productService.GetByCategory(category);
-
-            if (productsList == null) return BadRequest();
-            return Ok(productsList);
-        }
-
         [HttpPost]
         [Authorize(Roles = "administrator")]
-        public ActionResult AddProduct([FromBody]ProductDto dto)
+        public ActionResult AddProduct([FromBody] SaveProductDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            long id = _productService.Create(dto);
 
-            int id = _productService.Create(dto);
-
-            if (id == -1) return BadRequest();
             return Created($"/api/product/{id}", null);
         }
 
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "administrator")]
-        public ActionResult DeleteProduct([FromRoute]int id)
+        [HttpGet]
+        public ActionResult<IEnumerable<ProductDto>> Get([FromBody]string category)
         {
-            _productService.Delete(id);
+            var productsDtos = _productService.GetByCategory(category);
 
-            return NoContent();
+            if (productsDtos is null) return NotFound();
+            return Ok(productsDtos);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "administrator")]
-        public ActionResult<Product> UpdateProduct([FromRoute]int id, [FromBody]ProductDto dto)
+        public ActionResult<Product> UpdateProduct([FromRoute] long id, [FromBody] SaveProductDto dto)
         {
-            Product updatedProduct = _productService.Update(id, dto);
+            var updatedProduct = _productService.Update(id, dto);
 
-            if (updatedProduct == null) return BadRequest();
+            if (updatedProduct == null) return NotFound();
             return Ok(updatedProduct);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "administrator")]
+        public ActionResult DeleteProduct([FromRoute]long id)
+        {
+            bool isDeleted = _productService.Delete(id);
+
+            if(!isDeleted) return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpPost("{prodId}/{propId}")]
+        [Authorize(Roles = "administrator")]
+        public ActionResult AddPropertyToProduct([FromRoute] long prodId, [FromRoute] long propId)
+        {
+            bool isAdded = _productService.AddProperty(prodId, propId);
+
+            if (!isAdded) return BadRequest();
+
+            return Ok();
+        }
+
+        [HttpDelete("{prodId}/{propId}")]
+        [Authorize(Roles = "administrator")]
+        public ActionResult DeletePropertyToProduct([FromRoute] long prodId, [FromRoute] long propId)
+        {
+            bool isDeleted = _productService.DeleteProperty(prodId, propId);
+
+            if (!isDeleted) return NotFound();
+
+            return Ok();
         }
     }
 }

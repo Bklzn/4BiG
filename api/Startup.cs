@@ -1,10 +1,16 @@
-using _4big.Models;
+using _4big.Middleware;
 using _4big.Services;
+using _4bigData.Entities;
+using _4bigData.Models;
+using _4bigData.Models.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +37,9 @@ namespace _4big
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CookieDbContext>(o => 
+            o.UseNpgsql(Configuration.GetConnectionString("CookieAppCon")));
+
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -62,12 +71,21 @@ namespace _4big
                 };
             });
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
+
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<INutritionService, NutritionService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IPropertyService, PropertyService>();
+            services.AddScoped<ICookieService, CookieService>();
+
+            services.AddScoped<ErrorHandlingMiddleware>();
+
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+
+            services.AddAutoMapper(GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +97,8 @@ namespace _4big
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseAuthentication();
 

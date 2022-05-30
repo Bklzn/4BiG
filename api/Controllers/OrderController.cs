@@ -1,5 +1,6 @@
-﻿using _4big.Models;
-using _4big.Services;
+﻿using _4big.Services;
+using _4bigData.Entities;
+using _4bigData.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,30 +25,74 @@ namespace _4big.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet]
-        [Authorize(Roles = "employee")]
-        [Authorize(Roles = "administrator")]
-        public ActionResult GetAll()
-        {
-            return Ok(_orderService.GetAll());
-        }
-
         [HttpPost]
-        public ActionResult Create([FromBody]OrderDto dto)
+        public ActionResult Create([FromBody] SaveOrderDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            int id;
+            long id;
             var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
             if (claim == null) id = _orderService.Create(null, dto);
-            else id = _orderService.Create(Int32.Parse(claim.Value), dto);
+            else id = _orderService.Create(long.Parse(claim.Value), dto);
 
-            if (id == -1) return BadRequest();
             return Created($"/api/order/{id}", null);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "administrator, employee")]
+        public ActionResult GetAll()
+        {
+            var orders = _orderService.GetAll();
+            return Ok(orders);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult GetByUserId([FromRoute] long id)
+        {
+            long loggedUserId = long.Parse(HttpContext
+                .User.Claims
+                .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                .Value);
+
+            string loggedUserRole = HttpContext
+                .User.Claims
+                .FirstOrDefault(c => c.Type == ClaimTypes.Role)
+                .Value;
+
+            if (loggedUserId != id && loggedUserRole == "client")
+                return Unauthorized();
+
+            var orders = _orderService.GetByUserId(id);
+            return Ok(orders);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public ActionResult<Order> UpdateUserData([FromRoute]long id, [FromBody]SaveOrderDto order)
+        {
+            long loggedUserId = long.Parse(HttpContext
+                .User.Claims
+                .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                .Value);
+
+            string loggedUserRole = HttpContext
+                .User.Claims
+                .FirstOrDefault(c => c.Type == ClaimTypes.Role)
+                .Value;
+
+            if (loggedUserId != id && loggedUserRole == "client")
+                return Unauthorized();
+
+            _orderService.UpdateClientData(id, order);
+            return Ok();
+        }
+
+        [HttpPut("delivery/{id}")]
+        [Authorize(Roles = "administrator, employee")]
+        public ActionResult<Order> UpdateDeliveryDetails([FromRoute] long id, [FromBody] UpdateOrderDeliveryDetailsDto order)
+        {
+            _orderService.UpdateDeliveryDetails(id, order);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -55,18 +100,7 @@ namespace _4big.Controllers
         public ActionResult Delete([FromRoute] int id)
         {
             _orderService.Delete(id);
-
             return NoContent();
-        }
-
-        [HttpPut("{id}")]
-        [Authorize]
-        public ActionResult<Order> Update([FromRoute]int id, [FromBody]Order order)
-        {
-            Order updatedOrder = _orderService.Update(id, order);
-
-            if (updatedOrder == null) return BadRequest();
-            return Ok(updatedOrder);
         }
     }
 }
