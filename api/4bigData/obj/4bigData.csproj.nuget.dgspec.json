@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\4bigData\\4bigData.csproj": {}
+    "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj": {}
   },
   "projects": {
-    "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\4bigData\\4bigData.csproj": {
+    "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\4bigData\\4bigData.csproj",
+        "projectUniqueName": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj",
         "projectName": "4bigData",
-        "projectPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\4bigData\\4bigData.csproj",
+        "projectPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj",
         "packagesPath": "C:\\Users\\borad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\4bigData\\obj\\",
+        "outputPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\borad\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -20,6 +20,10 @@ namespace _4bigData.Models
         public string City { get; set; }
         public string Nip { get; set; }
         public string Pickup { get; set; }
+        public string PackageNum { get; set; }
+        public string PackedDate { get; set; }
+        public string SendDate { get; set; }
+        public string ReceivedDate { get; set; }
 
         public UserDto User { get; set; }
         public List<CookieDto> Cookies { get; set; }

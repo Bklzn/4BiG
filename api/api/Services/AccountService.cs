@@ -21,19 +21,22 @@ namespace _4big.Services
     {
         void RegisterUser(RegisterUserDto dto);
         string GenerateJwt(LoginDto dto);
-
+        UserDto GetUserData(long id);
+        void UpdateUserData(long id, RegisterUserDto dto);
     }
     public class AccountService : IAccountService
     {
         private readonly CookieDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
+        private readonly IMapper _mapper;
 
-        public AccountService(CookieDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+        public AccountService(CookieDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings, IMapper mapper)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
+            _mapper = mapper;
         }
 
         public void RegisterUser(RegisterUserDto dto)
@@ -90,6 +93,33 @@ namespace _4big.Services
 
             var tokenHendler = new JwtSecurityTokenHandler();
             return tokenHendler.WriteToken(token);
+        }
+
+        public UserDto GetUserData(long id)
+        {
+            var user = _dbContext
+                .Users
+                .FirstOrDefault(u => u.Id == id);
+
+            if (user == null) throw new NotFoundException("User do not exist!");
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
+        }
+
+        public void UpdateUserData(long id, RegisterUserDto dto)
+        {
+            var user = _dbContext
+                .Users
+                .FirstOrDefault(u => u.Id == id);
+
+            if (user == null) throw new NotFoundException("User do not exist!");
+
+            user.Email = dto.Email;
+            user.Password = dto.Password;
+
+            _dbContext.SaveChanges();
         }
     }
 }

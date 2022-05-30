@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LcDGVr3RPPSrrZXFm0oMlFHgEBpV1hsWkHOchik+14laVlwTpwyvPLhCne2/NXBC1bTxclBsf7M1NB28MY+Qhw==",
+  "dgSpecHash": "5khzr0igBniGbfREe/0KrOWYibjnxiZhhnaQAyRvj22eGNqVKClZgsIOV/mOwGaCFzsnD5NWXUwGpfH5likTwA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\4bigData\\4bigData.csproj",
+  "projectFilePath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\borad\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\borad\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

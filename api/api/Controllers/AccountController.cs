@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace _4big.Controllers
 {
@@ -33,6 +35,28 @@ namespace _4big.Controllers
         {
             string token = _accountService.GenerateJwt(dto);
             return Ok(token);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult GetUserData()
+        {
+            long id = long.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            
+            var user = _accountService.GetUserData(id);
+
+            return Ok(user);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public ActionResult UpdateUserData([FromBody] RegisterUserDto dto)
+        {
+            long id = long.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            _accountService.UpdateUserData(id, dto);
+
+            return Ok();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace _4bigData.Models
 {
     public class CookieDto
     {
+        public long CookieId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
