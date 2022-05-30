@@ -10,3 +10,15 @@ C:\Users\borad\OneDrive\Projekty\studia\4big\4bigData\obj\Debug\net5.0\4bigData.
 C:\Users\borad\OneDrive\Projekty\studia\4big\4bigData\obj\Debug\net5.0\refint\4bigData.dll
 C:\Users\borad\OneDrive\Projekty\studia\4big\4bigData\obj\Debug\net5.0\4bigData.pdb
 C:\Users\borad\OneDrive\Projekty\studia\4big\4bigData\obj\Debug\net5.0\ref\4bigData.dll
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\bin\Debug\net5.0\4bigData.deps.json
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\bin\Debug\net5.0\4bigData.dll
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\bin\Debug\net5.0\4bigData.pdb
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.csproj.AssemblyReference.cache
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.AssemblyInfoInputs.cache
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.AssemblyInfo.cs
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.csproj.CoreCompileInputs.cache
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.dll
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\refint\4bigData.dll
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\4bigData.pdb
+C:\Users\borad\OneDrive\Projekty\studia\4big\api\4bigData\obj\Debug\net5.0\ref\4bigData.dll

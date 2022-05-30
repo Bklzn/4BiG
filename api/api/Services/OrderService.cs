@@ -165,8 +165,14 @@ namespace _4big.Services
                 .Orders
                 .FirstOrDefault(o => o.OrderId == id);
 
+            var cookieOrders = _dbContext
+                .CookieOrders
+                .Where(o => o.OrderId == id)
+                .ToList();
+
             if (order is null) throw new NotFoundException("Order not found!");
 
+            _dbContext.CookieOrders.RemoveRange(cookieOrders);
             _dbContext.Orders.Remove(order);
             _dbContext.SaveChanges();
         }

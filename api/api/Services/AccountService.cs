@@ -20,7 +20,7 @@ namespace _4big.Services
     public interface IAccountService
     {
         void RegisterUser(RegisterUserDto dto);
-        string GenerateJwt(LoginDto dto);
+        LoggedDataDto GenerateJwt(LoginDto dto);
         UserDto GetUserData(long id);
         void UpdateUserData(long id, RegisterUserDto dto);
     }
@@ -56,7 +56,7 @@ namespace _4big.Services
             _dbContext.SaveChanges();
         }
 
-        public string GenerateJwt(LoginDto dto)
+        public LoggedDataDto GenerateJwt(LoginDto dto)
         {
             var user = _dbContext
                 .Users
@@ -92,7 +92,13 @@ namespace _4big.Services
                 signingCredentials: cred);
 
             var tokenHendler = new JwtSecurityTokenHandler();
-            return tokenHendler.WriteToken(token);
+
+            var loginResult = new LoggedDataDto(){ 
+                UserId = user.Id, 
+                Token = tokenHendler.WriteToken(token)
+            };
+
+            return loginResult;
         }
 
         public UserDto GetUserData(long id)

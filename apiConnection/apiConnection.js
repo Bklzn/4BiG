@@ -1,5 +1,5 @@
 const URL = "https://localhost:5001/api/"
-var jwtoken = window.sessionStorage.getItem("jwt")
+var jwtoken = sessionStorage.getItem("jwt")
 
 //-------------------------------------------------------------
 //  Produkty
@@ -9,7 +9,7 @@ function CreateProduct(Product){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"product/", true)
+    request.open('POST', URL+"product/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -32,7 +32,7 @@ function GetProductsFromCategory(category){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"product/"+category, true)
+    request.open('GET', URL+"product/"+category, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -54,7 +54,7 @@ function UpdateProduct(Product, id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('PUT', URL+"product/"+id, true)
+    request.open('PUT', URL+"product/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -77,7 +77,7 @@ function DeleteProduct(id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('DELETE', URL+"product/"+id, true)
+    request.open('DELETE', URL+"product/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -100,7 +100,7 @@ function AddPropertyToProduct(ProductId, PropertyId){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"product/"+ProductId+"/"+PropertyId, true)
+    request.open('POST', URL+"product/"+ProductId+"/"+PropertyId, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null)  request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -123,7 +123,7 @@ function DeletePropertyFromProduct(ProductId, PropertyId){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('DELETE', URL+"product/"+ProductId+"/"+PropertyId, true)
+    request.open('DELETE', URL+"product/"+ProductId+"/"+PropertyId, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -150,7 +150,7 @@ function CreateProperty(Property){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"property/", true)
+    request.open('POST', URL+"property/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -173,7 +173,7 @@ function GetProperties(){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"property/", true)
+    request.open('GET', URL+"property/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -195,7 +195,7 @@ function UpdateProperty(Property, id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('PUT', URL+"property/"+id, true)
+    request.open('PUT', URL+"property/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -218,7 +218,7 @@ function DeleteProperty(id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('DELETE', URL+"property/"+id, true)
+    request.open('DELETE', URL+"property/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -245,7 +245,7 @@ function CreateOrder(Order){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"order/", true)
+    request.open('POST', URL+"order/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -268,7 +268,7 @@ function GetAllOrders(){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"order/", true)
+    request.open('GET', URL+"order/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -290,7 +290,7 @@ function GetUserOrders(id){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"order/"+id, true)
+    request.open('GET', URL+"order/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -312,7 +312,7 @@ function UpdateOrder(Order, id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('PUT', URL+"order/"+id, true)
+    request.open('PUT', URL+"order/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -335,7 +335,7 @@ function UpdateDelivery(Delivery, id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('PUT', URL+"order/delivery"+id, true)
+    request.open('PUT', URL+"order/delivery"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -358,7 +358,7 @@ function DeleteOrder(id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('DELETE', URL+"order/"+id, true)
+    request.open('DELETE', URL+"order/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -385,7 +385,7 @@ function RegisterUser(UserReg){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"account/register/", true)
+    request.open('POST', URL+"account/register/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     request.onload = function () {
@@ -408,14 +408,15 @@ function LoginUser(UserLog){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"account/login/", true)
+    request.open('POST', URL+"account/login/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            console.log("login");
-            data = this.response
-            sessionStorage.setItem("jwt", data)
+            data = JSON.parse(this.response)
+            sessionStorage.setItem("UserId", data.UserId)
+            sessionStorage.setItem("jwt", data.Token)
+            jwtoken = sessionStorage.getItem("jwt")
             ok = true
         }
         else{
@@ -433,7 +434,7 @@ function GetUserData(){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"account/", true)
+    request.open('GET', URL+"account/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -451,11 +452,11 @@ function GetUserData(){
     return data;
 }
 
-function UpdateCookie(UserReg){
+function UpdateUser(UserReg){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('PUT', URL+"account/", true)
+    request.open('PUT', URL+"account/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -481,7 +482,7 @@ function CreateCookie(Cookie){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('POST', URL+"cookie/", true)
+    request.open('POST', URL+"cookie/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -504,7 +505,7 @@ function GetCookiesFromOrder(CookieId){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"cookie/"+CookieId, true)
+    request.open('GET', URL+"cookie/"+CookieId, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -526,7 +527,7 @@ function GetUserFavoriteCookies(UserId){
     var data;
     var request = new XMLHttpRequest()
 
-    request.open('GET', URL+"cookie/favorite"+UserId, true)
+    request.open('GET', URL+"cookie/favorite"+UserId, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -548,7 +549,7 @@ function UpdateCookie(Cookie, id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('PUT', URL+"cookie/"+id, true)
+    request.open('PUT', URL+"cookie/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
@@ -571,7 +572,7 @@ function DeleteCookie(id){
     var request = new XMLHttpRequest()
     var ok
 
-    request.open('DELETE', URL+"order/"+id, true)
+    request.open('DELETE', URL+"order/"+id, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
