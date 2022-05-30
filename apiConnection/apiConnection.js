@@ -7,6 +7,7 @@ var jwtoken = window.sessionStorage.getItem("jwt")
 
 function CreateProduct(Product){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"product/", true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -14,14 +15,17 @@ function CreateProduct(Product){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Product))
+
+    return ok
 }
 
 function GetProductsFromCategory(category){
@@ -48,6 +52,7 @@ function GetProductsFromCategory(category){
 
 function UpdateProduct(Product, id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('PUT', URL+"product/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -55,18 +60,22 @@ function UpdateProduct(Product, id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Product))
+
+    return ok
 }
 
 function DeleteProduct(id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('DELETE', URL+"product/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -74,18 +83,22 @@ function DeleteProduct(id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send()
+
+    return ok
 }
 
 function AddPropertyToProduct(ProductId, PropertyId){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"product/"+ProductId+"/"+PropertyId, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -93,18 +106,22 @@ function AddPropertyToProduct(ProductId, PropertyId){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send()
+
+    return ok;
 }
 
 function DeletePropertyFromProduct(ProductId, PropertyId){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('DELETE', URL+"product/"+ProductId+"/"+PropertyId, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -112,14 +129,17 @@ function DeletePropertyFromProduct(ProductId, PropertyId){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send()
+
+    return ok
 }
 
 //-------------------------------------------------------------
@@ -128,6 +148,7 @@ function DeletePropertyFromProduct(ProductId, PropertyId){
 
 function CreateProperty(Property){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"property/", true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -135,14 +156,17 @@ function CreateProperty(Property){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Property))
+
+    return ok
 }
 
 function GetProperties(){
@@ -169,6 +193,7 @@ function GetProperties(){
 
 function UpdateProperty(Property, id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('PUT', URL+"property/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -176,18 +201,22 @@ function UpdateProperty(Property, id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Property))
+
+    return ok
 }
 
 function DeleteProperty(id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('DELETE', URL+"property/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -195,14 +224,17 @@ function DeleteProperty(id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send()
+
+    return ok
 }
 
 //-------------------------------------------------------------
@@ -211,6 +243,7 @@ function DeleteProperty(id){
 
 function CreateOrder(Order){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"order/", true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -218,14 +251,17 @@ function CreateOrder(Order){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Order))
+
+    return ok
 }
 
 function GetAllOrders(){
@@ -274,6 +310,7 @@ function GetUserOrders(id){
 
 function UpdateOrder(Order, id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('PUT', URL+"order/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -281,19 +318,22 @@ function UpdateOrder(Order, id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Order))
+
+    return ok
 }
 
 function UpdateDelivery(Delivery, id){
-    var data;
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('PUT', URL+"order/delivery"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -301,18 +341,22 @@ function UpdateDelivery(Delivery, id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Delivery))
+
+    return ok
 }
 
 function DeleteOrder(id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('DELETE', URL+"order/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -320,13 +364,17 @@ function DeleteOrder(id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send()
+
+    return ok
 }
 
 //-------------------------------------------------------------
@@ -335,25 +383,30 @@ function DeleteOrder(id){
 
 function RegisterUser(UserReg){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"account/register/", true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(UserReg))
+
+    return ok
 }
 
 function LoginUser(UserLog){
     var data
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"account/login/", true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -363,14 +416,61 @@ function LoginUser(UserLog){
             console.log("login");
             data = this.response
             sessionStorage.setItem("jwt", data)
+            ok = true
         }
         else{
-            console.log("login2");
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(UserLog))
+
+    return ok
+}
+
+function GetUserData(){
+    var data;
+    var request = new XMLHttpRequest()
+
+    request.open('GET', URL+"account/", true)
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
+
+    request.onload = function () {
+        if(request.status >= 200 && request.status < 400){
+            data = JSON.parse(this.response)
+        }
+        else{
+            console.log("Error: "+request.status+"\n"+this.response)
+        }
+    }
+
+    request.send()
+
+    return data;
+}
+
+function UpdateCookie(UserReg){
+    var request = new XMLHttpRequest()
+    var ok
+
+    request.open('PUT', URL+"account/", true)
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
+
+    request.onload = function () {
+        if(request.status >= 200 && request.status < 400){
+            ok = true
+        }
+        else{
+            ok = false
+            console.log("Error: "+request.status+"\n"+this.response)
+        }
+    }
+
+    request.send(JSON.stringify(UserReg))
+    return ok
 }
 
 //-------------------------------------------------------------
@@ -379,6 +479,7 @@ function LoginUser(UserLog){
 
 function CreateCookie(Cookie){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('POST', URL+"cookie/", true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -386,14 +487,17 @@ function CreateCookie(Cookie){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Cookie))
+
+    return ok
 }
 
 function GetCookiesFromOrder(CookieId){
@@ -442,6 +546,7 @@ function GetUserFavoriteCookies(UserId){
 
 function UpdateCookie(Cookie, id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('PUT', URL+"cookie/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -449,18 +554,22 @@ function UpdateCookie(Cookie, id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Order))
+
+    return ok
 }
 
 function DeleteCookie(id){
     var request = new XMLHttpRequest()
+    var ok
 
     request.open('DELETE', URL+"order/"+id, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -468,11 +577,15 @@ function DeleteCookie(id){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
+            ok = true
         }
         else{
+            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send()
+
+    return ok
 }
