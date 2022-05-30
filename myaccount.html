@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker.min.css">
-    <link rel="stylesheet" href="bar.css">
-    <link rel="stylesheet" href="cookie.css">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="login1.css">
+    <link rel="stylesheet" href="css/bar.css">
+    <link rel="stylesheet" href="css/cookie.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/login1.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -435,7 +435,7 @@
                           if(Order.ApartmenNum!=null) street+='/'+Order.ApartmenNum;
                           inner+='<p class="font-weight-bold mb-1">Punkt odbioru</p>'+'OPIS'+'<div class="col-12 col-sm-6 col-md-4" style="margin-bottom: 20px;"> <div class="px-4"> <p class="font-weight-bold mb-1">Dane odbiorcy</p> <div style="font-size: 14px">'+Order.FirstName+' '+Order.LastName+'</div> <div style="font-size: 14px">'+street+'</div> <div style="font-size: 14px">'+Order.ZipCode+' '+Order.City+'</div> <div style="font-size: 14px">'+Order.PhoneNumber+'</div> </div> </div> </div> <hr style="margin-top: 0px; margin-bottom: 20px;">';
                           Order.Cookies.forEach(cookie => {
-                            inner+='<div class="row m-0"> <div class="col-1 p-0 ml-5"> <div class="row"> <div class="col" style="max-height: 50px;"> <img src="113.svg" style="max-height: 50px;" class="align-left photo"> </div> </div> </div> <div class="col"> <div class="row"> <div class="col" style="line-height: 50px;"> <a class="product_order_history" data-toggle="modal" data-target="#order_product_1">'+Cookie.Name+' onclick=cookieProduct('+Cookie.CookieId+')</a> </div> </div> </div> <div class="col-2"> <div class="row"> <small class="col p-0 d-flex justify-content-end" style="line-height: 50px; color: #6c757d;">'+1+' x '+'PRICE'+' zł'+'</small> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 50px;">'+'1*PRICE'+' zł'+'</div> </div> </div> </div> <div style="padding-bottom: 20px;"></div>';
+                            inner+='<div class="row m-0"> <div class="col-1 p-0 ml-5"> <div class="row"> <div class="col" style="max-height: 50px;"> <img src="static/113.svg" style="max-height: 50px;" class="align-left photo"> </div> </div> </div> <div class="col"> <div class="row"> <div class="col" style="line-height: 50px;"> <a class="product_order_history" data-toggle="modal" data-target="#order_product_1">'+Cookie.Name+' onclick=cookieProduct('+Cookie.CookieId+')</a> </div> </div> </div> <div class="col-2"> <div class="row"> <small class="col p-0 d-flex justify-content-end" style="line-height: 50px; color: #6c757d;">'+1+' x '+'PRICE'+' zł'+'</small> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 50px;">'+'1*PRICE'+' zł'+'</div> </div> </div> </div> <div style="padding-bottom: 20px;"></div>';
                           });
                           inner+=' <div style="padding-bottom: 20px;"></div> <div class="row m-0"> <div class="col-1 ml-5"> <div class="row"> <div class="col" style="max-height: 30px;"> <div class="row"> <div class="col p-0 d-flex justify-content-start" style="line-height: 30px;"> Dostawa </div> </div> </div> </div> </div> <div class="col"> <div class="row"> </div> </div> <div class="col-2"> <div class="row"> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 30px;">'+'DELIVERY_PRICE'+'</div> </div> </div> </div> <div class="row m-0"> <div class="col-1 ml-5"> <div class="row"> <div class="col" style="max-height: 30px;"> <div class="row"> <div class="col p-0 d-flex justify-content-start" style="line-height: 30px;"> Razem </div> </div> </div> </div> </div> <div class="col"> <div class="row"> </div> </div> <div class="col-2"> <div class="row"> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 30px;">'+'SUM(MULTIPLY*PRICE)'+'</div> </div> </div> </div> <div style="padding-bottom: 20px;"></div> </div> </div>';
                       })

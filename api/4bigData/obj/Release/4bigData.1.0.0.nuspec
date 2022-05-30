@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>4bigData</id>
+    <version>1.0.0</version>
+    <authors>4bigData</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.1" exclude="Build,Analyzers" />
+        <dependency id="FluentValidation.AspNetCore" version="11.0.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="5.0.17" exclude="Build,Analyzers" />
+        <dependency id="Npgsql" version="5.0.13" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\panpa\source\repos\gitprojekt\api\4bigData\bin\Release\net5.0\4bigData.dll" target="lib\net5.0\4bigData.dll" />
+  </files>
+</package>

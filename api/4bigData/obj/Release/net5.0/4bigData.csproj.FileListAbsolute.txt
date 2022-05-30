@@ -1,0 +1,12 @@
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\bin\Release\net5.0\4bigData.deps.json
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\bin\Release\net5.0\4bigData.dll
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\bin\Release\net5.0\4bigData.pdb
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.csproj.AssemblyReference.cache
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.AssemblyInfoInputs.cache
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.AssemblyInfo.cs
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.csproj.CoreCompileInputs.cache
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.dll
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\refint\4bigData.dll
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\4bigData.pdb
+C:\Users\panpa\source\repos\gitprojekt\api\4bigData\obj\Release\net5.0\ref\4bigData.dll
