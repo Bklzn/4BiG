@@ -18,6 +18,7 @@
     <script src="https://kit.fontawesome.com/6c40eaf681.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/locales/pl.js"></script>
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <script type="text/javascript">
       function open_nav_user() {
         var x = document.getElementById("open_user");
@@ -63,6 +64,31 @@
           }
         });
       });
+
+      $(document).ready(function(){
+    $(":input").inputmask();
+    
+    $("#zip").inputmask({
+  mask: '99-999',
+  placeholder: ' ',
+  showMaskOnHover: false,
+  showMaskOnFocus: false,
+});
+    
+    $("#phone").inputmask({
+  mask: '+48 999 999 999',
+  placeholder: ' ',
+  showMaskOnHover: false,
+  showMaskOnFocus: false,
+});
+    $("#phone1").inputmask({
+  mask: '+48 999 999 999',
+  placeholder: ' ',
+  showMaskOnHover: false,
+  showMaskOnFocus: false,
+});
+});
+
 
     </script>
   </head>
@@ -155,11 +181,11 @@
                       </div>
                       <div class="col-10 col-sm-8 col-md-4 pb-3 mx-auto">
                         <label for="InputName">Imię</label>
-                        <input type="text" class="form-control input-user" value="Imię">
+                        <input type="text" class="form-control input-user">
                       </div>
                       <div class="col-10 col-sm-8 col-md-4 pb-3 mx-auto">
                         <label for="InputLastName">Nazwisko</label>
-                        <input type="text" class="form-control input-user" value="Nazwisko">
+                        <input type="text" class="form-control input-user">
                       </div>
                     </div>
                     <div class="row">
@@ -167,7 +193,7 @@
                       <div class="col-10 col-sm-8 col-md-4 mx-auto pb-3">
                         <label for="InputBirth">Data urodzenia</label>
                         <div class="input-group input-user wrapper-2" style="border-radius: 0.25rem;">
-                          <input type="text" class="datepicker_input form-control" id="datepicker1" style="box-shadow: none; border: none; height: 34px !important; cursor: pointer;" value="getData()">
+                          <input type="text" class="datepicker_input form-control" id="datepicker1" style="box-shadow: none; border: none; height: 34px !important; cursor: pointer;">
                           <div class="input-group-append" style="cursor:pointer;">
                             <span class="input-group-text" id="basic-addon2" style="background: none; border: none;">
                               <i class="fas fa-calendar" style="cursor: pointer; color: rgba(124,97,82,1);"></i>
@@ -182,8 +208,10 @@
                       <div class="col-10 col-sm-8 col-md-4 mx-auto pb-3">
                         <div class="form-group mb-0">
                           <label for="ImputPhone">Numer telefonu</label>
-                          <input class="form-control input-user" type="tel" id="phone" name="phone" pattern="[0-9]{9}" value="123456789">
-                          <small id="telhelp" class="form-text text-muted">Numer telefonu musi składać się z 9 cyfr</small>
+                          <input class="form-control input-user" id="phone" style="box-shadow: none;">
+                          <small id="telhelp" class="form-text text-muted">
+                          	Numer telefonu musi składać się z 9 cyfr
+                        	</small>
                         </div>
                       </div>
                       <div class="col-0 col-sm-0 col-md-4"></div>
@@ -213,7 +241,7 @@
                       <div class="col-0 col-sm-0 col-md-4 col-lg-4"></div>
                       <div class="col-10 col-sm-8 col-md-6 col-lg-4 mx-auto pb-3">
                         <label for="InputEmailNew">Nowy e-mail</label>
-                        <input type="e-mail" class="form-control input-user" style="box-shadow: none;">
+                        <input id="email" type="e-mail" class="form-control input-user" data-inputmask="'alias': 'email'" style="box-shadow: none;">
                       </div>
                       <div class="col-0 col-sm-0 col-md-2 col-lg-4"></div>
                     </div>
@@ -221,7 +249,7 @@
                       <div class="col-0 col-sm-0 col-md-4 col-lg-4"></div>
                       <div class="col-10 col-sm-8 col-md-6 col-lg-4 mx-auto pb-3">
                         <label for="InputEmailNew2">Potwierdź nowy e-mail</label>
-                        <input type="e-mail" class="form-control input-user" style="box-shadow: none;">
+                        <input id="email" type="e-mail" class="form-control input-user" data-inputmask="'alias': 'email'" style="box-shadow: none;">
                       </div>
                       <div class="col-0 col-sm-0 col-md-2 col-lg-4"></div>
                     </div>
@@ -335,7 +363,7 @@
                       <div class="col-8 col-sm-8 col-md-4 pb-3 mx-auto">
                         <div class="form-group mb-0">
                           <label for="ImputPhoneDelivery">Numer telefonu</label>
-                          <input class="form-control input-user" type="tel" id="phone" name="phone" pattern="[0-9]{9}">
+                          <input class="form-control input-user" id="phone1" >
                           <small id="telhelp" class="form-text text-muted">Numer telefonu musi składać się z 9 cyfr</small>
                         </div>
                       </div>
@@ -343,18 +371,20 @@
                     </div>
                     <div class="row">
                       <div class="col-0 col-sm-0 col-md-4"></div>
-                      <div class="col-8 col-sm-8 col-md-4 mx-auto pb-3">
-                        <label for="ImputStreetDelivery">Ulica i numer</label>
-                        <input class="form-control input-user">
+                      <div class="col-8 col-sm-8 col-md-4 pb-3 mx-auto">
+                        <label for="InputStreetDelivery">Ulica</label>
+                        <input type="text" class="form-control input-user">
                       </div>
-                      <div class="col-0 col-sm-0 col-md-4">
+                      <div class="col-8 col-sm-8 col-md-4 pb-3 mx-auto">
+                        <label for="InputLastNumDelivery">Numer</label>
+                        <input type="text" class="form-control input-user">
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-0 col-sm-0 col-md-4"></div>
                       <div class="col-8 col-sm-8 col-md-4 mx-auto pb-3">
                         <label for="ImputZipDelivery">Kod pocztowy</label>
-                        <input class="form-control input-user">
+                        <input id="zip" class="form-control input-user">
                       </div>
                       <div class="col-8 col-sm-8 col-md-4 mx-auto pb-3">
                         <label for="ImputCityDelivery">Miasto</label>
@@ -838,7 +868,6 @@
                         </div>
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="border-top: 1px solid rgba(0, 0, 0, 0.08) !important;">
                           <div class="card-body">
-                            <!-- Jakąś strukturę tutaj dać na bazie tego co jest na allegro i na dribble. Skład, adres dostawy, kwota płatności i jej typ plus status zamówienia w formie jakiegoś paska z podpisami jak jest ss na mess bądź w pionowej ale to już do wyboru plus do tego właśnie ogółem dane od dostawie, gdzie, jaka, do kogo no i oczywiście info co jest zamówione i za ile itp.  <br><br>  Dobrze jakby był przycisk przeniesienia danyego ciastka do koszyka. Po kliknięciu w ciastko otwiera się popup ze składnikami, składem, właściwościami, opisem, nazwą i co tam jeszcze jest przypisane do produktu <br><br> Od statusu zamówenia ma zależeć ikona, zrobić to js <br><br> Zmienić też styl tego okna i przycisku co go otwiera w stylu raczej takim jakim dzisiaj działałem -->
                             <div class="col-12">
                               <ul id="progressbar" class="text-center">
                                 <li class="active step0"></li>
