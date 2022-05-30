@@ -24,8 +24,7 @@ POST https://localhost:5001/api/product:
     }
 }
 
-GET https://localhost:5001/api/product:
-"fruits"
+GET https://localhost:5001/api/product/fruits:
 
 PUT https://localhost:5001/api/product/1:
 {
@@ -96,7 +95,11 @@ POST https://localhost:5001/api/order
     "CookiesIds": [1, 3]
 }
 
+/* Zbiór wszystkich zamówień */
 GET https://localhost:5001/api/order
+
+/* Zbiór zamówień użytkownika o id 3 */
+GET https://localhost:5001/api/order/3
 
 PUT https://localhost:5001/api/order/1
 {
