@@ -438,13 +438,14 @@
                           if(Order.ApartmenNum!=null) street+='/'+Order.ApartmenNum;
                           inner+='<p class="font-weight-bold mb-1">Punkt odbioru</p>'+'OPIS'+' </div></div><div class="col-12 col-sm-6 col-md-4" style="margin-bottom: 20px;"> <div class="px-4"> <p class="font-weight-bold mb-1">Dane odbiorcy</p> <div style="font-size: 14px">'+Order.FirstName+' '+Order.LastName+'</div> <div style="font-size: 14px">'+street+'</div> <div style="font-size: 14px">'+Order.ZipCode+' '+Order.City+'</div> <div style="font-size: 14px">'+Order.PhoneNumber+'</div> </div> </div> </div><hr style="margin-top: 0px; margin-bottom: 20px;">';
                           Order.Cookies.forEach(cookie => {
+                            console.log(cookie);
                             var cookiePrice=0;
                             cookie.Products.forEach(product =>{
-                              CookiePrice+=product.price;
+                              cookiePrice+=product.Price;
                               console.log(product);
                             });
-                            inner+=' <div class="row m-0"> <div class="col-1 p-0 ml-5"> <div class="row"> <div class="col" style="max-height: 50px;"> <img src="static/113.svg" style="max-height: 50px;" class="align-left photo"> </div> </div> </div> <div class="col"> <div class="row"> <div class="col" style="line-height: 50px;"> <a class="product_order_history" data-toggle="modal" data-target="#order_product_1" onclick=cookieProduct('+Cookie.CookieId+')>'+Cookie.Name+'</a> </div> </div> </div> <div class="col-2"> <div class="row"> <small class="col p-0 d-flex justify-content-end" style="line-height: 50px; color: #6c757d;">'+1+' x '+cookiePrice+' zł'+'</small> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 50px;">'+1*cookiePrice+'zł </div> </div> </div> </div> <div style="padding-bottom: 20px;"></div>';
-                            TotalPrice+=CookiePrice;
+                            inner+=' <div class="row m-0"> <div class="col-1 p-0 ml-5"> <div class="row"> <div class="col" style="max-height: 50px;"> <img src="static/113.svg" style="max-height: 50px;" class="align-left photo"> </div> </div> </div> <div class="col"> <div class="row"> <div class="col" style="line-height: 50px;"> <a class="product_order_history" data-toggle="modal" data-target="#order_product_1" onclick=\'cookieProduct('+JSON.stringify(cookie)+')\'>'+cookie.Name+'</a> </div> </div> </div> <div class="col-2"> <div class="row"> <small class="col p-0 d-flex justify-content-end" style="line-height: 50px; color: #6c757d;">'+1+' x '+cookiePrice+' zł'+'</small> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 50px;">'+1*cookiePrice+'zł </div> </div> </div> </div> <div style="padding-bottom: 20px;"></div>';
+                            TotalPrice+=cookiePrice;
                           });
                           TotalPrice+=deliveryPrice;
                           inner+='<div class="row m-0"> <div class="col-1 ml-5"> <div class="row"> <div class="col" style="max-height: 30px;"> <div class="row"> <div class="col p-0 d-flex justify-content-start" style="line-height: 30px;"> Dostawa </div> </div> </div> </div> </div> <div class="col"> <div class="row"> </div> </div> <div class="col-2"> <div class="row"> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 30px;">'+deliveryPrice+' zł </div> </div> </div> </div> <div class="row m-0"> <div class="col-1 ml-5"> <div class="row"> <div class="col" style="max-height: 30px;"> <div class="row"> <div class="col p-0 d-flex justify-content-start" style="line-height: 30px;"> Razem </div></div> </div> </div> </div> <div class="col"> <div class="row"> </div> </div> <div class="col-2"> <div class="row"> </div> </div> <div class="col-2 mr-5"> <div class="row"> <div class="col p-0 d-flex justify-content-end" style="line-height: 30px;">'+TotalPrice+' zł </div> </div> </div> </div> <div style="padding-bottom: 20px;"> </div> </div></div> ';
@@ -828,28 +829,27 @@
 <script type="text/javascript">
   document.getElementById("currentUserEmail").value=GetUserData().Email;
 
-  function cookieProduct(CookieId){
-    Order.Cookie.forEach(cookie => {
-      if(Cookie.CookieId==CookieId){
+  function cookieProduct(Cookie){
+    console.log("COOKIE_PRODUCT");
+    // console.log(JSONCookie);
+    // var Cookie = JSON.parse(JSONCookie);
+    console.log(Cookie);
         var inner='<div class="modal-dialog modal-lg modal-dialog-centered" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">'+Cookie.Name+'</h5> </div> <div class="modal-body"> <div class="row"> <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-center"> <div class="container"> <div class="row"> <div class="col"> <div class="col-12 p-0"> <form> <div class="form-group"> <label for="InputCookieText">Opis</label> <textarea class="form-control input-user" id="exampleFormControlTextarea1" rows="5" disabled style="box-shadow: none; background-color: #ffffff; color: #000000;">'+Cookie.Description+'</textarea> </div> </form> </div> <div class="col-12 p-0 pb-3"> <label for="InputCookieText">Składniki</label>';
-        Cookie.forEach(product =>{
-          var sumEnergy=0;sumFatTotal=0,sumSaturatedFat=0, sumCarbon=0, sumSugar=0;sumFibre=0; sumProtein=0, sumSalt=0;
-          product.forEach(nutrVal =>{
-            inner+='<div class="col mx-2"> <div class="row"> <div class="col-2 my-auto"> <img src="'+Product.SVGModelPath+'"> </div> <div class="col my-auto">'+Product.Name+'</div> <div class="col-2 my-auto d-flex justify-content-end">1</div> </div> </div> <div class="w-100"></div>';
-            sumEnergy+=nutrVal.Energy;
-            sumFatTotal+=nutrVal.FatTotal;
-            sumSaturatedFat+=nutrVal.SaturatedFat;
-            sumCarbon+=nutrVal.Carbohydrate;
-            sumSugar+=nutrVal.Sugar;
-            sumFibre+=nutrVal.Fibre;
-            sumProtein+=nutrVal.Protein;
-            sumSalt+=nutrVal.Salt;
-          });
-          inner+='</div> </div> </div> </div> </div> <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-center"> <div class="container"> <div class="row"> <div class="col"> <div class="col-12 p-0"> <ul class="list-group list-group-flush"> <label>Wartośći odżywcze na 100g</label> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Wartość energetyczna</div> <div class="col-4 d-flex justify-content-end">'+sumEnergy+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Tłuszcz</div> <div class="col-4 d-flex justify-content-end">'+sumFatTotal+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8"> <div style="margin-left: 8%">w tym kwasy tłuszczowe nasycone</div> </div> <div class="col-4 d-flex justify-content-end">'+sumSaturatedFat+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Węglowodany</div> <div class="col-4 d-flex justify-content-end">'+sumCarbon+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8"> <div style="margin-left: 8%">w tym cukry</div> </div> <div class="col-4 d-flex justify-content-end">'+sumSugar+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Błonnik</div> <div class="col-4 d-flex justify-content-end">'+sumFibre+'/div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Białko</div> <div class="col-4 d-flex justify-content-end">'+sumProtein+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Sól</div> <div class="col-4 d-flex justify-content-end">'+sumSalt+'</div> </div> </div> </li> </ul> </div> </div> </div> </div> </div> </div> </div> </div> </div>'; 
+        var sumEnergy=0;sumFatTotal=0,sumSaturatedFat=0, sumCarbon=0, sumSugar=0;sumFibre=0; sumProtein=0, sumSalt=0;
+          Cookie.Products.forEach(product =>{
+            inner+='<div class="col mx-2"> <div class="row"> <div class="col-2 my-auto"> <img src="'+product.SVGModelPath+'"> </div> <div class="col my-auto">'+product.Name+'</div> <div class="col-2 my-auto d-flex justify-content-end">1</div> </div> </div> <div class="w-100"></div>';
+            console.log("1");
+            sumEnergy+=product.NutritionalValues.Energy;
+            sumFatTotal+=product.NutritionalValues.FatTotal;
+            sumSaturatedFat+=product.NutritionalValues.SaturatedFat;
+            sumCarbon+=product.NutritionalValues.Carbohydrate;
+            sumSugar+=product.NutritionalValues.Sugars;
+            sumFibre+=product.NutritionalValues.Fibre;
+            sumProtein+=product.NutritionalValues.Protein;
+            sumSalt+=product.NutritionalValues.Salt;
         });
-      }
+        inner+='</div> </div> </div> </div> </div> <div class="col-12 col-sm-12 col-md-12 col-lg-6 d-flex justify-content-center"> <div class="container"> <div class="row"> <div class="col"> <div class="col-12 p-0"> <ul class="list-group list-group-flush"> <label>Wartośći odżywcze na 100g</label> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Wartość energetyczna</div> <div class="col-4 d-flex justify-content-end">'+sumEnergy+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Tłuszcz</div> <div class="col-4 d-flex justify-content-end">'+sumFatTotal+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8"> <div style="margin-left: 8%">w tym kwasy tłuszczowe nasycone</div> </div> <div class="col-4 d-flex justify-content-end">'+sumSaturatedFat+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Węglowodany</div> <div class="col-4 d-flex justify-content-end">'+sumCarbon+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8"> <div style="margin-left: 8%">w tym cukry</div> </div> <div class="col-4 d-flex justify-content-end">'+sumSugar+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Błonnik</div> <div class="col-4 d-flex justify-content-end">'+sumFibre+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Białko</div> <div class="col-4 d-flex justify-content-end">'+sumProtein+'</div> </div> </div> </li> <li class="list-group-item nutritional"> <div class="container"> <div class="row"> <div class="col-8">Sól</div> <div class="col-4 d-flex justify-content-end">'+sumSalt+'</div> </div> </div> </li> </ul> </div> </div> </div> </div> </div> </div> </div> </div> </div>'; 
 
-    });
     document.getElementById("order_product_1").innerHTML=inner;
   }
   window.setTimeout(function() {
