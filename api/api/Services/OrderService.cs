@@ -69,10 +69,6 @@ namespace _4big.Services
         {
             var order = _dbContext
                 .Orders
-                .Include("CookieOrders.Cookie")
-                .Include("CookieOrders.Cookie.CookieProducts.Product")
-                .Include("CookieOrders.Cookie.CookieProducts.Product.NutritionalValues")
-                .Include("CookieOrders.Cookie.CookieProducts.Product.ProductProperties.Property")
                 .FirstOrDefault(o => o.OrderId == id);
 
             if (order is null) throw new NotFoundException("Order not found!");
@@ -87,10 +83,6 @@ namespace _4big.Services
             var orders = _dbContext
                 .Orders
                 .Where(o => o.UserId == id)
-                .Include("CookieOrders.Cookie")
-                .Include("CookieOrders.Cookie.CookieProducts.Product")
-                .Include("CookieOrders.Cookie.CookieProducts.Product.NutritionalValues")
-                .Include("CookieOrders.Cookie.CookieProducts.Product.ProductProperties.Property")
                 .ToList();
 
             var dtos = _mapper.Map<List<OrderDto>>(orders);
@@ -102,10 +94,6 @@ namespace _4big.Services
         {
             var orders = _dbContext
                 .Orders
-                .Include("CookieOrders.Cookie")
-                .Include("CookieOrders.Cookie.CookieProducts.Product")
-                .Include("CookieOrders.Cookie.CookieProducts.Product.NutritionalValues")
-                .Include("CookieOrders.Cookie.CookieProducts.Product.ProductProperties.Property")
                 .Include(o => o.User)
                 .ToList();
 
