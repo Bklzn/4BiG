@@ -1417,19 +1417,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\borad\\.nuget\\packages\\": {}
+    "C:\\Users\\Adrian\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\api\\4big.csproj",
+      "projectUniqueName": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\api\\4big.csproj",
       "projectName": "4big",
-      "projectPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\api\\4big.csproj",
-      "packagesPath": "C:\\Users\\borad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\api\\obj\\",
+      "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\api\\4big.csproj",
+      "packagesPath": "C:\\Users\\Adrian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\borad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Adrian\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1443,8 +1443,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj": {
-              "projectPath": "C:\\Users\\borad\\OneDrive\\Projekty\\studia\\4big\\api\\4bigData\\4bigData.csproj"
+            "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\4bigData.csproj": {
+              "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\4bigData.csproj"
             }
           }
         }
@@ -1502,7 +1502,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
