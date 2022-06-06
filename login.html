@@ -182,7 +182,21 @@
   submit.addEventListener('click', () => {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    LoginUser(new UserLog(email,password));
+    var ok=LoginUser(new UserLog(email,password));
+    if(ok){
+      window.location.href ='index.html';
+    }
+    else{
+      var results=document.getElementById("result");
+            results.style.backgroundColor='#f8d7da';
+            results.style.color='#842029';
+            results.style.border='1px solid #f5c2c7';
+            results.style.borderRadius='.25rem';
+            results.style.padding='.5rem';
+            results.style.fontSize='16px';
+            results.style.width='320px';
+            results.innerHTML="Nieprawidłowy email lub hasło";
+    }
   });
 const validateEmail = (email) => {
   return email.match(

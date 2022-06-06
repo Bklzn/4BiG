@@ -36,8 +36,8 @@ namespace _4big.Controllers
             return Created($"/api/product/{id}", null);
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<ProductDto>> Get([FromBody]string category)
+        [HttpGet("{category}")]
+        public ActionResult<IEnumerable<ProductDto>> Get([FromRoute]string category)
         {
             var productsDtos = _productService.GetByCategory(category);
 

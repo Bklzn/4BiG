@@ -68,7 +68,7 @@ scene.add(
 controls.update();
 
 //Debug
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 var c = {isSetCH:false,isSetB:false,icing:false,x:0,y:0,z:0};
 
 
@@ -98,11 +98,11 @@ function btnHandler(e){
     if (target.className.match("sdw3d"))
     {
         var data=target.getAttribute("data-sdw3d").split(" ");
-        if(data[0]=="list-1"){
+        if(data[0]=="cookie_base"){
             cookie.clear();
             load(data[1],cookie);
         }
-        else if(data[0]=="list-2"){
+        else if(data[0]=="upgraded_base"){
             icing.clear();
             if(icing.name!=data[1]) {
                 load(data[1],icing);
@@ -114,7 +114,7 @@ function btnHandler(e){
                 springles.position.y=icing.position.y;
             }
         }
-        else if(data[0]=="list-3"){
+        else if(data[0]=="fruits"){
             for(var i=0;i<springles.children.length;i++){
                 if(springles.children[i].name==data[1]){
                     console.log("????????????????????");
