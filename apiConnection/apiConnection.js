@@ -500,11 +500,33 @@ function CreateCookie(Cookie){
     return data
 }
 
-function GetCookiesFromOrder(CookieId){
+function GetCookie(CookieId){
     var data;
     var request = new XMLHttpRequest()
 
     request.open('GET', URL+"cookie/"+CookieId, false)
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
+
+    request.onload = function () {
+        if(request.status >= 200 && request.status < 400){
+            data = JSON.parse(this.response)
+        }
+        else{
+            console.log("Error: "+request.status+"\n"+this.response)
+        }
+    }
+
+    request.send()
+
+    return data;
+}
+
+function GetCookiesFromOrder(OrderId){
+    var data;
+    var request = new XMLHttpRequest()
+
+    request.open('GET', URL+"cookie/order/"+OrderId, false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 

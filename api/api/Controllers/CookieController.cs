@@ -43,10 +43,17 @@ namespace _4big.Controllers
                 id = _cookieService.CreateCookie(dto, null);
             }
 
-            return Created($"/api/cookie/{id}", null);
+            return Created($"/api/cookie/{id}", id);
         }
 
         [HttpGet("{id}")]
+        public ActionResult GetById([FromRoute] long id)
+        {
+            var cookie = _cookieService.GetById(id);
+            return Ok(cookie);
+        }
+
+        [HttpGet("order/{id}")]
         [Authorize]
         public ActionResult GetByOrderId([FromRoute] long id)
         {

@@ -13,6 +13,7 @@ namespace _4big.Services
     public interface ICookieService
     {
         public long CreateCookie(SaveCookieDto dto, long? userId);
+        public CookieDto GetById(long id);
         public List<CookieDto> GetByOrderId(long id);
         public List<CookieDto> GetByUserId(long id);
         public void UpdateCookie(long cookieId, SaveCookieDto dto, long? userId, string userRole);
@@ -49,6 +50,22 @@ namespace _4big.Services
             _dbContext.SaveChanges();
 
             return cookieId;
+        }
+
+        public CookieDto GetById(long id)
+        {
+            var cookie = _dbContext
+                .Cookies
+                .Include("CookieProducts.Product")
+                .Include("CookieProducts.Product.NutritionalValues")
+                .Include("CookieProducts.Product.ProductProperties.Property")
+                .FirstOrDefault(c => c.CookieId == id);
+
+            if (cookie is null) throw new NotFoundException("Order not found!");
+
+            var dto = _mapper.Map<CookieDto>(cookie);
+
+            return dto;
         }
 
         public List<CookieDto> GetByOrderId(long id)
