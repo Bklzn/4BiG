@@ -538,13 +538,13 @@
       document.getElementById("productList").innerHTML=inner;
 
       document.getElementById("Energy").innerHTML=sumEnergy.toFixed(2)
-      document.getElementById("TotalFat").innerHTML=sumFatTotal*(100/weight).toFixed(2)
-      document.getElementById("SaturatedFat").innerHTML=sumSaturatedFat*(100/weight).toFixed(2)
-      document.getElementById("Carbohydrate").innerHTML=sumCarbon*(100/weight).toFixed(2)
-      document.getElementById("Sugar").innerHTML=sumSugar*(100/weight).toFixed(2)
-      document.getElementById("Fibre").innerHTML=sumFibre*(100/weight).toFixed(2)
-      document.getElementById("Protein").innerHTML=sumProtein*(100/weight).toFixed(2)
-      document.getElementById("Salt").innerHTML=sumSalt*(100/weight).toFixed(2)
+      document.getElementById("TotalFat").innerHTML=(sumFatTotal*100/weight).toFixed(2)
+      document.getElementById("SaturatedFat").innerHTML=(sumSaturatedFat*100/weight).toFixed(2)
+      document.getElementById("Carbohydrate").innerHTML=(sumCarbon*100/weight).toFixed(2)
+      document.getElementById("Sugar").innerHTML=(sumSugar*100/weight).toFixed(2)
+      document.getElementById("Fibre").innerHTML=(sumFibre*100/weight).toFixed(2)
+      document.getElementById("Protein").innerHTML=(sumProtein*100/weight).toFixed(2)
+      document.getElementById("Salt").innerHTML=(sumSalt*100/weight).toFixed(2)
 
       }
 
