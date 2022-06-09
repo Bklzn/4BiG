@@ -480,7 +480,7 @@ function UpdateUser(UserReg){
 
 function CreateCookie(Cookie){
     var request = new XMLHttpRequest()
-    var ok
+    var data
 
     request.open('POST', URL+"cookie/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -488,17 +488,16 @@ function CreateCookie(Cookie){
 
     request.onload = function () {
         if(request.status >= 200 && request.status < 400){
-            ok = true
+            data = this.response
         }
         else{
-            ok = false
             console.log("Error: "+request.status+"\n"+this.response)
         }
     }
 
     request.send(JSON.stringify(Cookie))
 
-    return ok
+    return data
 }
 
 function GetCookiesFromOrder(CookieId){
@@ -563,7 +562,7 @@ function UpdateCookie(Cookie, id){
         }
     }
 
-    request.send(JSON.stringify(Order))
+    request.send(JSON.stringify(Cookie))
 
     return ok
 }
