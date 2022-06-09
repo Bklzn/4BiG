@@ -129,24 +129,6 @@ function btnHandler(e){
     }
     productList();
 }
-document.getElementById("DodajDoKoszyka").addEventListener("click",()=>{
-    CookieProduct.setNameDesc(document.getElementById("nazwaCiastka").value, document.getElementById("opisCiastka").value);
-    var id=CreateCookie(CookieProduct);
-    if(id!=null){
-        if(sessionStorage.getItem("cart")==null){
-            var order = new Cart()
-        }
-        else{
-            var order = new Cart()
-            order.parseCart(JSON.parse(sessionStorage.getItem("cart")))
-        }
-        order.addCookie(id)
-        sessionStorage.setItem("cart",JSON.stringify(order));
-        window.location.href ='cart.html';
-        return;
-    }
-    console.log(ok);
-})
 const handleResize = () =>{
     const {innerWidth, innerHeight} = window;
     renderer.setSize(div.clientWidth,div.clientWidth);

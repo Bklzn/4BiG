@@ -210,91 +210,89 @@
 </script>
 </body>
 </html>
-<!-- <script type="text/javascript">
-	var value2 = document.getElementById("cost_e2").innerHTML;
-	var value1 = document.getElementById("cost_e1").innerHTML;
-$(document).ready(function() {
-  $('.num-in span').click(function () {
-      var $input = $(this).parents('.num-block').find('input.in-num2');
-    if($(this).hasClass('minus')) {
-      var count = parseFloat($input.val()) - 1;
-      count = count < 1 ? 1 : count;
-      if (count < 2) {
-        $(this).addClass('dis');
-      }
-      else {
-        $(this).removeClass('dis');
-      }
-      $input.val(count);
-    }
-    else {
-      var count = parseFloat($input.val()) + 1
-      $input.val(count);
-      if (count > 1) {
-        $(this).parents('.num-block').find(('.minus')).removeClass('dis');
-      }
-    }
-   	if (count > 1) {
-   		document.getElementById("d").style.display = "";
-   		document.getElementById("cost_e2").innerHTML = (count * value2).toFixed(2);
-   	} else if (count == 1) {
-      document.getElementById("cost_e2").innerHTML = value2;
-   		document.getElementById("d").style.display = "none";
-   	}
+<script type="text/javascript">
+// var value2 = document.getElementById("cost_e2").innerHTML;
+// 	var value1 = document.getElementById("cost_e1").innerHTML;
+// $(document).ready(function() {
+//   $('.num-in span').click(function () {
+//       var $input = $(this).parents('.num-block').find('input.in-num2');
+//     if($(this).hasClass('minus')) {
+//       var count = parseFloat($input.val()) - 1;
+//       count = count < 1 ? 1 : count;
+//       if (count < 2) {
+//         $(this).addClass('dis');
+//       }
+//       else {
+//         $(this).removeClass('dis');
+//       }
+//       $input.val(count);
+//     }
+//     else {
+//       var count = parseFloat($input.val()) + 1
+//       $input.val(count);
+//       if (count > 1) {
+//         $(this).parents('.num-block').find(('.minus')).removeClass('dis');
+//       }
+//     }
+//    	if (count > 1) {
+//    		document.getElementById("d").style.display = "";
+//    		document.getElementById("cost_e2").innerHTML = (count * value2).toFixed(2);
+//    	} else if (count == 1) {
+//       document.getElementById("cost_e2").innerHTML = value2;
+//    		document.getElementById("d").style.display = "none";
+//    	}
     
-    $input.change();
-    return false;
-  });
+//     $input.change();
+//     return false;
+//   });
 	
-  $('.num-in span').click(function () {
-       var $input = $(this).parents('.num-block').find('input.in-num1');
-    if($(this).hasClass('minus')) {
-      var count = parseFloat($input.val()) - 1;
-      count = count < 1 ? 1 : count;
-      if (count < 2) {
-        $(this).addClass('dis');
-      }
-      else {
-        $(this).removeClass('dis');
-      }
-      $input.val(count);
-    }
-    else {
-      var count = parseFloat($input.val()) + 1
-      $input.val(count);
-      if (count > 1) {
-        $(this).parents('.num-block').find(('.minus')).removeClass('dis');
-      }
-    }
-   	if (count > 1) {
-   		document.getElementById("dd").style.display = "";
-   		document.getElementById("cost_e1").innerHTML = (count * value1).toFixed(2);
-   	} else if (count == 1) {
-      document.getElementById("cost_e1").innerHTML = value1;
-   		document.getElementById("dd").style.display = "none";
-   	}
+//   $('.num-in span').click(function () {
+//        var $input = $(this).parents('.num-block').find('input.in-num1');
+//     if($(this).hasClass('minus')) {
+//       var count = parseFloat($input.val()) - 1;
+//       count = count < 1 ? 1 : count;
+//       if (count < 2) {
+//         $(this).addClass('dis');
+//       }
+//       else {
+//         $(this).removeClass('dis');
+//       }
+//       $input.val(count);
+//     }
+//     else {
+//       var count = parseFloat($input.val()) + 1
+//       $input.val(count);
+//       if (count > 1) {
+//         $(this).parents('.num-block').find(('.minus')).removeClass('dis');
+//       }
+//     }
+//    	if (count > 1) {
+//    		document.getElementById("dd").style.display = "";
+//    		document.getElementById("cost_e1").innerHTML = (count * value1).toFixed(2);
+//    	} else if (count == 1) {
+//       document.getElementById("cost_e1").innerHTML = value1;
+//    		document.getElementById("dd").style.display = "none";
+//    	}
     
-    $input.change();
-    return false;
-  });
-});
-// product +/-
+//     $input.change();
+//     return false;
+//   });
+// });
 
-	(function() {
-  window.onresize = displayWindowSize;
-  window.onload = displayWindowSize;
+// 	(function() {
+//   window.onresize = displayWindowSize;
+//   window.onload = displayWindowSize;
 
-  function displayWindowSize() {
-    let myWidth = window.innerWidth;
-     if (myWidth >= 992) {
-        	document.getElementById("order").classList.remove("order-last");
-        } else {
-        	document.getElementById("order").classList.add("order-last");
-        }
-  };
+//   function displayWindowSize() {
+//     let myWidth = window.innerWidth;
+//      if (myWidth >= 992) {
+//         	document.getElementById("order").classList.remove("order-last");
+//         } else {
+//         	document.getElementById("order").classList.add("order-last");
+//         }
+//   };
 
-
-})();
+// })();
 
 	function deliveryCost() {
         var cost = document.getElementById("cost").innerHTML;
@@ -320,4 +318,4 @@ $(document).ready(function() {
       }
 
     window.onload = deliveryCost;
-</script> -->
+</script>

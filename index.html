@@ -284,7 +284,7 @@
                       <!-- Wizualizacja -->
                     </div>
                     <div class="d-flex justify-content-center pt-3">
-                      <button class="btn btn-delete rounded" type="button" onclick="location.href=''" style="width: 220px">Usuń wszystkie składniki</button>
+                      <button class="btn btn-delete rounded" type="button" onclick="location.href='index.html'" style="width: 220px">Usuń wszystkie składniki</button>
                     </div>
                     <div class="d-flex justify-content-center pt-2">
                       <button class="btn btn-delete rounded" type="button" data-toggle="modal" data-target=".bd-example-modal-lg-2" style="width: 220px">Wartości odżywcze</button>
@@ -319,7 +319,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col">Wartość energetyczna</div>
-                          <div class="col">Number</div>
+                          <div id="Energy" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -327,7 +327,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col">Tłuszcz</div>
-                          <div class="col">Number</div>
+                          <div id="TotalFat" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -335,7 +335,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col" style="text-indent: 5%">w tym kwasy tłuszczowe nasycone</div>
-                          <div class="col">Number</div>
+                          <div id="SaturatedFat" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -343,7 +343,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col">Węglowodany</div>
-                          <div class="col">Number</div>
+                          <div id="Carbohydrate" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -351,7 +351,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col" style="text-indent: 5%">w tym cukry</div>
-                          <div class="col">Number</div>
+                          <div id="Sugar" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -359,7 +359,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col">Błonnik</div>
-                          <div class="col">Number</div>
+                          <div id="Fibre" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -367,7 +367,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col">Białko</div>
-                          <div class="col">Number</div>
+                          <div id="Protein" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -375,7 +375,7 @@
                       <div class="container">
                         <div class="row">
                           <div class="col">Sól</div>
-                          <div class="col">Number</div>
+                          <div id="Salt" class="col"></div>
                         </div>
                       </div>
                     </li>
@@ -496,12 +496,21 @@
     </script>
     <script>
       function productList(){
-      var Products = GetAllProducts()
+      var Products = GetAllProducts(), sumEnergy=0,sumFatTotal=0,sumCarbon=0,sumSaturatedFat=0,sumCarbon=0,sumSugar=0,sumFibre=0,sumProtein=0,sumSalt=0, weight=0;
       var inner="";
       Products.forEach(product =>{
         if(product.Id==CookieProduct.BaseId){
           inner= '<div class="col pt-1 mt-2 mx-2" style="cursor: pointer;"> <div class="row border pt-1 pb-1" id="mainComponent'+product.Id+'" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.08) !important; border-radius: 0.25rem !important;"> <div class="col-2 my-auto"> <img src="'+product.SVGModelPath+'"> </div> <div class="col my-auto"> '+product.Name+' </div> <div class="col my-auto d-flex justify-content-end"> 1 </div> </div> </div> <div class="w-100"></div> <div class="col mx-2 p-1 border-top-0 border" style="display: block; border-color: rgba(0, 0, 0, 0.08) !important;" id="myDIV'+product.Id+'"> <div class="row"> <div class="col-3 my-auto pl-4"> <button class="btn btn-plus fas fa-trash"></button> </div> <div class="col-9 my-auto pr-4 d-flex justify-content-end">Baza ciastka</div></div></div><div class="w-100"></div>'+inner     
-          }
+          sumEnergy+=product.NutritionalValues.Energy;
+          sumFatTotal+=product.NutritionalValues.FatTotal;
+          sumSaturatedFat+=product.NutritionalValues.SaturatedFat;
+          sumCarbon+=product.NutritionalValues.Carbohydrate;
+          sumSugar+=product.NutritionalValues.Sugars;
+          sumFibre+=product.NutritionalValues.Fibre;
+          sumProtein+=product.NutritionalValues.Protein;
+          sumSalt+=product.NutritionalValues.Salt;
+          weight+=product.Weight
+        }
         if(product.Id==CookieProduct.UpgradedBaseId||CookieProduct.FruitsIds.includes(String(product.Id))){
           inner+='<div class="col pt-1 mt-2 mx-2" style="cursor: pointer;"> <div class="row border pt-1 pb-1" id="mainComponent'+product.Id+'" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.08) !important; border-radius: 0.25rem !important;"> <div class="col-2 my-auto"> <img src="'+product.SVGModelPath+'"> </div> <div class="col my-auto"> '+product.Name+' </div> <div class="col my-auto d-flex justify-content-end"> 1 </div> </div> </div> <div class="w-100"></div> <div class="col mx-2 p-1 border-top-0 border" style="display: block; border-color: rgba(0, 0, 0, 0.08) !important;" id="myDIV'+product.Id+'"> <div class="row"> <div class="col-3 my-auto pl-4"> <button class="btn btn-plus fas fa-trash"></button> </div> <div class="col-9 my-auto pr-4 d-flex justify-content-end">'
           switch(product.Category){
@@ -514,9 +523,29 @@
           }
           inner+='</div></div></div><div class="w-100"></div>'
 
+          sumEnergy+=product.NutritionalValues.Energy;
+          sumFatTotal+=product.NutritionalValues.FatTotal;
+          sumSaturatedFat+=product.NutritionalValues.SaturatedFat;
+          sumCarbon+=product.NutritionalValues.Carbohydrate;
+          sumSugar+=product.NutritionalValues.Sugars;
+          sumFibre+=product.NutritionalValues.Fibre;
+          sumProtein+=product.NutritionalValues.Protein;
+          sumSalt+=product.NutritionalValues.Salt;
+          weight+=product.Weight
+
         }
       })      
       document.getElementById("productList").innerHTML=inner;
+
+      document.getElementById("Energy").innerHTML=sumEnergy.toFixed(2)
+      document.getElementById("TotalFat").innerHTML=sumFatTotal*(100/weight).toFixed(2)
+      document.getElementById("SaturatedFat").innerHTML=sumSaturatedFat*(100/weight).toFixed(2)
+      document.getElementById("Carbohydrate").innerHTML=sumCarbon*(100/weight).toFixed(2)
+      document.getElementById("Sugar").innerHTML=sumSugar*(100/weight).toFixed(2)
+      document.getElementById("Fibre").innerHTML=sumFibre*(100/weight).toFixed(2)
+      document.getElementById("Protein").innerHTML=sumProtein*(100/weight).toFixed(2)
+      document.getElementById("Salt").innerHTML=sumSalt*(100/weight).toFixed(2)
+
       }
 
       var EditedCookieId = null;
@@ -553,6 +582,8 @@
           EditedCookieId = urlParams.get("id")
 
           const cookie = GetCookie(EditedCookieId)
+          document.getElementById("nazwaCiastka").value=cookie.Name
+          document.getElementById("opisCiastka").value=cookie.Description
           cookie.Products.forEach(product => {
             document.getElementById("addProduct_"+product.Id).click();
           })
