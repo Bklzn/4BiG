@@ -27,35 +27,23 @@
 
 <body>
 <div class="container-login">
-  <div>
-    <nav>
-			<div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
-			  <a class="navbar-brand text-center" href="main.html" id="navbar">
-			    <h3 class="left mb-0">Cookie</h3>
-			  </a>
-			  <form class="form-inline" id="navbar-button">
-			    <button class="btn btn-login rounded mr-1" type="button" onclick="location.href='login.html'">Zaloguj się</button>
-			    <button class="btn btn-register rounded" type="button" onclick="location.href='register.html'">Zarejestruj się</button>
-			    <button class="btn btn-hamburger p-0"type="button" onclick="myFunction3()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button>
-			  </form>
-			</div>
-			<div class="px-3 pb-3 justify-content-end myLinks" id="myLinks" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);">
-			  <hr style="margin-top: 0px;">
-			  <div class="container">
-    			<div class="row">
-        		<div class="col pb-2">
-        	    <a class="btn btn-login-hamburger" href="login.html" style="margin-left: 5%; min-width: 90%;">Zaloguj się</a>
-        		</div>
-    			</div>
-    			<div class="row">
-        		<div class="col">
-        	  	<a class="btn btn-register-hamburger" href="register.html" style="margin-left: 5%; min-width: 90%">Zarejestruj się</a>
-        		</div>
-    			</div>
-				</div>
-  		</div>
-		</nav>
-	</div>  
+  <header id="header">
+        
+          <script>
+            var header = document.getElementById("header")
+
+            if(window.sessionStorage.getItem("jwt") == null)
+              header.innerHTML = '<nav> <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);"> <a class="navbar-brand text-center" href="main.html" id="navbar"> <h3 class="left mb-0">Cookie</h3> </a> <form class="form-inline" id="navbar-button"> <button class="btn btn-login rounded mr-1" type="button" onclick="location.href=\'login.html\'">Zaloguj się</button> <button class="btn btn-register rounded" type="button" onclick="location.href=\'register.html\'">Zarejestruj się</button> <button class="btn btn-hamburger p-0"type="button" onclick="myFunction3()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button> </form> </div> <div class="px-3 pb-3 justify-content-end myLinks" id="myLinks" style="display:none; background-color: #7c6152;"> <hr style="margin-top: 0px;"> <div class="container"> <div class="row"> <div class="col pb-2"> <a class="btn btn-login-hamburger" href="login.html" style="margin-left: 5%; min-width: 90%;">Zaloguj się</a> </div> </div> <div class="row"> <div class="col"> <a class="btn btn-register-hamburger" href="register.html" style="margin-left: 5%; min-width: 90%">Zarejestruj się</a> </div> </div> </div> </div> </nav>'
+            else
+              header.innerHTML = '<nav> <div class="navbar navbar-dark p-3" style="background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); min-height: 75px; box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);"> <a class="navbar-brand text-center" href="main.html" id="navbar"> <h3 class="left mb-0">Cookie</h3> </a> <form class="form-inline" id="navbar-button"> <button type="button" class="btn btn-cart" onclick="location.href=\'cart.html\'"> <i class="fas fa-shopping-cart"></i> <span class="badge p-0" style="font-size:14px">...</span> </button> <button class="btn btn-hamburger p-0 ml-3" type="button" onclick="open_nav_user()"><i class="fas fa-bars" style="color: #ffffff; font-size: 36px;"></i></button> <button type="button" class="btn btn-login rounded ml-1" onclick="location.href=\'myaccount.html\'"> <i class="fas fa-user"></i> </button> <button class="btn btn-login rounded ml-1" type="button" onclick="logout()"> <i class="fas fa-sign-out-alt"></i> </button> </form> </div> <div class="px-3 pb-3 justify-content-end myLinks" id="open_user" style="display:none; background: rgb(111,87,73); background: linear-gradient(270deg, rgba(111,87,73,1) 0%, rgba(124,97,82,1) 40%, rgba(99,77,65,1) 100%); box-shadow: 0px -4px 24px 0px rgba(124, 97, 82, 1);"> <hr style="margin-top: 0px;"> <div class="container"> <div class="row"> <div class="col pb-2"> <a class="btn btn-login-hamburger" href="myaccount.html" style="margin-left: 5%; min-width: 90%;">Moje konto</a> </div> </div> <div class="row"> <div class="col"> <a class="btn btn-register-hamburger" onclick="logout()" style="margin-left: 5%; min-width: 90%">Wyloguj się</a> </div> </div> </div> </div> </nav>'
+          
+              function logout(){
+                window.sessionStorage.removeItem("jwt")
+                window.location.href="main.html"
+              }
+          </script>
+        
+        </header>
   <div class="container">
    	<div class="row py-5">
    		<div class="col-12">
