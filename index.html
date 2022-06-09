@@ -136,6 +136,7 @@
         animation: .3s;
       }
     </style>
+    <script src="apiConnection/Models/Cart.js"></script>
     <script src="apiConnection/Models/Cookie.js"></script>
     <script src="apiConnection/Models/UserReg.js"></script>
     <script src="apiConnection/Models/UserLog.js"></script>
@@ -240,6 +241,9 @@
                 </div>
                 <div class="col-md-6 col-sm-12 col-12 pt-3 pb-3 rounded-left mx-auto" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);">
                   <div class="tab-content" id="nav-tabContent">
+                    <script>
+
+                    </script>
                     <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                       <script>
                         var Products = GetProductsFromCategory("cookie_base");
@@ -259,7 +263,7 @@
                           });
                           inner+='</div> <div class="row"> <div class="col pt-3 font-weight-light"> '+product.Description+' </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Wartość odżywcza w 100g: </a> <a>Wartość energetyczna <a>'+product.NutritionalValues.Energy+'</a> ; Tłuszcz <a>'+product.NutritionalValues.FatTotal+'g</a> , w tym kwasy tłuszczowe nasycone <a>'+product.NutritionalValues.SaturatedFat+'g</a> ; Węglowodany <a>'+product.NutritionalValues.Carbohydrate+'g</a> , w tym cukry <a>'+product.NutritionalValues.Sugars+'g</a> ; Białko <a>'+product.NutritionalValues.Protein+'g</a> ; Błonnik <a>'+product.NutritionalValues.Fibre+'g</a> ; Sól <a>'+product.NutritionalValues.Salt+'g</a> </a> </div> <div class="w-100"></div> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a>';
                           inner+='<a>'+product.Ingredients+'</a>';
-                          inner+='</div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col-6 col-sm-6 col-md-12 col-lg-6"> <button class="btn btn-add rounded btn-block font-weight-bold sdw3d" data-sdw3d="'+product.Category+' '+product.ThreeDModelPath+'" type="button">Dodaj</button> </div> </div> </div> </div>';
+                          inner+='</div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col-6 col-sm-6 col-md-12 col-lg-6"> <button class="btn btn-add rounded btn-block font-weight-bold sdw3d" data-sdw3d="'+product.Id+' '+product.Category+' '+product.ThreeDModelPath+'" type="button">Dodaj</button> </div> </div> </div> </div>';
                         });
                         document.getElementById('list-home').innerHTML=inner;
                       </script>
@@ -283,7 +287,7 @@
                           });
                           inner+='</div> <div class="row"> <div class="col pt-3 font-weight-light"> '+product.Description+' </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Wartość odżywcza w 100g: </a> <a>Wartość energetyczna <a>'+product.NutritionalValues.Energy+'</a> ; Tłuszcz <a>'+product.NutritionalValues.FatTotal+'g</a> , w tym kwasy tłuszczowe nasycone <a>'+product.NutritionalValues.SaturatedFat+'g</a> ; Węglowodany <a>'+product.NutritionalValues.Carbohydrate+'g</a> , w tym cukry <a>'+product.NutritionalValues.Sugars+'g</a> ; Białko <a>'+product.NutritionalValues.Protein+'g</a> ; Błonnik <a>'+product.NutritionalValues.Fibre+'g</a> ; Sól <a>'+product.NutritionalValues.Salt+'g</a> </a> </div> <div class="w-100"></div> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a>';
                           inner+='<a>'+product.Ingredients+'</a>';
-                          inner+='</div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col-6 col-sm-6 col-md-12 col-lg-6"> <button class="btn btn-add rounded btn-block font-weight-bold sdw3d" data-sdw3d="'+product.Category+' '+product.ThreeDModelPath+'" type="button">Dodaj</button> </div> </div> </div> </div>';
+                          inner+='</div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col-6 col-sm-6 col-md-12 col-lg-6"> <button class="btn btn-add rounded btn-block font-weight-bold sdw3d" data-sdw3d="'+product.Id+' '+product.Category+' '+product.ThreeDModelPath+'" type="button">Dodaj</button> </div> </div> </div> </div>';
                         });
                         document.getElementById('list-profile').innerHTML=inner;
                       </script>
@@ -307,7 +311,7 @@
                           });
                           inner+='</div> <div class="row"> <div class="col pt-3 font-weight-light"> '+product.Description+' </div> </div> <div class="row"> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Wartość odżywcza w 100g: </a> <a>Wartość energetyczna <a>'+product.NutritionalValues.Energy+'</a> ; Tłuszcz <a>'+product.NutritionalValues.FatTotal+'g</a> , w tym kwasy tłuszczowe nasycone <a>'+product.NutritionalValues.SaturatedFat+'g</a> ; Węglowodany <a>'+product.NutritionalValues.Carbohydrate+'g</a> , w tym cukry <a>'+product.NutritionalValues.Sugars+'g</a> ; Białko <a>'+product.NutritionalValues.Protein+'g</a> ; Błonnik <a>'+product.NutritionalValues.Fibre+'g</a> ; Sól <a>'+product.NutritionalValues.Salt+'g</a> </a> </div> <div class="w-100"></div> <div class="col pt-3" style="font-size: 12px;"> <a class="font-italic font-weight-light" style="pointer-events: none; cursor: default; color: black;">Składniki: </a>';
                           inner+='<a>'+product.Ingredients+'</a>';
-                          inner+='</div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col-6 col-sm-6 col-md-12 col-lg-6"> <button class="btn btn-add rounded btn-block font-weight-bold sdw3d" data-sdw3d="'+product.Category+' '+product.ThreeDModelPath+'" type="button">Dodaj</button> </div> </div> </div> </div>';
+                          inner+='</div> </div> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-more" data-dismiss="modal">Zamknij</button> </div> </div> </div> </div> </div> <div class="col-6 col-sm-6 col-md-12 col-lg-6"> <button class="btn btn-add rounded btn-block font-weight-bold sdw3d" data-sdw3d="'+product.Id+' '+product.Category+' '+product.ThreeDModelPath+'" type="button">Dodaj</button> </div> </div> </div> </div>';
                         });
                         document.getElementById('list-messages').innerHTML=inner;
                       </script>
@@ -321,107 +325,7 @@
 
                 <div class="col-12 col-sm-12 col-md-6 col-lg-4 pb-3 rounded-right">
                   <div id="visualization" class="sticky-top pt-3">
-                    <div class="row border rounded mx-1 mt-1 mb-3" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.08) !important;">
-                      <div class="col pt-1 mt-2 mx-2" style="cursor: pointer;" onclick="myFunction0()">
-                        <div class="row border pt-1 pb-1" id="mainComponent" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.08) !important; border-radius: 0.25rem !important;">
-                          <div class="col-2 my-auto">
-                            <img src="static/113.svg">
-                          </div>
-                          <div class="col my-auto">
-                            Płatki owsiane
-                          </div>
-                          <div class="col my-auto d-flex justify-content-end">
-                            1
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-100"></div>
-                      <div class="col mx-2 p-1 border-top-0 border" style="display: none; border-color: rgba(0, 0, 0, 0.08) !important;" id="myDIV">
-                        <div class="row">
-                          <div class="col-3 my-auto pl-4">
-                            <button class="btn btn-plus fas fa-trash"></button>
-                          </div>
-                          <div class="col-9 my-auto pr-4 d-flex justify-content-end">
-                            Baza ciastka
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-100"></div>
-                      <div class="col pt-1 m-1 " style="cursor: pointer;" onclick="myFunction1()">
-                        <div class="row">
-                          <div class="col-2 my-auto">
-                            Icon
-                          </div>
-                          <div class="col my-auto">
-                            Składnik
-                          </div>
-                          <div class="col my-auto d-flex justify-content-end">
-                            <div id="value_skladnik_1">1</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-100"></div>
-                      <div class="col mx-2 p-1 border rounded" style="display: none; border-color: rgba(0, 0, 0, 0.08) !important" id="myDIV1">
-                        <div class="row">
-                          <div class="col-3 my-auto pl-4">
-                            <button id="skladnik_1" class=""></button>
-                             <script>
-                              var text = document.getElementById("value_skladnik_1").innerHTML;
-                              if (text == "1") {
-                                  document.getElementById("skladnik_1").className = "btn btn-plus fas fa-trash";
-                                }
-                              else {
-                                document.getElementById("skladnik_1").className = "btn btn-plus fas fa-minus";
-                              }
-                            </script>
-                          </div>
-                          <div class="col-3 my-auto pr-3">
-                            <button class="btn btn-plus fas fa-plus"></button>
-                            <!-- Limit ilości składników ogólnie oraz limit ilości składników danego typu. Kliknięcie minusa gdy jest 1 usuwa pozycję z listy a gdy jest ilosć maksymalna to pojawia się popup o braku dodania większej liczby składników. -->
-                          </div>
-                          <div class="col-6 my-auto pr-4 d-flex justify-content-end">
-                            Typ składniku
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-100"></div>
-                      <div class="col pt-1 m-1" style="cursor: pointer;" onclick="myFunction2()">
-                        <div class="row pb-1">
-                          <div class="col-2 my-auto">
-                            Icon
-                          </div>
-                          <div class="col my-auto">
-                            Składnik
-                          </div>
-                          <div class="col my-auto d-flex justify-content-end">
-                            <div id="value_skladnik_2">Numer</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-100"></div>
-                      <div class="col mx-2 mb-2 p-1 border rounded" style="display: none; border-color: rgba(0, 0, 0, 0.08) !important" id="myDIV2">
-                        <div class="row">
-                          <div class="col-3 my-auto pl-4">
-                            <button id="skladnik_2" class=""></button>
-                             <script>
-                              var text = document.getElementById("value_skladnik_2").innerHTML;
-                              if (text == "1") {
-                                  document.getElementById("skladnik_2").className = "btn btn-plus fas fa-trash";
-                                }
-                              else {
-                                document.getElementById("skladnik_2").className = "btn btn-plus fas fa-minus";
-                              }
-                            </script>
-                          </div>
-                          <div class="col-3 my-auto pr-3">
-                            <button class="btn btn-plus fas fa-plus"></button>
-                          </div>
-                          <div class="col-6 my-auto pr-4 d-flex justify-content-end">
-                            Typ składniku
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-100"></div>
+                    <div id="productList" class="row border rounded mx-1 mt-1 mb-3" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.08) !important;">
                     </div>
                     <div id="3D" class="row border mx-1 mb-1 mt-2 p-2" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.08) !important;">
                       <!-- Wizualizacja -->
@@ -541,14 +445,14 @@
                     <div class="col-12 pb-3 d-flex justify-content-center">
                       <div class="form">
                         <label for="InputCookieName">Nazwa</label>
-                        <input type="text" class="form-control input-user">
+                        <input id="nazwaCiastka" type="text" class="form-control input-user">
                       </div>
                     </div>
                     <div class="col-12 pt-3 pb-2 d-flex justify-content-center">
                       <form>
                         <div class="form-group">
                           <label for="InputCookieText">Opis</label>
-                          <textarea class="form-control input-user" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          <textarea id="opisCiastka" class="form-control input-user" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                       </form>
                     </div>
@@ -556,7 +460,7 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                   <button type="button" class="btn btn-more" data-dismiss="modal" style="min-width: 166px;">Anuluj</button>
-                  <button type="button" class="btn btn-add-cart-modal" style="min-width: 166px;" onclick="location.href='cart.html'">Dodaj do koszyka</button>
+                  <button type="button" id="DodajDoKoszyka" class="btn btn-add-cart-modal" style="min-width: 166px;">Dodaj do koszyka</button>
                 </div>
               </div>
             </div>
@@ -632,7 +536,36 @@
           }
       }
     </script>
-    <script type="module" src="/threejs/main.js"></script>
+    <script>
+      var CookieProduct = new Cookie();
+    </script>
+    <script type="module" src="/threejs/main.js">
+    </script>
+    <script>
+      function productList(){
+      var Products = GetAllProducts()
+      var inner="";
+      Products.forEach(product =>{
+        if(product.Id==CookieProduct.BaseId){
+          inner= '<div class="col pt-1 mt-2 mx-2" style="cursor: pointer;"> <div class="row border pt-1 pb-1" id="mainComponent'+product.Id+'" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.08) !important; border-radius: 0.25rem !important;"> <div class="col-2 my-auto"> <img src="'+product.SVGModelPath+'"> </div> <div class="col my-auto"> '+product.Name+' </div> <div class="col my-auto d-flex justify-content-end"> 1 </div> </div> </div> <div class="w-100"></div> <div class="col mx-2 p-1 border-top-0 border" style="display: block; border-color: rgba(0, 0, 0, 0.08) !important;" id="myDIV'+product.Id+'"> <div class="row"> <div class="col-3 my-auto pl-4"> <button class="btn btn-plus fas fa-trash"></button> </div> <div class="col-9 my-auto pr-4 d-flex justify-content-end">Baza ciastka</div></div></div><div class="w-100"></div>'+inner     
+          }
+        if(product.Id==CookieProduct.UpgradedBaseId||CookieProduct.FruitsIds.includes(String(product.Id))){
+          inner+='<div class="col pt-1 mt-2 mx-2" style="cursor: pointer;"> <div class="row border pt-1 pb-1" id="mainComponent'+product.Id+'" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.08) !important; border-radius: 0.25rem !important;"> <div class="col-2 my-auto"> <img src="'+product.SVGModelPath+'"> </div> <div class="col my-auto"> '+product.Name+' </div> <div class="col my-auto d-flex justify-content-end"> 1 </div> </div> </div> <div class="w-100"></div> <div class="col mx-2 p-1 border-top-0 border" style="display: block; border-color: rgba(0, 0, 0, 0.08) !important;" id="myDIV'+product.Id+'"> <div class="row"> <div class="col-3 my-auto pl-4"> <button class="btn btn-plus fas fa-trash"></button> </div> <div class="col-9 my-auto pr-4 d-flex justify-content-end">'
+          switch(product.Category){
+            case "upgraded_base":
+              inner+="Dodatki do bazy"
+            break;
+            default:
+              inner+="Owoce"
+            break;
+          }
+          inner+='</div></div></div><div class="w-100"></div>'
+
+        }
+      })      
+      document.getElementById("productList").innerHTML=inner;
+      }
+    </script>
     <div id="toast_delete">
       <div id="img" class="fas fa-exclamation"></div>
       <div id="desc">Składniki usunięte</div>

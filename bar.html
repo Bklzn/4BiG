@@ -170,6 +170,16 @@
 });
 });
   </script>
+  	<script src="apiConnection/Models/Cart.js"></script>
+    <script src="apiConnection/Models/Cookie.js"></script>
+    <script src="apiConnection/Models/UserReg.js"></script>
+    <script src="apiConnection/Models/UserLog.js"></script>
+    <script src="apiConnection/Models/Order.js"></script>
+    <script src="apiConnection/Models/Delivery.js"></script>
+    <script src="apiConnection/Models/NutritionalValues.js"></script>
+    <script src="apiConnection/Models/Product.js"></script>
+    <script src="apiConnection/Models/Property.js"></script>
+    <script src="apiConnection/apiConnection.js"></script>
 </head>
 
 <body>
@@ -249,11 +259,11 @@
               <h2 id="result10"></h2>
             </div>
 
-            <label class="pt-3" for="ImputCompanyCarty">Firma</label>
-            <input type="text" class="form-control input-user">
+            <label class="pt-3" for="ImputCompanyCarty">NIP</label>
+            <input type="text" id="firmName" class="form-control input-user">
             <small class="form-text text-muted">Opcjonalnie</small>
 
-            <label class="pt-3" for="ImputPhoneCart">Numer telefonu</label>
+            <label class="pt-3" id="phoneNumber" for="ImputPhoneCart">Numer telefonu</label>
             <input class="form-control input-user" id="phone" data-inputmask="'alias': 'phonebe'" onfocus="document.getElementById('result11').style.display='none'; document.getElementById('result12').style.display='block'" onblur="document.getElementById('result11').style.display='block'; document.getElementById('result12').style.display='none'">
             <small id="telhelp" class="form-text text-muted">Numer telefonu musi składać się z 9 cyfr</small>
 
@@ -265,11 +275,11 @@
             <div class="row">
               <div class="col-8 pr-1">
                 <label class="pt-3" for="ImputStreetCart">Ulica</label>
-                <input id="email" class="form-control input-user" data-inputmask="'alias': 'email'" onfocus="document.getElementById('result13').style.display='none'; document.getElementById('result14').style.display='block'" onblur="document.getElementById('result13').style.display='block'; document.getElementById('result14').style.display='none'">
+                <input id="street" class="form-control input-user">
               </div>
               <div class="col-4 pl-1">
                 <label class="pt-3" for="ImputNumCart">Numer</label>
-                  <input id="number" class="form-control input-user" onfocus="document.getElementById('result3').style.display='none'; document.getElementById('result4').style.display='block'" onblur="document.getElementById('result3').style.display='block'; document.getElementById('result4').style.display='none'">
+                  <input id="apaNumber" class="form-control input-user" onfocus="document.getElementById('result3').style.display='none'; document.getElementById('result4').style.display='block'" onblur="document.getElementById('result3').style.display='block'; document.getElementById('result4').style.display='none'">
               </div>
             </div>
             <div class="pt-2 d-flex justify-content-center">
@@ -682,7 +692,7 @@
             <button class="btn btn-more rounded btn-block" id="back2">Powrót</button>
           </div>
           <div class="col-5 col-sm-5 col-md-3 col-lg-2">
-            <button class="btn btn-add rounded btn-block" id="go2">Kupuję i płacę</button>
+            <button class="btn btn-add rounded btn-block" id="go2" onclick="AcceptOrder()">Kupuję i płacę</button>
           </div>
           <div class="col-1 col-sm-1 col-md-3 col-lg-4"></div>
         </div>
@@ -1136,6 +1146,23 @@
 
 
 <script type="text/javascript">
+
+  function AcceptOrder(){
+    var name,surname,firm,number,street,apaNumber, zipcode,city, CookiesIds=JSON.parse(sessionStorage.getItem("cart")).CookiesIds
+    name =document.getElementById("first_name").value
+    surname =document.getElementById("last_name").value
+    firm =document.getElementsByClassName("firmName").value
+    number =document.getElementById("phone").value
+    street =document.getElementById("street").value
+    apaNumber = document.getElementById("apaNumber").value
+    zipcode = document.getElementById("zip").value
+    city = document.getElementById("city").value
+
+    var order = new Order(name+surname+"@test.pl",number,name,surname,street,apaNumber,null,zipcode,city,firm,null,CookiesIds)
+    CreateOrder(order)
+    sessionStorage.setItem("cart",null)
+  }
+
 const validateFirs = (first_) => {
   return first_.match(
     /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð -]+$/u

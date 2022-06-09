@@ -502,11 +502,8 @@ function UpdateUser(UserReg){
 
 function CreateCookie(Cookie){
     var request = new XMLHttpRequest()
-    var data, products=Cookie.FruitsIds
-    if(Cookie.BaseId!=0) products.push(Cookie.BaseId)
-    if(Cookie.UpgradedBaseId!=0) products.push(Cookie.UpgradedBaseId)
-    var model='{"Name": "'+Cookie.Name+'","Description": "'+Cookie.Description+'","Favorite": '+Cookie.Favorite+',"ProductsIds":['+products+']}'
-    console.log(model);
+    var data
+
     request.open('POST', URL+"cookie/", false)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
@@ -520,7 +517,7 @@ function CreateCookie(Cookie){
         }
     }
 
-    request.send(model)
+    request.send(JSON.stringify(Cookie))
 
     return data
 }

@@ -4,7 +4,6 @@ import { GLTFLoader } from '../threejs/three/examples/jsm/loaders/GLTFLoader.js'
 import * as dat from '../threejs/three/examples/jsm/libs/lil-gui.module.min.js';
 import { RectAreaLightHelper } from '../threejs/three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { RectAreaLightUniformsLib } from '../threejs/three/examples/jsm/lights/RectAreaLightUniformsLib.js';
-import { TubeGeometry } from 'three';
 
 let scene,camera,renderer,controls,div;
 
@@ -41,9 +40,6 @@ var cookie = new THREE.Object3D();
 var icing = new THREE.Object3D();
 var choco = new THREE.Object3D();
 var berries = new THREE.Object3D();
-// load('../threejs/models/Choco/obj.gltf',choco);
-// load('../threejs/models/Berries/obj.gltf',berries);
-// springles.add(choco,berries);
 
 //Set
 top.position.set(0,.55,0);
@@ -66,6 +62,7 @@ scene.add(
     top,back,left,right
     );
 controls.update();
+controls.enabled = false;
 
 //Debug
 // const gui = new dat.GUI();
@@ -98,40 +95,70 @@ function btnHandler(e){
     if (target.className.match("sdw3d"))
     {
         var data=target.getAttribute("data-sdw3d").split(" ");
-        if(data[0]=="cookie_base"){
+        if(data[1]=="cookie_base"){
             cookie.clear();
-            load(data[1],cookie);
+            load(data[2],cookie);
+            CookieProduct.setBase(data[0]);
         }
-        else if(data[0]=="upgraded_base"){
+        else if(data[1]=="upgraded_base"){
             icing.clear();
-            if(icing.name!=data[1]) {
-                load(data[1],icing);
-                icing.name=data[1];
+            if(icing.name!=data[2]) {
+                load(data[2],icing);
+                CookieProduct.setUprgadedBase(data[0]);
+                icing.name=data[2];
                 springles.position.y=icing.position.y+.02;
             }
             else{
                 icing.name=null;
+                CookieProduct.setUprgadedBase(0);
                 springles.position.y=icing.position.y;
             }
         }
-        else if(data[0]=="fruits"){
+        else if(data[1]=="fruits"){
             for(var i=0;i<springles.children.length;i++){
-                if(springles.children[i].name==data[1]){
-                    console.log("????????????????????");
+                if(springles.children[i].name==data[2]){
                     springles.remove(springles.children[i]);
+                    CookieProduct.removeFruit(data[0]);
+                    productList();
                     return;
                 }
             }
-            load(data[1],springles);
+            load(data[2],springles);
+            CookieProduct.addFruit(data[0]);
         }
     }
+    productList();
 }
+document.getElementById("DodajDoKoszyka").addEventListener("click",()=>{
+    CookieProduct.setNameDesc(document.getElementById("nazwaCiastka").value, document.getElementById("opisCiastka").value);
+    var id=CreateCookie(CookieProduct);
+    if(id!=null){
+        if(sessionStorage.getItem("cart")==null){
+            var order = new Cart()
+        }
+        else{
+            var order = new Cart()
+            order.parseCart(JSON.parse(sessionStorage.getItem("cart")))
+        }
+        order.addCookie(id)
+        sessionStorage.setItem("cart",JSON.stringify(order));
+        window.location.href ='cart.html';
+        return;
+    }
+    console.log(ok);
+})
+const handleResize = () =>{
+    const {innerWidth, innerHeight} = window;
+    renderer.setSize(div.clientWidth,div.clientWidth);
+    camera.aspect = div.clientWidth / (div.clientWidth);
+    camera.updateProjectionMatrix();
+};
 const loop = () =>{
     requestAnimationFrame(loop);
     cookie.rotation.y+=.001;
     springles.rotation.y+=.001;
     icing.rotation.y+=.001;
-    controls.update();
     renderer.render(scene,camera);
 }
+handleResize();
 loop();
