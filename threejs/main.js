@@ -104,13 +104,13 @@ function btnHandler(e){
             icing.clear();
             if(icing.name!=data[2]) {
                 load(data[2],icing);
-                CookieProduct.setUprgadedBase(data[0]);
+                CookieProduct.setUpgradedBase(data[0]);
                 icing.name=data[2];
                 springles.position.y=icing.position.y+.02;
             }
             else{
                 icing.name=null;
-                CookieProduct.setUprgadedBase(0);
+                CookieProduct.setUpgradedBase(0);
                 springles.position.y=icing.position.y;
             }
         }

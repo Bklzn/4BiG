@@ -2,7 +2,7 @@ class Cookie{
     constructor(){
         this.Name = ""
         this.Description = ""
-	    this.Favorite = false
+        this.Favorite = false
         this.BaseId = 0
         this.UpgradedBaseId = 0
         this.FruitsIds = new Array()
@@ -18,7 +18,7 @@ class Cookie{
     setBase(id){
         this.BaseId= id
     }
-    setUprgadedBase(id){
+    setUpgradedBase(id){
         this.UpgradedBaseId = id
     }
     addFruit(id){
