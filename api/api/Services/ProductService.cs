@@ -16,6 +16,7 @@ namespace _4big.Services
     public interface IProductService
     {
         long Create(SaveProductDto dto);
+        IEnumerable<ProductDto> GetAll();
         IEnumerable<ProductDto> GetByCategory(string category);
         Product Update(long id, SaveProductDto dto);
         bool Delete(long id);
@@ -41,6 +42,21 @@ namespace _4big.Services
             _dbContext.SaveChanges();
 
             return product.Id;
+        }
+
+        public IEnumerable<ProductDto> GetAll()
+        {
+            var products = _dbContext
+                .Products
+                .Include(p => p.NutritionalValues)
+                .Include("ProductProperties.Property")
+                .ToList();
+
+            if (products is null) return null;
+
+            var productsDtos = _mapper.Map<List<ProductDto>>(products);
+
+            return productsDtos;
         }
 
         public IEnumerable<ProductDto> GetByCategory(string category)

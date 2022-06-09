@@ -36,6 +36,15 @@ namespace _4big.Controllers
             return Created($"/api/product/{id}", null);
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<ProductDto>> GetAll()
+        {
+            var productsDtos = _productService.GetAll();
+
+            if (productsDtos is null) return NotFound();
+            return Ok(productsDtos);
+        }
+
         [HttpGet("{category}")]
         public ActionResult<IEnumerable<ProductDto>> Get([FromRoute]string category)
         {

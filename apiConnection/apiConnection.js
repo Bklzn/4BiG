@@ -28,6 +28,28 @@ function CreateProduct(Product){
     return ok
 }
 
+function GetAllProducts(){
+    var data;
+    var request = new XMLHttpRequest()
+
+    request.open('GET', URL+"product/", false)
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if(jwtoken != null) request.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
+
+    request.onload = function () {
+        if(request.status >= 200 && request.status < 400){
+            data = JSON.parse(this.response)
+        }
+        else{
+            console.log("Error: "+request.status+"\n"+this.response)
+        }
+    }
+
+    request.send()
+
+    return data;
+}
+
 function GetProductsFromCategory(category){
     var data;
     var request = new XMLHttpRequest()
