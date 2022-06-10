@@ -1422,11 +1422,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\api\\4big.csproj",
+      "projectUniqueName": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\api\\4big.csproj",
       "projectName": "4big",
-      "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\api\\4big.csproj",
+      "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\api\\4big.csproj",
       "packagesPath": "C:\\Users\\Adrian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\api\\obj\\",
+      "outputPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Adrian\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1443,8 +1443,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\4bigData\\4bigData.csproj": {
-              "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\4bigData\\4bigData.csproj"
+            "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\4bigData.csproj": {
+              "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\4bigData.csproj"
             }
           }
         }

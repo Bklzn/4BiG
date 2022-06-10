@@ -893,11 +893,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\4bigData\\4bigData.csproj",
+      "projectUniqueName": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\4bigData.csproj",
       "projectName": "4bigData",
-      "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\4bigData\\4bigData.csproj",
+      "projectPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\4bigData.csproj",
       "packagesPath": "C:\\Users\\Adrian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\2\\api\\4bigData\\obj\\",
+      "outputPath": "C:\\Users\\Adrian\\Desktop\\studia\\projekt zespolowy\\main\\api\\4bigData\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Adrian\\AppData\\Roaming\\NuGet\\NuGet.Config",
